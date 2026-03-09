@@ -1,0 +1,3283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSUEB 15 iOS Mockups - University Union Hub</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0B0B0D;
+    --surface1: #121216;
+    --surface2: #1A1A21;
+    --hairline: rgba(255,255,255,0.12);
+    --text-primary: #FFFFFF;
+    --text-secondary: rgba(255,255,255,0.70);
+    --text-tertiary: rgba(255,255,255,0.45);
+    --brand-red: #C8102E;
+    --brand-red-glow: rgba(200,16,46,0.3);
+    --green: #30D158;
+    --yellow: #FFD60A;
+    --orange: #FF9F0A;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-pill: 100px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    font-family: 'Inter', -apple-system, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+    color: var(--text-primary);
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  .page-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .page-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: 48px;
+  }
+
+  .screen-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .screen-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .screen-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .phone-frame {
+    width: 375px;
+    height: 812px;
+    background: var(--bg);
+    border-radius: 44px;
+    border: 3px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  }
+
+  .phone-frame .screen-content {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 90px;
+    scrollbar-width: none;
+  }
+  .phone-frame .screen-content::-webkit-scrollbar { display: none; }
+
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px 8px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .status-bar .time { letter-spacing: 0.3px; }
+  .status-bar .icons { display: flex; gap: 6px; align-items: center; }
+  .status-bar .icons span { font-size: 12px; }
+
+  /* Tab bar */
+  .tab-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 83px;
+    background: rgba(18,18,22,0.85);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-top: 1px solid var(--hairline);
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding-top: 8px;
+    z-index: 10;
+  }
+  .tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    color: var(--text-tertiary);
+    width: 60px;
+  }
+  .tab-item.active { color: var(--brand-red); }
+  .tab-item .tab-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .tab-item.active .tab-icon { background: var(--brand-red); color: #fff; border-radius: 8px; }
+
+  /* Common elements */
+  .large-title {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+    padding: 8px 20px 4px;
+  }
+  .section-header {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 20px 20px 10px;
+    letter-spacing: -0.3px;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .pill-green { background: rgba(48,209,88,0.15); color: var(--green); }
+  .pill-red { background: rgba(200,16,46,0.15); color: var(--brand-red); }
+  .pill-surface { background: var(--surface2); color: var(--text-secondary); }
+
+  .btn-red {
+    display: block;
+    width: calc(100% - 40px);
+    margin: 16px 20px;
+    padding: 16px;
+    background: var(--brand-red);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px var(--brand-red-glow);
+    letter-spacing: 0.2px;
+  }
+
+  .card {
+    background: var(--surface1);
+    border-radius: var(--radius-lg);
+    margin: 0 20px 12px;
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+  }
+
+  .list-row {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--hairline);
+    gap: 14px;
+  }
+  .list-row:last-child { border-bottom: none; }
+  .list-row .row-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .list-row .row-text { flex: 1; }
+  .list-row .row-title { font-size: 16px; font-weight: 500; }
+  .list-row .row-subtitle { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .list-row .chevron { color: var(--text-tertiary); font-size: 14px; }
+
+  .back-nav {
+    padding: 12px 20px;
+    font-size: 17px;
+    color: var(--brand-red);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .search-bar {
+    margin: 8px 20px;
+    background: var(--surface2);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-tertiary);
+    font-size: 16px;
+  }
+  .search-bar .search-icon { font-size: 14px; opacity: 0.5; }
+
+  .segmented {
+    display: flex;
+    margin: 12px 20px;
+    background: var(--surface1);
+    border-radius: 10px;
+    padding: 3px;
+  }
+  .segmented .seg-item {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .segmented .seg-item.active {
+    background: var(--surface2);
+    color: var(--text-primary);
+  }
+
+  .chips-row {
+    display: flex;
+    gap: 8px;
+    padding: 8px 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .chips-row::-webkit-scrollbar { display: none; }
+  .chip {
+    padding: 7px 14px;
+    background: var(--surface2);
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: 1px solid var(--hairline);
+  }
+  .chip.active { background: var(--brand-red); color: #fff; border-color: var(--brand-red); }
+
+  /* Hero image placeholders */
+  .hero-img {
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-img::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(transparent, var(--bg));
+  }
+  .hero-img .hero-text {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    z-index: 1;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .hero-img-red {
+    background: linear-gradient(135deg, #2a0a12, #4a1525, #1a0810);
+  }
+  .hero-img-blue {
+    background: linear-gradient(135deg, #0a1a2a, #152a4a, #081a30);
+  }
+  .hero-img-game {
+    background: linear-gradient(135deg, #1a0a2a, #2a154a, #100830);
+  }
+
+  /* Toggle switch */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .toggle-row:last-child { border-bottom: none; }
+  .toggle-label { font-size: 16px; font-weight: 400; }
+  .toggle-switch {
+    width: 51px;
+    height: 31px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.15);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .toggle-switch.on { background: var(--green); }
+  .toggle-switch::after {
+    content: '';
+    width: 27px;
+    height: 27px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .toggle-switch.on::after { left: 22px; }
+
+  /* Quick action grid */
+  .quick-grid {
+    display: flex;
+    gap: 10px;
+    padding: 0 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .quick-grid::-webkit-scrollbar { display: none; }
+  .quick-item {
+    width: 72px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .quick-item .qi-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--surface1);
+    border: 1px solid var(--hairline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+  .quick-item .qi-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  /* Essentials row */
+  .essentials-row {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 20px;
+  }
+  .essential-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .essential-item .ei-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--surface1);
+    border: 1px solid var(--hairline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .essential-item .ei-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  /* Capacity table */
+  .capacity-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 15px;
+  }
+  .capacity-row:last-child { border-bottom: none; }
+  .capacity-row .cap-label { color: var(--text-secondary); }
+  .capacity-row .cap-val { font-weight: 600; }
+
+  /* Equipment chips */
+  .equip-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 20px;
+  }
+  .equip-chip {
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    background: var(--surface2);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border: 1px solid var(--hairline);
+  }
+
+  /* Floating CTA */
+  .floating-cta {
+    position: absolute;
+    bottom: 95px;
+    left: 20px;
+    right: 20px;
+    padding: 16px;
+    background: var(--brand-red);
+    color: #fff;
+    border-radius: var(--radius-md);
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 8px 30px var(--brand-red-glow);
+    z-index: 5;
+  }
+
+  /* Sheet overlay */
+  .sheet-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .sheet {
+    background: var(--surface2);
+    border-radius: 20px 20px 0 0;
+    padding-bottom: 90px;
+    overflow-y: auto;
+  }
+  .sheet-handle {
+    width: 36px;
+    height: 5px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
+    margin: 10px auto 0;
+  }
+  .sheet-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+  }
+  .sheet-top .sheet-title { font-size: 20px; font-weight: 700; }
+  .sheet-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  /* Warning box */
+  .warning-box {
+    margin: 12px 20px;
+    padding: 14px 16px;
+    background: rgba(255,159,10,0.1);
+    border: 1px solid rgba(255,159,10,0.3);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    color: var(--orange);
+    line-height: 1.4;
+  }
+
+  /* Checklist */
+  .check-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--hairline);
+    align-items: flex-start;
+  }
+  .check-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--text-tertiary);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .check-circle.checked {
+    background: var(--brand-red);
+    border-color: var(--brand-red);
+    position: relative;
+  }
+  .check-circle.checked::after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 10px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 3px;
+    left: 7px;
+  }
+  .check-text { font-size: 15px; line-height: 1.4; color: var(--text-secondary); }
+
+  /* Success icon */
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(48,209,88,0.12);
+    margin: 30px auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    color: var(--green);
+    border: 2px solid rgba(48,209,88,0.3);
+  }
+
+  /* Settings group */
+  .settings-group {
+    margin: 16px 20px 0;
+  }
+  .settings-group-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 0 0 8px;
+  }
+  .settings-list {
+    background: var(--surface1);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+  }
+
+  /* Tile cards */
+  .tile-card {
+    margin: 0 20px 14px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    height: 180px;
+  }
+  .tile-card .tile-bg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+  }
+  .tile-card .tile-text { z-index: 2; }
+  .tile-card .tile-title { font-size: 22px; font-weight: 700; }
+  .tile-card .tile-sub { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+
+  /* Role cards */
+  .role-card {
+    margin: 0 20px 12px;
+    padding: 20px;
+    background: var(--surface1);
+    border-radius: var(--radius-lg);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .role-card.selected { border-color: var(--brand-red); }
+  .role-card .role-title { font-size: 18px; font-weight: 600; }
+  .role-card .role-radio {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--text-tertiary);
+    float: right;
+    margin-top: 2px;
+  }
+  .role-card.selected .role-radio {
+    border-color: var(--brand-red);
+    background: var(--brand-red);
+    box-shadow: inset 0 0 0 4px var(--surface1);
+  }
+
+  /* Event card large */
+  .event-card-lg {
+    margin: 0 20px 14px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+    background: var(--surface1);
+  }
+  .event-card-lg .ec-img {
+    height: 160px;
+    background: linear-gradient(135deg, #1a2a1a, #2a3a2a, #1a2a1a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .event-card-lg .ec-body { padding: 14px 16px; }
+  .event-card-lg .ec-title { font-size: 17px; font-weight: 600; }
+  .event-card-lg .ec-sub { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+  /* Badge row */
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    padding: 10px 20px;
+    flex-wrap: wrap;
+  }
+
+  /* Filter category grid */
+  .cat-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 20px;
+  }
+
+  /* Pricing summary */
+  .pricing-summary {
+    margin: 12px 20px;
+    padding: 16px;
+    background: var(--surface1);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--hairline);
+  }
+  .pricing-summary .ps-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .pricing-summary .ps-items {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  /* Action buttons row */
+  .action-btns {
+    display: flex;
+    gap: 10px;
+    padding: 12px 20px;
+  }
+  .action-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid var(--hairline);
+    background: var(--surface2);
+    color: var(--text-primary);
+  }
+
+  .body-text {
+    padding: 8px 20px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .subtitle-text {
+    padding: 2px 20px;
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .center-text { text-align: center; }
+
+  .secondary-link {
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 14px;
+    color: var(--brand-red);
+    font-weight: 500;
+  }
+
+  .footnote {
+    padding: 12px 20px;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+  }
+
+  /* Collapsible floor accordion */
+  .floor-btn {
+    margin: 10px 20px 0;
+    padding: 16px 18px;
+    background: var(--surface1);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .floor-btn:hover { background: var(--surface2); }
+  .floor-btn.active {
+    border-color: rgba(200,16,46,0.4);
+    background: linear-gradient(135deg, rgba(200,16,46,0.08), rgba(200,16,46,0.02));
+  }
+  .floor-btn .floor-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+  }
+  .floor-btn.active .floor-num { background: var(--brand-red); color: #fff; }
+  .floor-btn .floor-info { flex: 1; }
+  .floor-btn .floor-name { font-size: 16px; font-weight: 600; }
+  .floor-btn .floor-desc { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+  .floor-btn .floor-count {
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--surface2);
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .floor-btn.active .floor-count { background: rgba(200,16,46,0.15); color: var(--brand-red); }
+  .floor-btn .floor-chevron {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+  .floor-btn.active .floor-chevron { transform: rotate(90deg); color: var(--brand-red); }
+  .floor-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .floor-content.open {
+    max-height: 2000px;
+  }
+
+  /* Onboarding hero */
+  .onboard-hero {
+    height: 360px;
+    background: linear-gradient(180deg, #1a0a12 0%, #0B0B0D 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .onboard-hero::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(200,16,46,0.15), transparent 70%);
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .onboard-hero .building-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, var(--surface2), var(--surface1));
+    border: 1px solid var(--hairline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    margin-bottom: 20px;
+    z-index: 1;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .onboard-title {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    text-align: center;
+    padding: 0 40px;
+    z-index: 1;
+  }
+  .onboard-sub {
+    font-size: 16px;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 8px 40px 0;
+    z-index: 1;
+  }
+
+  /* Detail header */
+  .detail-header-area {
+    padding: 12px 20px 0;
+  }
+  .detail-title {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .detail-about {
+    padding: 4px 20px;
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* Location box */
+  .location-box {
+    margin: 12px 20px;
+    padding: 14px 16px;
+    background: var(--surface1);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--hairline);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .location-box .loc-text { font-size: 15px; font-weight: 500; }
+  .location-box .loc-arrow { color: var(--text-tertiary); }
+
+  /* Date detail */
+  .date-detail {
+    padding: 8px 20px;
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .info-text {
+    padding: 8px 20px;
+    font-size: 14px;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+  }
+
+  .rule-note {
+    margin: 12px 20px;
+    padding: 14px 16px;
+    background: var(--surface1);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--hairline);
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-title">CSUEB 15 iOS Mockups</div>
+<div class="page-subtitle" style="margin-bottom:6px;">University Union Hub</div>
+<div style="text-align:center; font-size:13px; color:var(--text-tertiary); font-family:'Inter',sans-serif; letter-spacing:0.3px; padding-bottom:8px;">Developed by Nikhil Chowdary Nettem &mdash; Senator at Large, ASI</div>
+
+<div class="screen-grid">
+
+<!-- ==================== SCREEN 1: WELCOME ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 1 &mdash; Welcome (O1)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <!-- Cinematic hero -->
+    <div style="height:260px; position:relative; overflow:hidden;">
+      <img src="South/csueb-1071700-06.0x150.jpg" alt="University Union" style="width:100%; height:100%; object-fit:cover;">
+      <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(11,11,13,0.3) 0%, rgba(11,11,13,0.85) 100%);"></div>
+      <div style="position:absolute; bottom:0; left:0; right:0; display:flex; flex-direction:column; align-items:center; padding-bottom:20px; z-index:1;">
+        <div style="width:72px; height:72px; border-radius:20px; background:rgba(11,11,13,0.7); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; box-shadow:0 16px 48px rgba(0,0,0,0.5); margin-bottom:12px; overflow:hidden;"><img src="uu.png" alt="UU Logo" style="width:52px; height:52px; object-fit:contain; filter:invert(1);"></div>
+        <div style="font-size:13px; font-weight:300; letter-spacing:6px; text-transform:uppercase; color:rgba(255,255,255,0.7);">CSUEB</div>
+      </div>
+    </div>
+
+    <!-- Title -->
+    <div style="text-align:center; padding:0 30px;">
+      <div style="font-size:36px; font-weight:800; letter-spacing:-1.2px; line-height:1.1;">University</div>
+      <div style="font-size:36px; font-weight:800; letter-spacing:-1.2px; line-height:1.1;">Union <span style="color:var(--brand-red);">Hub</span></div>
+    </div>
+
+    <!-- Motto -->
+    <div style="text-align:center; padding:32px 40px 0;">
+      <div style="font-size:17px; font-weight:300; color:rgba(255,255,255,0.85); line-height:1.6; letter-spacing:0.8px;">Built for students.</div>
+      <div style="font-size:17px; font-weight:600; color:var(--brand-red); line-height:1.6; letter-spacing:0.8px;">Powered by community.</div>
+    </div>
+
+    <!-- Divider -->
+    <div style="width:40px; height:2px; background:var(--brand-red); margin:28px auto; opacity:0.6; border-radius:1px;"></div>
+
+    <!-- History -->
+    <div style="padding:0 32px;">
+      <div style="font-size:12.5px; font-weight:300; color:var(--text-tertiary); line-height:1.8; text-align:center; letter-spacing:0.2px; margin-bottom:16px;">Since September 26, 1985, the Union has been the center stage of campus life&mdash;meals, services, and moments that matter.</div>
+      <div style="font-size:12.5px; font-weight:300; color:var(--text-tertiary); line-height:1.8; text-align:center; letter-spacing:0.2px;">On January 8, 2007, we grew into North + South&mdash;one place to connect, engage, and transform.</div>
+    </div>
+
+    <div style="flex:1; min-height:32px;"></div>
+    <div class="btn-red" style="margin-top:0; margin-bottom:24px; letter-spacing:0.5px;">Continue</div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 2: CHOOSE ROLE ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 2 &mdash; Choose Role (O2)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="back-nav">&lsaquo; Back</div>
+    <div class="large-title">Who are you?</div>
+    <div class="subtitle-text" style="margin-bottom:20px;">Select your role to personalize booking and routing options.</div>
+
+    <div class="role-card selected">
+      <div class="role-radio"></div>
+      <div class="role-title">Student / Student Org</div>
+    </div>
+    <div class="role-card">
+      <div class="role-radio"></div>
+      <div class="role-title">Faculty & Staff</div>
+    </div>
+    <div class="role-card">
+      <div class="role-radio"></div>
+      <div class="role-title">Guest & External</div>
+    </div>
+
+    <div style="height:180px;"></div>
+    <div class="btn-red">Next</div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 3: PREFERENCES ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 3 &mdash; Preferences (O3)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="back-nav">&lsaquo; Back</div>
+    <div class="large-title">Tailor your Hub</div>
+    <div class="subtitle-text" style="margin-bottom:20px;">What do you want to see?</div>
+
+    <div class="card">
+      <div class="toggle-row">
+        <span class="toggle-label">Notify me about UU events</span>
+        <div class="toggle-switch on"></div>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">GameZone tournaments</span>
+        <div class="toggle-switch on"></div>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">Dining hours & links</span>
+        <div class="toggle-switch"></div>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">Booking status reminders</span>
+        <div class="toggle-switch on"></div>
+      </div>
+    </div>
+
+    <div style="height:180px;"></div>
+    <div class="btn-red">Get Started</div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 4: TODAY TAB ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 4 &mdash; Today (T1)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="large-title">Today</div>
+    <div style="padding:4px 20px 12px; display:flex; align-items:center; gap:10px;">
+      <div class="pill pill-green">OPEN NOW</div>
+      <span style="font-size:14px; color:var(--text-secondary);">North UU &bull; South UU</span>
+    </div>
+
+    <div class="section-header">What's happening today</div>
+    <div class="event-card-lg">
+      <div class="ec-img" style="height:140px; background:none; padding:0;">
+        <img src="ASI/IMG_9623.jpg" alt="ASI Board Meeting" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="ec-body">
+        <div class="ec-title">ASI Board Meeting</div>
+        <div class="ec-sub">12:00 &ndash; 2:00 PM &bull; North UU Floor 3</div>
+      </div>
+    </div>
+
+    <div class="section-header">Quick Actions</div>
+    <div class="quick-grid" style="margin-bottom:16px;">
+      <div class="quick-item">
+        <div class="qi-icon">&#127963;</div>
+        <div class="qi-label">Explore North</div>
+      </div>
+      <div class="quick-item">
+        <div class="qi-icon">&#127962;</div>
+        <div class="qi-label">Explore South</div>
+      </div>
+      <div class="quick-item">
+        <div class="qi-icon" style="color:var(--brand-red);">&#128197;</div>
+        <div class="qi-label">Book Space</div>
+      </div>
+      <div class="quick-item">
+        <div class="qi-icon">&#127918;</div>
+        <div class="qi-label">GameZone</div>
+      </div>
+      <div class="quick-item">
+        <div class="qi-icon">&#127828;</div>
+        <div class="qi-label">Dining</div>
+      </div>
+    </div>
+
+    <div class="section-header">UU Essentials</div>
+    <div class="essentials-row" style="margin-bottom:24px;">
+      <div class="essential-item">
+        <div class="ei-icon">&#9889;</div>
+        <div class="ei-label">Charging</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">&#128167;</div>
+        <div class="ei-label">Water Refill</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">&#9832;</div>
+        <div class="ei-label">Microwaves</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">&#128424;</div>
+        <div class="ei-label">Printers</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item active">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 5: NORTH UU FLOOR PLAN (ACCORDION) ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 5 &mdash; North University Union</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="back-nav">&lsaquo; Explore</div>
+
+    <!-- North UU Hero -->
+    <div style="margin:0 20px 16px; border-radius:20px; overflow:hidden; position:relative; height:170px;">
+      <img src="North/banner-h.jpg" alt="North University Union" style="width:100%; height:100%; object-fit:cover;">
+      <div style="position:absolute; inset:0; background:linear-gradient(transparent 40%, rgba(11,11,13,0.85)); display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:16px;">
+        <div style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:2px;">Est. 1985 &bull; 58,000 sq ft</div>
+      </div>
+    </div>
+
+    <div class="large-title" style="font-size:26px;">North University Union</div>
+    <div class="subtitle-text" style="margin-bottom:4px;">The Original UU &bull; 3 Floors</div>
+    <div class="badge-row" style="margin-bottom:6px;">
+      <div class="pill pill-green">Open Now</div>
+      <div class="pill pill-surface">Old UU</div>
+    </div>
+
+    <div style="padding:6px 20px 10px; font-size:13px; color:var(--text-tertiary);">Tap a floor to see everything on it</div>
+
+    <!-- FLOOR 1 BUTTON -->
+    <div class="floor-btn active" onclick="toggleFloor(this)">
+      <div class="floor-num">1</div>
+      <div class="floor-info">
+        <div class="floor-name">First Floor</div>
+        <div class="floor-desc">Ground Level &bull; West Loop Access</div>
+      </div>
+      <div class="floor-count">7</div>
+      <div class="floor-chevron">&#10095;</div>
+    </div>
+    <div class="floor-content open">
+      <div class="card" style="margin-top:8px;">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(48,209,88,0.1);">&#128739;</div>
+          <div class="row-text">
+            <div class="row-title">Access to West Loop Road</div>
+            <div class="row-subtitle">Main building entrance</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,159,10,0.1);">&#128679;</div>
+          <div class="row-text">
+            <div class="row-title">UU102 OFFLINE</div>
+            <div class="row-subtitle">Wellbeing Suite coming soon!</div>
+          </div>
+          <div class="pill" style="background:rgba(255,159,10,0.15); color:var(--orange); font-size:10px;">Coming Soon</div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(64,156,255,0.1);">&#128167;</div>
+          <div class="row-text">
+            <div class="row-title">Water Fountain / Refill Station</div>
+            <div class="row-subtitle">Bottle refill available</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,214,10,0.1);">&#127858;</div>
+          <div class="row-text">
+            <div class="row-title">Chartwells Offices</div>
+            <div class="row-subtitle">Dining services administration</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128694;</div>
+          <div class="row-text"><div class="row-title">Staircase Access</div></div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128376;</div>
+          <div class="row-text">
+            <div class="row-title">Elevator Access</div>
+            <div class="row-subtitle">Wheelchair accessible</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128701;</div>
+          <div class="row-text"><div class="row-title">Restrooms</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOOR 2 BUTTON -->
+    <div class="floor-btn" onclick="toggleFloor(this)">
+      <div class="floor-num">2</div>
+      <div class="floor-info">
+        <div class="floor-name">Second Floor</div>
+        <div class="floor-desc">Dining &bull; Gaming &bull; Study</div>
+      </div>
+      <div class="floor-count">14</div>
+      <div class="floor-chevron">&#10095;</div>
+    </div>
+    <div class="floor-content">
+      <div class="card" style="margin-top:8px;">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(175,130,255,0.1);">&#128218;</div>
+          <div class="row-text">
+            <div class="row-title">Study / Lounge Areas</div>
+            <div class="row-subtitle">Open seating &amp; quiet zones</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(64,156,255,0.1);">&#128424;</div>
+          <div class="row-text">
+            <div class="row-title">Printer Station</div>
+            <div class="row-subtitle">Print, copy &amp; scan</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,214,10,0.1);">&#9889;</div>
+          <div class="row-text">
+            <div class="row-title">Charging Station</div>
+            <div class="row-subtitle">Device charging available</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(48,209,88,0.1);">&#127921;</div>
+          <div class="row-text">
+            <div class="row-title">Game Room</div>
+            <div class="row-subtitle">Billiards, air hockey, foosball, board games</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(175,130,255,0.1);">&#127918;</div>
+          <div class="row-text">
+            <div class="row-title">GameCave</div>
+            <div class="row-subtitle">PS4/PS5, Xbox, VR, 50&quot; HDTVs</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:10px 20px 4px; font-size:13px; font-weight:600; color:var(--text-tertiary); letter-spacing:0.5px;">&#127860; DINING AREA</div>
+      <div class="card" style="margin-top:4px;">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,159,10,0.1);">&#127839;</div>
+          <div class="row-text">
+            <div class="row-title">Fry Shack</div>
+            <div class="row-subtitle">Burgers, fries &amp; more</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(175,130,255,0.1);">&#127790;</div>
+          <div class="row-text">
+            <div class="row-title">Taco Bell Express</div>
+            <div class="row-subtitle">Quick Mexican-inspired bites</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(64,156,255,0.1);">&#127843;</div>
+          <div class="row-text">
+            <div class="row-title">Wild Blue</div>
+            <div class="row-subtitle">Fresh sushi &amp; Asian bowls</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(48,209,88,0.1);">&#128722;</div>
+          <div class="row-text">
+            <div class="row-title">Market</div>
+            <div class="row-subtitle">Snacks, drinks &amp; grab-and-go</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:8px;">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(200,16,46,0.1);">&#9996;</div>
+          <div class="row-text">
+            <div class="row-title">Black Student Success Center</div>
+            <div class="row-subtitle">Student support &amp; community</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128694;</div>
+          <div class="row-text"><div class="row-title">Staircase Access</div></div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128376;</div>
+          <div class="row-text"><div class="row-title">Elevator Access</div></div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128701;</div>
+          <div class="row-text"><div class="row-title">Restrooms</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOOR 3 BUTTON -->
+    <div class="floor-btn" onclick="toggleFloor(this)">
+      <div class="floor-num">3</div>
+      <div class="floor-info">
+        <div class="floor-name">Third Floor</div>
+        <div class="floor-desc">ASI Offices &bull; Study &bull; Balcony</div>
+      </div>
+      <div class="floor-count">9</div>
+      <div class="floor-chevron">&#10095;</div>
+    </div>
+    <div class="floor-content">
+      <div class="card" style="margin-top:8px;">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(175,130,255,0.1);">&#128218;</div>
+          <div class="row-text">
+            <div class="row-title">Study / Lounge Areas</div>
+            <div class="row-subtitle">Quiet study &amp; group seating</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(48,209,88,0.1);">&#127749;</div>
+          <div class="row-text">
+            <div class="row-title">Balcony</div>
+            <div class="row-subtitle">Outdoor scenic views</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(200,16,46,0.1);">&#127963;</div>
+          <div class="row-text">
+            <div class="row-title">UU311</div>
+            <div class="row-subtitle">Reservable meeting room</div>
+          </div>
+          <div class="pill pill-red" style="font-size:10px;">Reservable</div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(64,156,255,0.1);">&#127970;</div>
+          <div class="row-text">
+            <div class="row-title">UU307ABC &mdash; ASI Board Offices</div>
+            <div class="row-subtitle">Student government boardroom</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,214,10,0.1);">&#127970;</div>
+          <div class="row-text">
+            <div class="row-title">ASI Offices</div>
+            <div class="row-subtitle">Associated Students Inc.</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,214,10,0.1);">&#9889;</div>
+          <div class="row-text">
+            <div class="row-title">Charging Station</div>
+            <div class="row-subtitle">Device charging available</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128694;</div>
+          <div class="row-text"><div class="row-title">Staircase Access</div></div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128376;</div>
+          <div class="row-text"><div class="row-title">Elevator Access</div></div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128701;</div>
+          <div class="row-text"><div class="row-title">Restrooms</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:24px;"></div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 6: SOUTH UU FLOOR PLAN (ACCORDION) ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 6 &mdash; South University Union</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="back-nav">&lsaquo; Explore</div>
+
+    <!-- South UU Hero -->
+    <div style="margin:0 20px 16px; border-radius:20px; overflow:hidden; position:relative; height:170px;">
+      <img src="South/csueb-1071700-06.0x150.jpg" alt="South University Union" style="width:100%; height:100%; object-fit:cover;">
+      <div style="position:absolute; inset:0; background:linear-gradient(transparent 40%, rgba(11,11,13,0.85)); display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:16px;">
+        <div style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:2px;">Est. 2007 &bull; 29,000 sq ft</div>
+      </div>
+    </div>
+
+    <div class="large-title" style="font-size:26px;">South University Union</div>
+    <div class="subtitle-text" style="margin-bottom:4px;">The New UU &bull; 2 Floors</div>
+    <div class="badge-row" style="margin-bottom:6px;">
+      <div class="pill pill-green">Open Now</div>
+      <div class="pill pill-surface">New UU</div>
+    </div>
+
+    <div style="padding:6px 20px 10px; font-size:13px; color:var(--text-tertiary);">Tap a floor to see everything on it</div>
+
+    <!-- FLOOR 1 BUTTON -->
+    <div class="floor-btn active" onclick="toggleFloor(this)">
+      <div class="floor-num">1</div>
+      <div class="floor-info">
+        <div class="floor-name">First Floor</div>
+        <div class="floor-desc">Dining &bull; Services &bull; MPR &bull; Outdoor</div>
+      </div>
+      <div class="floor-count">16</div>
+      <div class="floor-chevron">&#10095;</div>
+    </div>
+    <div class="floor-content open">
+      <div style="padding:10px 20px 4px; font-size:13px; font-weight:600; color:var(--text-tertiary); letter-spacing:0.5px;">&#127860; DINING &amp; FOOD</div>
+      <div class="card" style="margin-top:4px;">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,159,10,0.1);">&#127869;</div>
+          <div class="row-text">
+            <div class="row-title">Dining Room Area</div>
+            <div class="row-subtitle">Main seating &amp; eating space</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,69,58,0.1);">&#9832;</div>
+          <div class="row-text">
+            <div class="row-title">Microwave Station</div>
+            <div class="row-subtitle">Heat up your meals</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(175,130,255,0.1);">&#127863;</div>
+          <div class="row-text">
+            <div class="row-title">Vending Machines</div>
+            <div class="row-subtitle">Snacks &amp; beverages 24/7</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,159,10,0.1);">&#127836;</div>
+          <div class="row-text">
+            <div class="row-title">Panda Express</div>
+            <div class="row-subtitle">Chinese-American cuisine</div>
+          </div>
+          <div class="pill pill-green" style="font-size:10px;">Open</div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(48,209,88,0.1);">&#129385;</div>
+          <div class="row-text">
+            <div class="row-title">Halal Bites of Chicago</div>
+            <div class="row-subtitle">Halal-certified meals</div>
+          </div>
+          <div class="pill pill-green" style="font-size:10px;">Open</div>
+        </div>
+      </div>
+      <div style="padding:10px 20px 4px; font-size:13px; font-weight:600; color:var(--text-tertiary); letter-spacing:0.5px;">&#127891; STUDENT CENTERS</div>
+      <div class="card" style="margin-top:4px;">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(175,130,255,0.1);">&#127987;</div>
+          <div class="row-text">
+            <div class="row-title">DISARC</div>
+            <div class="row-subtitle">Diversity &amp; Inclusion Student and Affinity Research Centers</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,55,95,0.1);">&#127752;</div>
+          <div class="row-text">
+            <div class="row-title">QUSSC</div>
+            <div class="row-subtitle">Queer Unity Student Success Center</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:10px 20px 4px; font-size:13px; font-weight:600; color:var(--text-tertiary); letter-spacing:0.5px;">&#128736; SERVICES &amp; SPACES</div>
+      <div class="card" style="margin-top:4px;">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,214,10,0.1);">&#9889;</div>
+          <div class="row-text">
+            <div class="row-title">Charging Station</div>
+            <div class="row-subtitle">Device charging available</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(48,209,88,0.1);">&#128203;</div>
+          <div class="row-text">
+            <div class="row-title">Bulletin Board</div>
+            <div class="row-subtitle">Campus announcements &amp; flyers</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(200,16,46,0.1);">&#128187;</div>
+          <div class="row-text">
+            <div class="row-title">UU Customer Service Desk</div>
+            <div class="row-subtitle">Operations Assistant &bull; Info &amp; help</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(64,156,255,0.1);">&#128167;</div>
+          <div class="row-text">
+            <div class="row-title">Water Fountain / Refill Station</div>
+            <div class="row-subtitle">Bottle refill available</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(200,16,46,0.1);">&#127963;</div>
+          <div class="row-text">
+            <div class="row-title">Multipurpose Room (MPR)</div>
+            <div class="row-subtitle">400-capacity event space</div>
+          </div>
+          <div class="pill pill-red" style="font-size:10px;">Reservable</div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(48,209,88,0.1);">&#127795;</div>
+          <div class="row-text">
+            <div class="row-title">Outdoor Stage / UU-MI Lawn</div>
+            <div class="row-subtitle">Open-air event space &amp; lawn access</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128694;</div>
+          <div class="row-text"><div class="row-title">Staircase Access</div></div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128376;</div>
+          <div class="row-text">
+            <div class="row-title">Elevator Access</div>
+            <div class="row-subtitle">Wheelchair accessible</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128701;</div>
+          <div class="row-text"><div class="row-title">Restrooms</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOOR 2 BUTTON -->
+    <div class="floor-btn" onclick="toggleFloor(this)">
+      <div class="floor-num">2</div>
+      <div class="floor-info">
+        <div class="floor-name">Second Floor</div>
+        <div class="floor-desc">Leadership &bull; Resource Centers &bull; Gallery</div>
+      </div>
+      <div class="floor-count">12</div>
+      <div class="floor-chevron">&#10095;</div>
+    </div>
+    <div class="floor-content">
+      <div class="card" style="margin-top:8px;">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(64,156,255,0.1);">&#127748;</div>
+          <div class="row-text">
+            <div class="row-title">Bayview Room</div>
+            <div class="row-subtitle">Premium reservable meeting space</div>
+          </div>
+          <div class="pill pill-red" style="font-size:10px;">Reservable</div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,214,10,0.1);">&#128161;</div>
+          <div class="row-text">
+            <div class="row-title">SLIC</div>
+            <div class="row-subtitle">Student Leadership &amp; Involvement Center</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(175,130,255,0.1);">&#128218;</div>
+          <div class="row-text">
+            <div class="row-title">Study / Lounge Areas</div>
+            <div class="row-subtitle">Open seating &amp; group work</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(64,156,255,0.1);">&#128424;</div>
+          <div class="row-text">
+            <div class="row-title">Printer Station</div>
+            <div class="row-subtitle">Print, copy &amp; scan</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(200,16,46,0.1);">&#127912;</div>
+          <div class="row-text">
+            <div class="row-title">The Gallery (Room 2010)</div>
+            <div class="row-subtitle">Art &amp; exhibition space</div>
+          </div>
+          <div class="pill pill-red" style="font-size:10px;">Reservable</div>
+        </div>
+      </div>
+      <div style="padding:10px 20px 4px; font-size:13px; font-weight:600; color:var(--text-tertiary); letter-spacing:0.5px;">&#127752; RESOURCE CENTERS</div>
+      <div class="card" style="margin-top:4px;">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,159,10,0.1);">&#127823;</div>
+          <div class="row-text">
+            <div class="row-title">API Student Resource Center</div>
+            <div class="row-subtitle">Asian Pacific Islander community</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(48,209,88,0.1);">&#128154;</div>
+          <div class="row-text">
+            <div class="row-title">Undocumented Student Resource Center</div>
+            <div class="row-subtitle">USRC &bull; Safe space &amp; support</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,55,95,0.1);">&#10084;</div>
+          <div class="row-text">
+            <div class="row-title">Latinx Student Resource Center</div>
+            <div class="row-subtitle">Community &amp; cultural support</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(175,130,255,0.1);">&#127987;</div>
+          <div class="row-text">
+            <div class="row-title">DISARC &amp; SRC Admin Office</div>
+            <div class="row-subtitle">Resource Center administration</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:8px;">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,214,10,0.1);">&#9889;</div>
+          <div class="row-text">
+            <div class="row-title">Charging Station</div>
+            <div class="row-subtitle">Device charging available</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128694;</div>
+          <div class="row-text"><div class="row-title">Staircase Access</div></div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128376;</div>
+          <div class="row-text"><div class="row-title">Elevator Access</div></div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:20px; background:rgba(255,255,255,0.05);">&#128701;</div>
+          <div class="row-text"><div class="row-title">Restrooms</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:24px;"></div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 7: EXPLORE ALL DIRECTORY ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 7 &mdash; Explore All (E1)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="large-title">Explore</div>
+    <div class="search-bar">
+      <span class="search-icon">&#128269;</span>
+      Search 'MPR', 'Bayview', 'GameCave'
+    </div>
+    <div class="segmented">
+      <div class="seg-item">North</div>
+      <div class="seg-item">South</div>
+      <div class="seg-item active">All</div>
+    </div>
+
+    <div class="chips-row" style="margin-bottom:4px;">
+      <span style="font-size:13px; color:var(--text-tertiary); padding:7px 0; white-space:nowrap;">Recent:</span>
+      <div class="chip">Dining</div>
+      <div class="chip">ASI Offices</div>
+      <div class="chip">Charging</div>
+    </div>
+
+    <!-- Two big building cards -->
+    <div style="margin:8px 20px 12px; border-radius:16px; overflow:hidden; background:linear-gradient(135deg, #1a1520, #2a1a30); padding:18px; border:1px solid var(--hairline); display:flex; align-items:center; gap:14px;">
+      <div style="font-size:36px;">&#127963;</div>
+      <div style="flex:1;">
+        <div style="font-size:17px; font-weight:700;">North University Union</div>
+        <div style="font-size:13px; color:var(--text-secondary);">3 Floors &bull; 58k sqft &bull; Est. 1985</div>
+      </div>
+      <span style="font-size:20px; color:var(--text-tertiary);">&rsaquo;</span>
+    </div>
+    <div style="margin:0 20px 16px; border-radius:16px; overflow:hidden; background:linear-gradient(135deg, #0a1a2a, #152a4a); padding:18px; border:1px solid var(--hairline); display:flex; align-items:center; gap:14px;">
+      <div style="font-size:36px;">&#127962;</div>
+      <div style="flex:1;">
+        <div style="font-size:17px; font-weight:700;">South University Union</div>
+        <div style="font-size:13px; color:var(--text-secondary);">2 Floors &bull; 29k sqft &bull; Est. 2007</div>
+      </div>
+      <span style="font-size:20px; color:var(--text-tertiary);">&rsaquo;</span>
+    </div>
+
+    <!-- Directory list -->
+    <div class="card">
+      <div class="list-row">
+        <div class="row-icon" style="font-size:18px; background:rgba(200,16,46,0.1);">&#127963;</div>
+        <div class="row-text">
+          <div class="row-title">Multipurpose Room (MPR)</div>
+          <div class="row-subtitle">South &bull; Floor 1</div>
+        </div>
+        <div class="pill pill-red" style="font-size:11px;">Reservable</div>
+      </div>
+      <div class="list-row">
+        <div class="row-icon" style="font-size:18px; background:rgba(175,130,255,0.1);">&#127918;</div>
+        <div class="row-text">
+          <div class="row-title">GameCave</div>
+          <div class="row-subtitle">North &bull; Floor 2</div>
+        </div>
+        <div class="pill pill-green" style="font-size:11px;">Open</div>
+      </div>
+      <div class="list-row">
+        <div class="row-icon" style="font-size:18px; background:rgba(255,159,10,0.1);">&#127836;</div>
+        <div class="row-text">
+          <div class="row-title">Panda Express</div>
+          <div class="row-subtitle">South &bull; Floor 1</div>
+        </div>
+        <div class="pill pill-green" style="font-size:11px;">Open</div>
+      </div>
+      <div class="list-row">
+        <div class="row-icon" style="font-size:18px; background:rgba(255,55,95,0.1);">&#127752;</div>
+        <div class="row-text">
+          <div class="row-title">QUSSC</div>
+          <div class="row-subtitle">South &bull; Floor 1</div>
+        </div>
+      </div>
+      <div class="list-row">
+        <div class="row-icon" style="font-size:18px; background:rgba(255,214,10,0.1);">&#128161;</div>
+        <div class="row-text">
+          <div class="row-title">SLIC</div>
+          <div class="row-subtitle">South &bull; Floor 2</div>
+        </div>
+      </div>
+      <div class="list-row">
+        <div class="row-icon" style="font-size:18px; background:rgba(64,156,255,0.1);">&#127748;</div>
+        <div class="row-text">
+          <div class="row-title">Bayview Room</div>
+          <div class="row-subtitle">South &bull; Floor 2</div>
+        </div>
+        <div class="pill pill-red" style="font-size:11px;">Reservable</div>
+      </div>
+      <div class="list-row">
+        <div class="row-icon" style="font-size:18px; background:rgba(48,209,88,0.1);">&#127921;</div>
+        <div class="row-text">
+          <div class="row-title">Game Room</div>
+          <div class="row-subtitle">North &bull; Floor 2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 10: EVENTS TAB ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 8 &mdash; Events (V1)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="large-title">Events</div>
+    <div class="chips-row">
+      <div class="chip active">Today</div>
+      <div class="chip">This Week</div>
+      <div class="chip">This Month</div>
+      <div class="chip">North</div>
+      <div class="chip">South</div>
+    </div>
+
+    <div class="section-header">Featured</div>
+    <div class="event-card-lg">
+      <div class="ec-img" style="height:160px; background: none; overflow:hidden;">
+        <img src="gamezone/casino-night-2026-website-banner.jpg" alt="Casino Night" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="ec-body">
+        <div class="ec-title">Casino Night</div>
+        <div class="ec-sub">North UU &bull; 6:00 PM</div>
+      </div>
+    </div>
+
+    <div class="section-header">All Events</div>
+    <div class="card">
+      <div class="list-row">
+        <div class="row-icon" style="background:rgba(200,16,46,0.12); font-size:16px;">&#127908;</div>
+        <div class="row-text">
+          <div class="row-title">Student Org Rally</div>
+          <div class="row-subtitle">Outdoor Stage &bull; Starts in 1 hr</div>
+        </div>
+        <div class="chevron">&rsaquo;</div>
+      </div>
+      <div class="list-row">
+        <div class="row-icon" style="background:rgba(48,209,88,0.12); font-size:16px;">&#127760;</div>
+        <div class="row-text">
+          <div class="row-title">DISARC Community Meeting</div>
+          <div class="row-subtitle">South UU Floor 1 &bull; 6:00 PM</div>
+        </div>
+        <div class="chevron">&rsaquo;</div>
+      </div>
+      <div class="list-row">
+        <div class="row-icon" style="background:rgba(255,214,10,0.12); font-size:16px;">&#128218;</div>
+        <div class="row-text">
+          <div class="row-title">SLIC Leadership Workshop</div>
+          <div class="row-subtitle">South UU Floor 2 &bull; 4:00 PM</div>
+        </div>
+        <div class="chevron">&rsaquo;</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 10: EVENT DETAIL ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 9 &mdash; Event Detail (V2)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar" style="position:absolute; top:0; left:0; right:0; z-index:3; background:linear-gradient(var(--bg), transparent);">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="hero-img" style="background:none; overflow:hidden;">
+      <img src="gamezone/casino-night-2026-website-banner.jpg" alt="Casino Night" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div style="position:relative; margin-top:-20px; z-index:2;">
+      <div class="back-nav" style="padding-top:0;">&lsaquo; Events</div>
+      <div class="detail-header-area">
+        <div class="detail-title" style="font-size:24px;">Casino Night</div>
+      </div>
+
+      <div class="date-detail">Thursday, Mar 12 &bull; 6:00 PM - 9:00 PM</div>
+
+      <div class="location-box">
+        <div>
+          <div class="loc-text">North University Union</div>
+        </div>
+        <span class="loc-arrow" style="font-size:18px;">&rsaquo;</span>
+      </div>
+
+      <div class="action-btns">
+        <div class="action-btn">Add to Calendar</div>
+        <div class="action-btn">Share</div>
+      </div>
+
+      <!-- About -->
+      <div class="section-header">About</div>
+      <div class="body-text" style="line-height:1.5;">Join us for a high-energy evening of cards, mocktails, and classic casino fun! Try your luck at blackjack, roulette, and poker, enjoy great vibes and delicious bites, and dress to impress for a night of glamour and good times.</div>
+
+      <!-- Highlights -->
+      <div class="section-header" style="margin-top:18px;">Highlights</div>
+      <div class="card">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:18px; background:rgba(255,214,10,0.12);">&#127942;</div>
+          <div class="row-text">
+            <div class="row-title">Prizes All Night</div>
+            <div class="row-subtitle">Prizes awarded throughout the evening</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:18px; background:rgba(48,209,88,0.12);">&#127873;</div>
+          <div class="row-text">
+            <div class="row-title">Early RSVP Bonus</div>
+            <div class="row-subtitle">Special bonus incentive at check-in</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:18px; background:rgba(200,16,46,0.12);">&#127891;</div>
+          <div class="row-text">
+            <div class="row-title">Open to All</div>
+            <div class="row-subtitle">All CSUEB students welcome</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activities -->
+      <div class="section-header" style="margin-top:18px;">Activities</div>
+      <div class="chips-row" style="flex-wrap:wrap; gap:8px;">
+        <div class="chip">Blackjack</div>
+        <div class="chip">Roulette</div>
+        <div class="chip">Poker</div>
+        <div class="chip">Mocktails</div>
+        <div class="chip">Food &amp; Bites</div>
+      </div>
+
+      <!-- Spring 2026 Schedule -->
+      <div class="section-header" style="margin-top:18px;">Spring 2026 GameZone Schedule</div>
+      <div class="card">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px; background:rgba(200,16,46,0.12);">&#127183;</div>
+          <div class="row-text">
+            <div class="row-title">Texas Hold Em Poker</div>
+            <div class="row-subtitle">Tue, 2/17 &bull; 6 PM &bull; GameRoom</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px; background:rgba(48,209,88,0.12);">&#127921;</div>
+          <div class="row-text">
+            <div class="row-title">Scotch Doubles Billiards</div>
+            <div class="row-subtitle">Tue, 3/3 &bull; 5:30 PM &bull; GameRoom</div>
+          </div>
+        </div>
+        <div class="list-row" style="background:rgba(200,16,46,0.06);">
+          <div class="row-icon" style="font-size:16px; background:rgba(200,16,46,0.15);">&#127922;</div>
+          <div class="row-text">
+            <div class="row-title" style="color:var(--accent);">Casino Night</div>
+            <div class="row-subtitle">Thu, 3/12 &bull; 6 PM &bull; North UU</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px; background:rgba(255,159,10,0.12);">&#127918;</div>
+          <div class="row-text">
+            <div class="row-title">Wheel of Combat eSports</div>
+            <div class="row-subtitle">Tue, 3/24 &bull; 6 PM &bull; North UU 311</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px; background:rgba(10,132,255,0.12);">&#9917;</div>
+          <div class="row-text">
+            <div class="row-title">FIFA FC eSports</div>
+            <div class="row-subtitle">Wed, 4/15 &bull; 6 PM &bull; North UU 311</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Registration -->
+      <div class="section-header" style="margin-top:18px;">Registration</div>
+      <div class="body-text" style="font-size:13px; line-height:1.5;">Download FusionPlay to RSVP, or make or join a team. For step-by-step instructions, see the FusionPlay Player App Guidebook.</div>
+      <div class="btn-red" style="margin-top:16px;">RSVP Now on FusionPlay</div>
+      <div class="body-text" style="font-size:12px; color:var(--text-secondary); margin-top:10px; text-align:center;">Questions? Contact RAW at rawcenter@csueastbay.edu</div>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 13: SELECT SPACE CATEGORY ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 10 &mdash; Select Space (B2)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="back-nav">&lsaquo; Book</div>
+    <div class="large-title">What are you booking?</div>
+    <div style="height:16px;"></div>
+
+    <div class="card">
+      <div class="list-row" style="padding:18px 20px;">
+        <div class="row-icon" style="font-size:18px; background:rgba(200,16,46,0.12);">&#127963;</div>
+        <div class="row-text">
+          <div class="row-title" style="font-size:17px; font-weight:600;">Meeting Rooms</div>
+          <div class="row-subtitle">UU311, Bayview, The Gallery. Small to medium capacities.</div>
+        </div>
+        <div class="chevron" style="font-size:20px;">&rsaquo;</div>
+      </div>
+      <div class="list-row" style="padding:18px 20px;">
+        <div class="row-icon" style="font-size:18px; background:rgba(48,209,88,0.12);">&#127917;</div>
+        <div class="row-text">
+          <div class="row-title" style="font-size:17px; font-weight:600;">Event Spaces</div>
+          <div class="row-subtitle">MPR A, MPR B. Large capacities, banquets, lectures.</div>
+        </div>
+        <div class="chevron" style="font-size:20px;">&rsaquo;</div>
+      </div>
+      <div class="list-row" style="padding:18px 20px;">
+        <div class="row-icon" style="font-size:18px; background:rgba(255,214,10,0.12);">&#127795;</div>
+        <div class="row-text">
+          <div class="row-title" style="font-size:17px; font-weight:600;">Outdoor Spaces</div>
+          <div class="row-subtitle">Stage / Lawn access.</div>
+        </div>
+        <div class="chevron" style="font-size:20px;">&rsaquo;</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 8: ROOM 311 DETAIL ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 11 &mdash; Room 311 (E3)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar" style="position:absolute; top:0; left:0; right:0; z-index:3; background:linear-gradient(var(--bg), transparent);">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+
+    <!-- Hero image gallery -->
+    <div style="position:relative; height:220px; overflow:hidden;">
+      <div id="r311-gallery" style="display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; height:100%;">
+        <img src="311/room-311-a.jpg" alt="Room 311 A" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+        <img src="311/room-311-b.jpg" alt="Room 311 B" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+        <img src="311/room-311-c.jpg" alt="Room 311 C" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+        <img src="311/room-311-d.jpg" alt="Room 311 D" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+        <img src="311/room-311-f.jpg" alt="Room 311 F" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+      </div>
+      <div style="position:absolute; bottom:0; left:0; right:0; height:60px; background:linear-gradient(transparent, var(--bg));"></div>
+      <div style="position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:2;">
+        <span style="width:6px; height:6px; border-radius:50%; background:#fff;"></span>
+        <span style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></span>
+        <span style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></span>
+        <span style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></span>
+        <span style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></span>
+      </div>
+    </div>
+
+    <div style="position:relative; margin-top:-20px; z-index:2;">
+      <div class="back-nav" style="padding-top:0;">&lsaquo; Explore</div>
+      <div class="detail-header-area">
+        <div class="detail-title">Room 311</div>
+      </div>
+
+      <!-- Room 311 Tab Menu -->
+      <div class="r311-tabs" style="display:flex; gap:0; padding:10px 20px 0; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;">
+        <button class="r311-tab active" onclick="switchR311Tab(this, 'r311-capacity')" style="padding:9px 14px; font-size:13px; font-weight:600; border:none; border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--brand-red); color:#fff; margin-right:8px;">Capacity</button>
+        <button class="r311-tab" onclick="switchR311Tab(this, 'r311-scheduling')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">Scheduling</button>
+        <button class="r311-tab" onclick="switchR311Tab(this, 'r311-hours')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">Hours</button>
+        <button class="r311-tab" onclick="switchR311Tab(this, 'r311-equipment')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">Equipment</button>
+        <button class="r311-tab" onclick="switchR311Tab(this, 'r311-clearing')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">Clearing</button>
+        <button class="r311-tab" onclick="switchR311Tab(this, 'r311-3dtour')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary);">3D Tour</button>
+      </div>
+      <div style="height:12px;"></div>
+
+      <!-- ===== TAB: Capacity ===== -->
+      <div id="r311-capacity" class="r311-panel" style="display:block;">
+        <div class="section-header" style="padding-bottom:4px;">Room Use Policy &mdash; Capacity</div>
+        <div class="card">
+          <div class="capacity-row">
+            <span class="cap-label">Banquet Style Round Tables</span>
+            <span class="cap-val">12 tables</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Basic Lecture Style</span>
+            <span class="cap-val">50&ndash;120</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Theatre Style</span>
+            <span class="cap-val">30&ndash;60</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Classroom Style</span>
+            <span class="cap-val">15&ndash;48</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Basic Conference Style</span>
+            <span class="cap-val">15&ndash;40</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">U-Shaped Conference Style</span>
+            <span class="cap-val">10&ndash;30</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">U-Shaped w/ Audience</span>
+            <span class="cap-val">10&ndash;26</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Open Square Conference</span>
+            <span class="cap-val">15&ndash;40</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Group Circle</span>
+            <span class="cap-val">15&ndash;60</span>
+          </div>
+        </div>
+        <div style="padding:12px 20px;">
+          <div style="font-size:13px; color:var(--text-tertiary); line-height:1.5;">
+            **The amount of tables in the room<br>
+            Round tables &ndash; 8 seats max<br>
+            Rectangle tables &ndash; 2 seats max
+          </div>
+        </div>
+        <div class="warning-box">
+          NO CONFETTI, GLITTER, PAINT, CANDLES, HAZARDOUS ITEMS ALLOWED. IF YOU WILL BE USING TAPE, PLEASE USE BLUE TAPE ONLY.<br><br>
+          <span style="font-style:italic;">(Violation of this policy will result in denial of future reservations)</span>
+        </div>
+      </div>
+
+      <!-- ===== TAB: Scheduling ===== -->
+      <div id="r311-scheduling" class="r311-panel" style="display:none;">
+        <div class="section-header" style="padding-bottom:4px;">I. Scheduling</div>
+        <div style="padding:0 20px 12px;">
+          <div style="font-size:15px; color:var(--text-secondary); line-height:1.5; margin-bottom:12px;">
+            To make a reservation request, please follow the instructions listed below:
+          </div>
+        </div>
+        <div class="card">
+          <div class="list-row">
+            <div class="row-icon" style="font-size:14px; background:rgba(200,16,46,0.12); font-weight:700;">1</div>
+            <div class="row-text">
+              <div class="row-title">Visit csueastbay.edu/uu</div>
+            </div>
+          </div>
+          <div class="list-row">
+            <div class="row-icon" style="font-size:14px; background:rgba(200,16,46,0.12); font-weight:700;">2</div>
+            <div class="row-text">
+              <div class="row-title">Click on &ldquo;Reservations&rdquo; from the red tab</div>
+            </div>
+          </div>
+          <div class="list-row">
+            <div class="row-icon" style="font-size:14px; background:rgba(200,16,46,0.12); font-weight:700;">3</div>
+            <div class="row-text">
+              <div class="row-title" style="font-size:14px;">Click on &ldquo;Reservation Form&rdquo; which should lead you to our BaySync Reservation Request Form submission page (please be sure to SIGN IN if you are a CSUEB Faculty and/or Staff member)</div>
+            </div>
+          </div>
+          <div class="list-row">
+            <div class="row-icon" style="font-size:14px; background:rgba(200,16,46,0.12); font-weight:700;">4</div>
+            <div class="row-text">
+              <div class="row-title" style="font-size:14px;">Upon completion of the request form, click &ldquo;Submit&rdquo; and we will receive an email indicating that you&rsquo;ve requested a room in the university union.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TAB: Hours ===== -->
+      <div id="r311-hours" class="r311-panel" style="display:none;">
+        <div class="section-header" style="padding-bottom:4px;">II. Reservation Room Hours</div>
+        <div style="padding:0 20px 12px;">
+          <div style="font-size:15px; color:var(--text-secondary); line-height:1.5;">
+            Room hours coincide with the building hours. Should your event begin before or extend after building hours, please note that a non-operating fee will be incurred (Please refer to our Pricing page).
+          </div>
+        </div>
+
+        <div style="padding:0 20px 8px;">
+          <div class="pill pill-surface" style="margin-bottom:4px;">Regular Semester</div>
+        </div>
+        <div class="card">
+          <div class="capacity-row">
+            <span class="cap-label">Mon &ndash; Thu</span>
+            <span class="cap-val">7AM &ndash; 10PM</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Friday</span>
+            <span class="cap-val">7AM &ndash; 7PM</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Weekend</span>
+            <span class="cap-val" style="color:var(--brand-red);">CLOSED</span>
+          </div>
+        </div>
+
+        <div style="padding:12px 20px 8px;">
+          <div class="pill pill-surface" style="margin-bottom:4px;">Summer</div>
+        </div>
+        <div class="card">
+          <div class="capacity-row">
+            <span class="cap-label">Mon &ndash; Fri</span>
+            <span class="cap-val">8AM &ndash; 5PM</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Weekend</span>
+            <span class="cap-val" style="color:var(--brand-red);">CLOSED</span>
+          </div>
+        </div>
+
+        <div style="padding:12px 20px 8px;">
+          <div class="pill pill-surface" style="margin-bottom:4px;">Academic Recess</div>
+        </div>
+        <div class="card">
+          <div class="capacity-row">
+            <span class="cap-label">Mon &ndash; Fri</span>
+            <span class="cap-val">8AM &ndash; 5PM</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Weekend</span>
+            <span class="cap-val" style="color:var(--brand-red);">CLOSED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TAB: Equipment ===== -->
+      <div id="r311-equipment" class="r311-panel" style="display:none;">
+        <div class="section-header" style="padding-bottom:4px;">III. Equipment</div>
+        <div style="padding:0 20px 12px;">
+          <div style="font-size:15px; color:var(--text-secondary); line-height:1.5;">
+            You may request for the following to be included in your room reservation request:
+          </div>
+        </div>
+        <div class="equip-chips">
+          <div class="equip-chip">Cocktail Tables</div>
+          <div class="equip-chip">Laptops</div>
+          <div class="equip-chip">Podium</div>
+          <div class="equip-chip">Tables</div>
+          <div class="equip-chip">LCD Projector & Screen</div>
+          <div class="equip-chip">P.A. System w/ 1 mic</div>
+          <div class="equip-chip">White Board</div>
+          <div class="equip-chip">Flip Chart Easel w/ Markers</div>
+        </div>
+        <div class="warning-box" style="margin-top:16px;">
+          *If you anticipate outside vendors performing services, such as food or entertainment, be aware that the University Union requires specific insurance coverage. Please see the UU reservation office for more information.
+        </div>
+      </div>
+
+      <!-- ===== TAB: Clearing Room ===== -->
+      <div id="r311-clearing" class="r311-panel" style="display:none;">
+        <div class="section-header" style="padding-bottom:4px;">IV. Clearing Room</div>
+        <div style="padding:0 20px;">
+          <div style="font-size:15px; color:var(--text-secondary); line-height:1.5;">
+            You are allowed in the room 30 minutes prior to your event to set up and 30 minutes after your event to clean up. Please respect this space and ensure that the room is left neat and tidy.
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TAB: 3D Tour (Matterport) ===== -->
+      <div id="r311-3dtour" class="r311-panel" style="display:none;">
+        <div class="section-header" style="padding-bottom:4px;">3D Virtual Tour</div>
+        <div style="padding:0 20px;">
+          <div style="position:relative; width:100%; height:400px; border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--hairline);">
+            <iframe src="https://mpembed.com/show/?m=24atCsMCCuU&play=1&brand=1&vr=0&wh=0&nozoom=1&title=2&tourcta=1&vrcoll=0&dh=1&mt=1&details=1&copyright=Vivid+Media+LLC+&ga=G-WVQD9S8MPN&mt=1&tint=d50032&mpu=26" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="vr" allowfullscreen></iframe>
+          </div>
+          <div style="font-size:13px; color:var(--text-tertiary); margin-top:8px; text-align:center;">
+            Swipe to explore Room 311 in 3D
+          </div>
+        </div>
+      </div>
+
+      <div style="height:16px;"></div>
+      <button class="btn-red" style="margin-bottom:20px;">Book this space</button>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 9: BAYVIEW ROOM ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 12 &mdash; Bayview Room (E4)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar" style="position:absolute; top:0; left:0; right:0; z-index:3; background:linear-gradient(var(--bg), transparent);">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+
+    <!-- Hero image gallery -->
+    <div style="position:relative; height:220px; overflow:hidden;">
+      <div id="bv-gallery" style="display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; height:100%;">
+        <img src="Bay View ROom/bayview-a.jpg" alt="Bayview Room A" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+        <img src="Bay View ROom/bayview-b.jpg" alt="Bayview Room B" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+        <img src="Bay View ROom/bayview-c.jpg" alt="Bayview Room C" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+        <img src="Bay View ROom/bayview-d.jpg" alt="Bayview Room D" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+        <img src="Bay View ROom/bayview-e.jpg" alt="Bayview Room E" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+      </div>
+      <div style="position:absolute; bottom:0; left:0; right:0; height:60px; background:linear-gradient(transparent, var(--bg));"></div>
+      <!-- Dots indicator -->
+      <div style="position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:2;">
+        <span style="width:6px; height:6px; border-radius:50%; background:#fff;"></span>
+        <span style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></span>
+        <span style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></span>
+        <span style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></span>
+        <span style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></span>
+      </div>
+    </div>
+
+    <div style="position:relative; margin-top:-20px; z-index:2;">
+      <div class="back-nav" style="padding-top:0;">&lsaquo; Explore</div>
+      <div class="detail-header-area">
+        <div class="detail-title">Bayview Room</div>
+      </div>
+
+      <!-- Bayview Tab Menu -->
+      <div class="bv-tabs" style="display:flex; gap:0; padding:10px 20px 0; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;">
+        <button class="bv-tab active" onclick="switchBVTab(this, 'bv-capacity')" style="padding:9px 14px; font-size:13px; font-weight:600; border:none; border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--brand-red); color:#fff; margin-right:8px;">Capacity</button>
+        <button class="bv-tab" onclick="switchBVTab(this, 'bv-scheduling')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">Scheduling</button>
+        <button class="bv-tab" onclick="switchBVTab(this, 'bv-hours')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">Hours</button>
+        <button class="bv-tab" onclick="switchBVTab(this, 'bv-equipment')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">Equipment</button>
+        <button class="bv-tab" onclick="switchBVTab(this, 'bv-clearing')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">Clearing</button>
+        <button class="bv-tab" onclick="switchBVTab(this, 'bv-3dtour')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary);">3D Tour</button>
+      </div>
+      <div style="height:12px;"></div>
+
+      <!-- ===== TAB: Capacity ===== -->
+      <div id="bv-capacity" class="bv-panel" style="display:block;">
+        <div class="section-header" style="padding-bottom:4px;">Room Use Policy &mdash; Capacity</div>
+        <div class="card">
+          <div class="capacity-row">
+            <span class="cap-label">Banquet Style Round Tables</span>
+            <span class="cap-val">5 tables</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Basic Lecture Style</span>
+            <span class="cap-val">10&ndash;49</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Theatre Style</span>
+            <span class="cap-val">10&ndash;25</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Classroom Style</span>
+            <span class="cap-val">10&ndash;25</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Basic Conference Style</span>
+            <span class="cap-val">10&ndash;24</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">U-Shaped Conference Style</span>
+            <span class="cap-val">10&ndash;25</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">U-Shaped w/ Audience</span>
+            <span class="cap-val">10&ndash;25</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Open Square Conference</span>
+            <span class="cap-val">15&ndash;32</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Group Circle</span>
+            <span class="cap-val">10&ndash;40</span>
+          </div>
+        </div>
+        <div style="padding:12px 20px;">
+          <div style="font-size:13px; color:var(--text-tertiary); line-height:1.5;">
+            **The amount of tables in the room<br>
+            Round tables &ndash; 8 seats max<br>
+            Rectangle tables &ndash; 2 seats max
+          </div>
+        </div>
+        <div class="warning-box">
+          NO CONFETTI, GLITTER, PAINT, CANDLES, HAZARDOUS ITEMS ALLOWED. IF YOU WILL BE USING TAPE, PLEASE USE BLUE TAPE ONLY.<br><br>
+          <span style="font-style:italic;">(Violation of this policy will result in denial of future reservations)</span>
+        </div>
+      </div>
+
+      <!-- ===== TAB: Scheduling ===== -->
+      <div id="bv-scheduling" class="bv-panel" style="display:none;">
+        <div class="section-header" style="padding-bottom:4px;">I. Scheduling</div>
+        <div style="padding:0 20px 12px;">
+          <div style="font-size:15px; color:var(--text-secondary); line-height:1.5; margin-bottom:12px;">
+            To make a reservation request, please follow the instructions listed below:
+          </div>
+        </div>
+        <div class="card">
+          <div class="list-row">
+            <div class="row-icon" style="font-size:14px; background:rgba(200,16,46,0.12); font-weight:700;">1</div>
+            <div class="row-text">
+              <div class="row-title">Visit csueastbay.edu/uu</div>
+            </div>
+          </div>
+          <div class="list-row">
+            <div class="row-icon" style="font-size:14px; background:rgba(200,16,46,0.12); font-weight:700;">2</div>
+            <div class="row-text">
+              <div class="row-title">Click on &ldquo;Reservations&rdquo; from the red tab</div>
+            </div>
+          </div>
+          <div class="list-row">
+            <div class="row-icon" style="font-size:14px; background:rgba(200,16,46,0.12); font-weight:700;">3</div>
+            <div class="row-text">
+              <div class="row-title" style="font-size:14px;">Click on &ldquo;Reservation Form&rdquo; which should lead you to our online Reservation Request Form submission page</div>
+            </div>
+          </div>
+          <div class="list-row">
+            <div class="row-icon" style="font-size:14px; background:rgba(200,16,46,0.12); font-weight:700;">4</div>
+            <div class="row-text">
+              <div class="row-title" style="font-size:14px;">Upon completion of the request form, click &ldquo;Submit&rdquo; and we will receive an email indicating that you&rsquo;ve requested a room in the university union.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TAB: Hours ===== -->
+      <div id="bv-hours" class="bv-panel" style="display:none;">
+        <div class="section-header" style="padding-bottom:4px;">II. Reservation Room Hours</div>
+        <div style="padding:0 20px 12px;">
+          <div style="font-size:15px; color:var(--text-secondary); line-height:1.5;">
+            Room hours coincide with the building hours. Should your event begin before or extend after building hours, please note that a non-operating fee will be incurred (Please refer to our Pricing page).
+          </div>
+        </div>
+
+        <div style="padding:0 20px 8px;">
+          <div class="pill pill-surface" style="margin-bottom:4px;">Regular Semester</div>
+        </div>
+        <div class="card">
+          <div class="capacity-row">
+            <span class="cap-label">Mon &ndash; Thu</span>
+            <span class="cap-val">7AM &ndash; 10PM</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Friday</span>
+            <span class="cap-val">7AM &ndash; 7PM</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Weekend</span>
+            <span class="cap-val" style="color:var(--brand-red);">CLOSED</span>
+          </div>
+        </div>
+
+        <div style="padding:12px 20px 8px;">
+          <div class="pill pill-surface" style="margin-bottom:4px;">Summer</div>
+        </div>
+        <div class="card">
+          <div class="capacity-row">
+            <span class="cap-label">Mon &ndash; Fri</span>
+            <span class="cap-val">8AM &ndash; 5PM</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Weekend</span>
+            <span class="cap-val" style="color:var(--brand-red);">CLOSED</span>
+          </div>
+        </div>
+
+        <div style="padding:12px 20px 8px;">
+          <div class="pill pill-surface" style="margin-bottom:4px;">Academic Recess</div>
+        </div>
+        <div class="card">
+          <div class="capacity-row">
+            <span class="cap-label">Mon &ndash; Fri</span>
+            <span class="cap-val">8AM &ndash; 5PM</span>
+          </div>
+          <div class="capacity-row">
+            <span class="cap-label">Weekend</span>
+            <span class="cap-val" style="color:var(--brand-red);">CLOSED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TAB: Equipment ===== -->
+      <div id="bv-equipment" class="bv-panel" style="display:none;">
+        <div class="section-header" style="padding-bottom:4px;">III. Equipment</div>
+        <div style="padding:0 20px 12px;">
+          <div style="font-size:15px; color:var(--text-secondary); line-height:1.5;">
+            You may request for the following to be included in your room reservation request:
+          </div>
+        </div>
+        <div class="equip-chips">
+          <div class="equip-chip">Cocktail Tables</div>
+          <div class="equip-chip">Laptops</div>
+          <div class="equip-chip">Podium</div>
+          <div class="equip-chip">Tables</div>
+          <div class="equip-chip">LCD Projector & Screen</div>
+          <div class="equip-chip">P.A. System w/ 1 mic</div>
+          <div class="equip-chip">White Board</div>
+          <div class="equip-chip">Flip Chart Easel w/ Markers</div>
+        </div>
+        <div class="warning-box" style="margin-top:16px;">
+          *If you anticipate outside vendors performing services, such as food or entertainment, be aware that the University Union requires specific insurance coverage. Please see the UU reservation office for more information.
+        </div>
+      </div>
+
+      <!-- ===== TAB: Clearing Room ===== -->
+      <div id="bv-clearing" class="bv-panel" style="display:none;">
+        <div class="section-header" style="padding-bottom:4px;">IV. Clearing Room</div>
+        <div style="padding:0 20px;">
+          <div style="font-size:15px; color:var(--text-secondary); line-height:1.5;">
+            You are allowed in the room 30 minutes prior to your event to set up and 30 minutes after your event to clean up. Please respect this space and ensure that the room is left neat and tidy.
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TAB: 3D Tour (Matterport) ===== -->
+      <div id="bv-3dtour" class="bv-panel" style="display:none;">
+        <div class="section-header" style="padding-bottom:4px;">3D Virtual Tour</div>
+        <div style="padding:0 20px;">
+          <div style="position:relative; width:100%; height:400px; border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--hairline);">
+            <iframe src="https://mpembed.com/show/?m=GMqAYwzERsS&play=1&brand=1&vr=0&wh=0&nozoom=1&title=2&tourcta=1&vrcoll=0&dh=1&mt=1&details=1&copyright=Vivid+Media+LLC+&ga=G-WVQD9S8MPN&mt=1&tint=d50032&mpu=26" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allow="vr" allowfullscreen></iframe>
+          </div>
+          <div style="font-size:13px; color:var(--text-tertiary); margin-top:8px; text-align:center;">
+            Swipe to explore the Bayview Room in 3D
+          </div>
+        </div>
+      </div>
+
+      <div style="height:16px;"></div>
+      <button class="btn-red" style="margin-bottom:20px;">Book this space</button>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 12: GAMEZONE ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 13 &mdash; GameZone</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="back-nav">&lsaquo; Explore</div>
+    <div class="large-title">GameZone</div>
+
+    <!-- GameZone Tab Menu -->
+    <div class="gz-tabs" style="display:flex; gap:0; padding:10px 20px 0; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;">
+      <button class="gz-tab active" onclick="switchGZTab(this, 'gz-overview')" style="padding:9px 14px; font-size:13px; font-weight:600; border:none; border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--brand-red); color:#fff; margin-right:8px;">Overview</button>
+      <button class="gz-tab" onclick="switchGZTab(this, 'gz-boardgames')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">Board Games</button>
+      <button class="gz-tab" onclick="switchGZTab(this, 'gz-events')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">Events</button>
+      <button class="gz-tab" onclick="switchGZTab(this, 'gz-policies')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">Policies</button>
+      <button class="gz-tab" onclick="switchGZTab(this, 'gz-gameroom')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">GameRoom</button>
+      <button class="gz-tab" onclick="switchGZTab(this, 'gz-gamecave')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary); margin-right:8px;">GameCave</button>
+      <button class="gz-tab" onclick="switchGZTab(this, 'gz-partyplay')" style="padding:9px 14px; font-size:13px; font-weight:600; border:1px solid var(--hairline); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap; flex-shrink:0; background:var(--surface2); color:var(--text-secondary);">Party Play</button>
+    </div>
+    <div style="height:12px;"></div>
+
+    <!-- ===== TAB: Overview ===== -->
+    <div id="gz-overview" class="gz-panel" style="display:block;">
+      <!-- GameZone image gallery -->
+      <div style="position:relative; height:180px; overflow:hidden; border-radius:var(--radius-card); margin:0 20px;">
+        <div id="gz-gallery" style="display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; height:100%;">
+          <img src="gamezone/gamezone/pool-e.jpg" alt="GameZone Pool" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+          <img src="gamezone/gamezone/pool-g.jpg" alt="GameZone Pool" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+          <img src="gamezone/gamezone/pool-i-2.jpg" alt="GameZone Pool" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+          <img src="gamezone/gamezone/pool-k.jpg" alt="GameZone Pool" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+          <img src="gamezone/gamezone/pool-i.jpg" alt="GameZone Pool" style="width:100%; height:100%; object-fit:cover; flex-shrink:0; scroll-snap-align:start;">
+        </div>
+        <div style="position:absolute; bottom:0; left:0; right:0; height:60px; background:linear-gradient(transparent, var(--bg));"></div>
+        <div style="position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:2;">
+          <div style="width:6px; height:6px; border-radius:50%; background:#fff;"></div>
+          <div style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></div>
+          <div style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></div>
+          <div style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></div>
+          <div style="width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4);"></div>
+        </div>
+      </div>
+      <div style="padding:16px 20px 0;">
+        <div style="font-size:15px; color:var(--text-secondary); line-height:1.5;">
+          Need a place to relieve your stress? Look no further! GameZone is located right inside the North University Union. The GameZone is comprised of the GameRoom, an indoor recreational room, and the GameCave, a custom gaming room fully stocked with the latest consoles. The GameZone operates an equipment rental counter where you can check out pool cues, video games, and even board games!
+        </div>
+      </div>
+
+      <div class="section-header">Hours of Operation</div>
+      <div style="padding:0 20px 4px;">
+        <div class="pill pill-surface" style="margin-bottom:10px;">Academic Semester</div>
+      </div>
+      <div class="card">
+        <div class="capacity-row">
+          <span class="cap-label">Monday &ndash; Thursday</span>
+          <span class="cap-val">10:00 AM &ndash; 8:00 PM</span>
+        </div>
+        <div class="capacity-row">
+          <span class="cap-label">Friday</span>
+          <span class="cap-val" style="font-size:13px; text-align:right;">Club/Org/Dept Reservation Only</span>
+        </div>
+      </div>
+      <div class="warning-box" style="background:rgba(200,16,46,0.08); border-color:rgba(200,16,46,0.25); color:var(--brand-red);">
+        *Closed in summer.
+      </div>
+
+      <div class="section-header">A Glimpse of What We Offer!</div>
+      <div class="equip-chips">
+        <span class="equip-chip">Air Hockey</span>
+        <span class="equip-chip">Board Games</span>
+        <span class="equip-chip">Foosball</span>
+        <span class="equip-chip">Billiards Tables</span>
+        <span class="equip-chip">Video Games</span>
+      </div>
+
+      <div style="padding:12px 20px;">
+        <div style="font-size:14px; color:var(--text-secondary);">Questions? Please contact us at:</div>
+        <div style="font-size:15px; font-weight:600; color:var(--brand-red); margin-top:4px;">gamezone@csueastbay.edu</div>
+      </div>
+    </div>
+
+    <!-- ===== TAB: Board Games ===== -->
+    <div id="gz-boardgames" class="gz-panel" style="display:none;">
+      <div class="section-header">Board Games</div>
+      <div class="card">
+        <div style="padding:14px 20px; column-count:2; column-gap:20px; font-size:14px; color:var(--text-secondary); line-height:2;">
+          Apples to Apples<br>Backgammon<br>Balderdash<br>Cards Against Humanity<br>Checkers<br>Chess<br>Connect 4<br>Cranium<br>Dogopoly<br>Dominoes<br>Fact or Crap<br>Jenga<br>Liars Dice<br>Mancala<br>Monopoly<br>Monopoly Deal<br>Othello<br>Pictionary<br>Playing Cards<br>Poker Chips<br>Rummy 21<br>Save Your Planet<br>Scrabble<br>Sorry!<br>Stratego<br>Super Fight<br>Taboo<br>Tribond<br>Twister
+        </div>
+        <div style="padding:0 20px 14px; font-size:15px; font-weight:700; color:var(--brand-red);">&amp; MORE!!!</div>
+      </div>
+    </div>
+
+    <!-- ===== TAB: Events ===== -->
+    <div id="gz-events" class="gz-panel" style="display:none;">
+      <div class="section-header">GameZone Events</div>
+
+      <div class="event-card-lg">
+        <div class="ec-img" style="background:linear-gradient(135deg, #2a1a0a, #3a2a15, #1a1008); height:140px;">
+          Casino Night Banner Image
+        </div>
+        <div class="ec-body">
+          <div class="ec-title">Casino Night! March 12, 2026 &mdash; North UU</div>
+          <div class="ec-sub" style="margin-top:8px; line-height:1.6;">
+            &#127922; Casino Night Is Calling!<br><br>
+            Join us for a high-energy evening of cards, mocktails, and classic casino fun! Try your luck at blackjack, roulette, and poker, enjoy great vibes and delicious bites, and dress to impress for a night of glamour and good times.<br><br>
+            &#128197; Thursday, March 12 | 6:00 PM &ndash; 9:00 PM<br>
+            &#128205; North University Union<br>
+            &#127942; Prizes will be awarded throughout the night!<br><br>
+            &#127873; RSVP early to receive a special bonus incentive at check-in!<br>
+            &#127891; Open to all CSUEB students.<br><br>
+            &#10024; Place your bets. Bring your best look. Get ready to win big.<br>
+            RSVP now &mdash; we'll see you at the tables!
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px 20px 0;">
+        <div style="font-size:17px; font-weight:700; margin-bottom:8px;">Spring 2026 GameZone Leagues &amp; Events</div>
+        <div style="font-size:14px; color:var(--text-secondary); line-height:1.5; margin-bottom:12px;">
+          The following tournaments and leagues will be offered this fall. Registration is currently open until spaces are full or until the day of the event.
+        </div>
+      </div>
+      <div class="card">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px; background:rgba(200,16,46,0.12);">&#127183;</div>
+          <div class="row-text">
+            <div class="row-title">Texas Hold Em Poker Tournament</div>
+            <div class="row-subtitle">Tue, 2/17 @ 6p &bull; GameRoom</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px; background:rgba(200,16,46,0.12);">&#127921;</div>
+          <div class="row-text">
+            <div class="row-title">Scotch Doubles Billiards Tournament</div>
+            <div class="row-subtitle">Tue, 3/3 @ 5:30p &bull; GameRoom</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px; background:rgba(200,16,46,0.12);">&#127922;</div>
+          <div class="row-text">
+            <div class="row-title">Casino Night</div>
+            <div class="row-subtitle">Thu, 3/12 @ 6p &bull; North UU</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px; background:rgba(200,16,46,0.12);">&#127918;</div>
+          <div class="row-text">
+            <div class="row-title">Wheel of Combat eSports Tournament</div>
+            <div class="row-subtitle">Tue, 3/24 @ 6p &bull; North UU 311</div>
+          </div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px; background:rgba(200,16,46,0.12);">&#9917;</div>
+          <div class="row-text">
+            <div class="row-title">FIFA FC eSports Tournament</div>
+            <div class="row-subtitle">Wed, 4/15 @ 6p &bull; North UU 311</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:12px 20px;">
+        <div style="font-size:15px; font-weight:600; margin-bottom:6px;">Registration &amp; RSVP</div>
+        <div style="font-size:14px; color:var(--text-secondary); line-height:1.5;">
+          Download FusionPlay to RSVP, or make or join a team for any and all of the events and leagues listed above. For more information and step by step instructions follow the FusionPlay Player App Guidebook. Individuals requesting assistance can contact the RAW at rawcenter@csueastbay.edu
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TAB: Policies ===== -->
+    <div id="gz-policies" class="gz-panel" style="display:none;">
+      <div class="section-header">Policies</div>
+
+      <div style="padding:0 20px 8px;">
+        <div style="font-size:15px; font-weight:700; margin-bottom:8px;">Billiards Table Rules</div>
+      </div>
+      <div class="card">
+        <div style="padding:14px 20px; font-size:14px; color:var(--text-secondary); line-height:1.7;">
+          &bull; The RED table can be reserved for 30 minutes<br>
+          &bull; The GREEN/BLUE tables can be reserved for 60 minutes<br>
+          &bull; Patrons are not allowed to lean, sit, or lay on any of the billiards tables<br>
+          &bull; Do NOT attempt jump shots on the billiards tables<br>
+          &bull; The patron who made a table reservation must be present for their reservation to start. Patrons cannot &ldquo;give&rdquo; their reservation to another patron<br>
+          &bull; Patrons are not allowed to &ldquo;Table-Hop&rdquo;, defined by engaging in a service/reservation on one table for the duration of the service, and then jumping onto another table&rsquo;s subsequent reservation<br>
+          &bull; Gambling is not allowed in the GameZone. Any form of currency displayed on a table may be interpreted as gambling. Cases related to gambling will also involve the filing of a report with the Office of Student Conduct, Rights and Responsibilities
+        </div>
+      </div>
+
+      <div style="padding:16px 20px 8px;">
+        <div style="font-size:15px; font-weight:700; margin-bottom:8px;">General GameZone Rules (GameRoom &amp; GameCave)</div>
+      </div>
+      <div class="card">
+        <div style="padding:14px 20px; font-size:14px; color:var(--text-secondary); line-height:1.7;">
+          &bull; CSU East Bay Students and other campus affiliates (faculty/staff) must present their Bay Card (physical or digital) to the Agent in the GameRoom or GameCave to use GameZone services.<br>
+          &bull; Tournament participation is prioritized for current CSU East Bay students. Fac/Staff are welcome to participate if space allows.<br>
+          &bull; Non CSU East Bay Students and/or Guests (those without a baycard or net ID) may accompany current CSU East Bay students to the GameZone and use equipment that is checked out under the current student&rsquo;s account. Guests must be 18 years or older and are required to fill out a general use waiver. Guests are not eligible to participate in tournaments.<br>
+          &bull; Food must not be consumed inside the GameRoom or GameCave. Drinks are allowed but must be kept in a resealable container. Food containers must be put away.<br>
+          &bull; Most services are reserved for a maximum of 60 minutes unless otherwise stated. After a reservation time ends, all patrons who engaged in the previous reservation/service must wait 10 minutes (cooling off period) before requesting to reserve the same service. If no other patrons are waiting for that same service, the previous patron(s) can continue play / engage in the service, until a new patron arrives and requests the service, or the 10 minute cooling off period concludes.<br>
+          &bull; Patrons are not allowed to book multiple concurrent services or back to back services without waiting for 10 minutes (cooling off period).<br>
+          &bull; Services may be requested 10 minutes prior to the current reservation end time.<br>
+          &bull; If a patron/group fails to adhere to rules and policies, service may be discontinued at any time, and/or additional reservation requests may be denied. The occurrence may also be reported to the Associate Director of RAW/UU Operations for follow up.<br>
+          &bull; Patrons are responsible for the timely return and condition of the equipment they checked out. Failure to return any equipment will result in documentation and a report forwarded to the Office of Student Conduct, or the University Police Department for theft. Patrons who fail to return equipment may lose their GameZone access privileges.<br>
+          &bull; Please do not touch the screens/consoles/game disks. An Agent will set it up and take it down for you.<br>
+          &bull; GameZone is not responsible for patrons&rsquo; personal belongings. Lost and found items are passed on to the University Union Operations Team and subsequently turned in to the University Police Department.<br>
+          &bull; Please be aware of your surroundings and respect other users around you. Swearing, obscenities, and excessive shouting will not be tolerated. If you are disruptive you will be asked to leave.<br>
+          &bull; We reserve the right to remove any patron from the GameZone if they fail to comply with any of the above rules.<br>
+          &bull; Should a patron violate any of these rules, they may lose the ability to use the GameZone. Any cases related to acts of violence or assault will also involve the filing of a police report and adjudication by the Office of Student Conduct, Rights and Responsibilities. Patrons may have their access suspended while the Office of Student Conduct process proceeds.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TAB: GameRoom ===== -->
+    <div id="gz-gameroom" class="gz-panel" style="display:none;">
+      <div class="section-header">GameRoom</div>
+      <div style="padding:0 20px;">
+        <div style="font-size:15px; color:var(--text-secondary); line-height:1.5; margin-bottom:12px;">
+          The GameRoom boasts three Admiral Billiards tables, an air hockey table, foosball table, and various board and card games, all for FREE! You can check out billiards cues and balls, poker cards and chips, and other equipment and gear at the service desk with your Baycard. You can also get more information about regularly occurring tournaments and events, including SMASH, Billiards, and Poker.
+        </div>
+        <div style="font-size:15px; color:var(--text-secondary); line-height:1.5;">
+          We offer a huge assortment of board games. Everything is free for day use check out. All you need is your Bay Card!
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TAB: GameCave ===== -->
+    <div id="gz-gamecave" class="gz-panel" style="display:none;">
+      <div class="section-header">GameCave</div>
+      <div style="padding:0 20px;">
+        <div style="font-size:15px; color:var(--text-secondary); line-height:1.5; margin-bottom:12px;">
+          Just adjacent to the GameRoom is the GameCave. It is equipped with five 50 inch HDTVs, and PS4, PS5, XBox ONE, and XBox 360 consoles, as well as a VR station. The space is set up with gamer rocking chairs so you can kick back with the newest video games.
+        </div>
+        <div style="font-size:15px; color:var(--text-secondary); line-height:1.5;">
+          Want to re-live nostalgic consoles? We will offer retro games seasonally, so keep an eye out!
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TAB: Party Play ===== -->
+    <div id="gz-partyplay" class="gz-panel" style="display:none;">
+      <div class="section-header">Party Play</div>
+      <div style="padding:0 20px;">
+        <div style="font-size:15px; color:var(--text-secondary); line-height:1.5; margin-bottom:12px;">
+          Oh what's that?! Did you want to catch some games? Want to escape for a few minutes? Well guess what? We are back in action to bring you another episode of Party Play! A fun filled afternoon of activities and useful information.
+        </div>
+      </div>
+      <div class="card">
+        <div class="capacity-row">
+          <span class="cap-label">WHEN</span>
+          <span class="cap-val">Thursday, March 6, 2025</span>
+        </div>
+        <div class="capacity-row">
+          <span class="cap-label">WHERE</span>
+          <span class="cap-val" style="font-size:13px; text-align:right;">North UU &amp; Bookstore Lawn</span>
+        </div>
+        <div class="capacity-row">
+          <span class="cap-label">TIME</span>
+          <span class="cap-val">11AM &ndash; 2PM</span>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top:16px;">Previously in 2024 &amp; 2025</div>
+      <div style="padding:0 20px 8px;">
+        <div style="font-size:15px; font-weight:600; margin-bottom:8px;">Party Play 2024</div>
+      </div>
+      <div class="hero-img hero-img-game" style="height:140px; margin:0 20px; border-radius:var(--radius-md);">
+        <div class="hero-text">Party Play Banner</div>
+      </div>
+    </div>
+
+    <div style="height:30px;"></div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 13: POLICIES CHECKLIST ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 14 &mdash; Review Policies (B4/B5)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="back-nav">&lsaquo; Back</div>
+    <div class="large-title">Review Policies</div>
+
+    <div class="warning-box">Important: Some requests, including stage/dance floors, require 45 days for Fire Marshal review.</div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="check-item">
+        <div class="check-circle checked"></div>
+        <div class="check-text">Cancellation: Email by 9am two business days prior.</div>
+      </div>
+      <div class="check-item">
+        <div class="check-circle checked"></div>
+        <div class="check-text">Decorations: No confetti or glitter; painters tape only.</div>
+      </div>
+      <div class="check-item">
+        <div class="check-circle"></div>
+        <div class="check-text">Clearing room: Please allow 30 minutes before and after your event.</div>
+      </div>
+      <div class="check-item">
+        <div class="check-circle"></div>
+        <div class="check-text">Insurance: COI due 10 working days before.</div>
+      </div>
+    </div>
+
+    <div class="pricing-summary">
+      <div class="ps-title">Common Fees</div>
+      <div class="ps-items">
+        Chairs $5 &bull; Rect Tables $12 &bull; Round Tables $15<br>
+        Projector $45 &bull; PA System $45<br>
+        Admin Fee 5% &bull; No-show $100 &bull; Late Cancel $50
+      </div>
+    </div>
+
+    <div class="btn-red" style="margin-top:8px;">Acknowledge & Continue</div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 14: FINAL BOOKING GATEWAY ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 15 &mdash; Ready to Request (B6)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="back-nav">&lsaquo; Back</div>
+    <div class="large-title center-text" style="padding-top:20px;">Ready to Request</div>
+
+    <div class="success-icon">&#10003;</div>
+
+    <div class="body-text center-text" style="font-size:16px; color:var(--text-primary); font-weight:500;">Because your role is set to Student Org, your reservation will be instantly routed to BaySync.</div>
+
+    <div class="rule-note">Requests are reviewed and confirmed by UU staff. You will receive confirmation by email. Note: Late cancellation fees ($50) or Policy Violation fees ($100) may apply.</div>
+
+    <div class="btn-red" style="margin-top:24px;">Open BaySync Form</div>
+    <div class="secondary-link">Change my role to Faculty / External Guest</div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 15: MORE TAB ==================== -->
+<div class="screen-wrapper">
+<div class="screen-label">Screen 16 &mdash; More (M1)</div>
+<div class="phone-frame">
+  <div class="screen-content">
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="icons"><span>&#9679;</span><span>&#9679;</span><span>&#9679;</span></div>
+    </div>
+    <div class="large-title">More</div>
+
+    <div class="settings-group">
+      <div class="settings-group-title">Union Details</div>
+      <div class="settings-list">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px;">&#128336;</div>
+          <div class="row-text">
+            <div class="row-title">Hours & Location</div>
+            <div class="row-subtitle">Spring weekends closed</div>
+          </div>
+          <div class="chevron">&rsaquo;</div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px;">&#128100;</div>
+          <div class="row-text">
+            <div class="row-title">Staff Directory</div>
+          </div>
+          <div class="chevron">&rsaquo;</div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px;">&#127963;</div>
+          <div class="row-text">
+            <div class="row-title">About UU</div>
+            <div class="row-subtitle">North: 58k sqft &bull; South: 29k sqft</div>
+          </div>
+          <div class="chevron">&rsaquo;</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-title">Policies & Help</div>
+      <div class="settings-list">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px;">&#127918;</div>
+          <div class="row-text">
+            <div class="row-title">GameZone Rules</div>
+            <div class="row-subtitle">60-min max, 10-min cooldown</div>
+          </div>
+          <div class="chevron">&rsaquo;</div>
+        </div>
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px;">&#128683;</div>
+          <div class="row-text">
+            <div class="row-title">Smoke & Tobacco-Free Campus</div>
+          </div>
+          <div class="chevron">&rsaquo;</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-title">App</div>
+      <div class="settings-list">
+        <div class="list-row">
+          <div class="row-icon" style="font-size:16px;">&#128172;</div>
+          <div class="row-text">
+            <div class="row-title">Give Feedback / Report Errors</div>
+          </div>
+          <div class="chevron">&rsaquo;</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:20px;"></div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item">
+      <div class="tab-icon">T</div>
+      <span>Today</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">E</div>
+      <span>Explore</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">V</div>
+      <span>Events</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">B</div>
+      <span>Book</span>
+    </div>
+    <div class="tab-item active">
+      <div class="tab-icon">M</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</div>
+
+</div><!-- end screen-grid -->
+
+<div style="text-align:center; padding:60px 20px 40px; color:var(--text-tertiary); font-size:13px;">
+  University Union Hub &mdash; CSUEB &mdash; 17 Screen Mockups &mdash; Dark Mode iOS Design System
+</div>
+
+<script>
+function switchBVTab(btn, panelId) {
+  var tabs = btn.parentElement.querySelectorAll('.bv-tab');
+  tabs.forEach(function(t) {
+    t.style.background = 'var(--surface2)';
+    t.style.color = 'var(--text-secondary)';
+    t.style.border = '1px solid var(--hairline)';
+    t.classList.remove('active');
+  });
+  btn.style.background = 'var(--brand-red)';
+  btn.style.color = '#fff';
+  btn.style.border = 'none';
+  btn.classList.add('active');
+  var panels = btn.closest('.screen-content').querySelectorAll('.bv-panel');
+  panels.forEach(function(p) { p.style.display = 'none'; });
+  document.getElementById(panelId).style.display = 'block';
+  btn.closest('.screen-content').scrollTop = 0;
+}
+
+function switchR311Tab(btn, panelId) {
+  var tabs = btn.parentElement.querySelectorAll('.r311-tab');
+  tabs.forEach(function(t) {
+    t.style.background = 'var(--surface2)';
+    t.style.color = 'var(--text-secondary)';
+    t.style.border = '1px solid var(--hairline)';
+    t.classList.remove('active');
+  });
+  btn.style.background = 'var(--brand-red)';
+  btn.style.color = '#fff';
+  btn.style.border = 'none';
+  btn.classList.add('active');
+  var panels = btn.closest('.screen-content').querySelectorAll('.r311-panel');
+  panels.forEach(function(p) { p.style.display = 'none'; });
+  document.getElementById(panelId).style.display = 'block';
+  btn.closest('.screen-content').scrollTop = 0;
+}
+
+function switchGZTab(btn, panelId) {
+  // Reset all tabs
+  var tabs = btn.parentElement.querySelectorAll('.gz-tab');
+  tabs.forEach(function(t) {
+    t.style.background = 'var(--surface2)';
+    t.style.color = 'var(--text-secondary)';
+    t.style.border = '1px solid var(--hairline)';
+    t.classList.remove('active');
+  });
+  // Activate clicked tab
+  btn.style.background = 'var(--brand-red)';
+  btn.style.color = '#fff';
+  btn.style.border = 'none';
+  btn.classList.add('active');
+  // Hide all panels, show selected
+  var panels = btn.closest('.screen-content').querySelectorAll('.gz-panel');
+  panels.forEach(function(p) { p.style.display = 'none'; });
+  document.getElementById(panelId).style.display = 'block';
+  // Scroll content back to top
+  btn.closest('.screen-content').scrollTop = 0;
+}
+
+function toggleFloor(btn) {
+  const content = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('active');
+
+  if (isOpen) {
+    btn.classList.remove('active');
+    content.classList.remove('open');
+  } else {
+    btn.classList.add('active');
+    content.classList.add('open');
+    setTimeout(() => {
+      btn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+}
+</script>
+</body>
+</html>
