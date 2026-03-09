@@ -887,9 +887,9 @@
 
         /* Screen C: Home / This Week */
         .home-c-screen {
-            --home-hairline: rgba(255, 255, 255, 0.08);
-            --home-text-dim: rgba(255, 255, 255, 0.66);
-            --home-text-soft: rgba(255, 255, 255, 0.45);
+            --home-hairline: rgba(255, 255, 255, 0.12);
+            --home-text-dim: rgba(255, 255, 255, 0.68);
+            --home-text-soft: rgba(255, 255, 255, 0.5);
             --home-red: #D50032;
             --home-parallax: 0px;
             background:
@@ -900,7 +900,7 @@
         }
 
         .home-c-header {
-            padding: 6px 20px 8px
+            padding: 6px 20px 10px
         }
 
         .home-c-title {
@@ -919,7 +919,7 @@
             width: 42px;
             height: 2px;
             border-radius: 999px;
-            background: #D50032;
+            background: var(--red);
             margin-top: 8px;
             opacity: .9
         }
@@ -932,8 +932,8 @@
 
         .home-c-subtitle {
             margin-top: 8px;
-            font-size: 13px;
-            color: var(--home-text-soft);
+            font-size: 12px;
+            color: var(--home-text-dim);
             letter-spacing: .2px
         }
 
@@ -947,7 +947,7 @@
             width: 4px;
             height: 4px;
             border-radius: 50%;
-            background: #D50032;
+            background: var(--red);
             flex-shrink: 0
         }
 
@@ -956,8 +956,156 @@
         }
 
         .home-c-top {
-            padding: 12px 20px 0;
+            padding: 10px 20px 0;
             position: relative
+        }
+
+        .home-promo-carousel {
+            margin-bottom: 8px;
+            border-radius: 24px;
+            overflow: hidden;
+            touch-action: pan-y
+        }
+
+        .home-promo-track {
+            display: flex;
+            width: 100%;
+            transition: transform .36s cubic-bezier(.22, .61, .36, 1);
+            will-change: transform
+        }
+
+        .home-promo-card {
+            position: relative;
+            overflow: hidden;
+            flex: 0 0 100%;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: linear-gradient(180deg, rgba(213, 0, 50, 0.36) 0%, rgba(213, 0, 50, 0.2) 34%, #1a1f29 66%, #12161e 100%);
+            box-shadow: 0 14px 26px rgba(0, 0, 0, 0.32);
+            padding: 10px 13px 10px;
+            cursor: pointer
+        }
+
+        .home-promo-card::before {
+            display: none
+        }
+
+        .home-promo-card.is-event {
+            border-color: rgba(255, 255, 255, 0.16);
+            background: linear-gradient(180deg, rgba(213, 0, 50, 0.18) 0%, rgba(213, 0, 50, 0.07) 32%, #1a1f29 65%, #12161e 100%)
+        }
+
+        .home-promo-card.is-event .home-ppt-join-kicker {
+            color: rgba(255, 255, 255, 0.7)
+        }
+
+        .home-promo-card.is-event .home-ppt-join-title {
+            font-size: 18px;
+            line-height: 1.14;
+            white-space: normal
+        }
+
+        .home-promo-card.is-event .home-ppt-join-meta {
+            margin-top: 5px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.78)
+        }
+
+        .home-promo-card.is-event .home-ppt-pill {
+            border-color: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.04)
+        }
+
+        .home-ppt-join-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px
+        }
+
+        .home-promo-card:focus-visible {
+            outline: 1px solid rgba(255, 255, 255, 0.35);
+            outline-offset: 2px
+        }
+
+        .home-promo-card:active {
+            transform: translateY(1px)
+        }
+
+        .home-ppt-join-kicker {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            color: rgba(255, 255, 255, 0.84);
+            font-weight: 700
+        }
+
+        .home-ppt-join-tag {
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            color: rgba(255, 255, 255, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            background: rgba(18, 22, 30, 0.36);
+            border-radius: 999px;
+            min-height: 17px;
+            display: inline-flex;
+            align-items: center;
+            padding: 0 6px;
+            white-space: nowrap
+        }
+
+        .home-ppt-join-title {
+            margin-top: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 21px;
+            line-height: 1.04;
+            letter-spacing: -0.4px;
+            color: rgba(255, 255, 255, 0.96);
+            font-weight: 800;
+            white-space: nowrap;
+            text-transform: none
+        }
+
+        .home-ppt-join-meta {
+            margin-top: 4px;
+            font-size: 10px;
+            line-height: 1.35;
+            color: rgba(255, 255, 255, 0.84)
+        }
+
+        .home-ppt-join-countdown {
+            color: rgba(255, 255, 255, 0.96);
+            font-weight: 700
+        }
+
+        .home-ppt-join-rail {
+            margin-top: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px
+        }
+
+        .home-ppt-pill {
+            display: inline-flex;
+            align-items: center;
+            min-height: 19px;
+            border-radius: 999px;
+            padding: 0 6px;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            background: rgba(11, 13, 18, 0.42);
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.9)
+        }
+
+        .home-promo-counter {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .5px;
+            color: rgba(255, 255, 255, 0.55)
         }
 
         .home-c-loading {
@@ -1031,21 +1179,14 @@
 
         .home-stack {
             position: relative;
-            height: 264px;
+            height: 266px;
             margin-bottom: 10px;
             perspective: 1100px;
             touch-action: pan-y
         }
 
         .home-stack::before {
-            content: '';
-            position: absolute;
-            inset: -20px -14px auto;
-            height: 160px;
-            border-radius: 36px;
-            background: radial-gradient(65% 55% at 50% 20%, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 70%);
-            pointer-events: none;
-            transform: translateY(calc(var(--home-parallax) * -0.2))
+            display: none
         }
 
         .home-stack-track {
@@ -1058,33 +1199,46 @@
         }
 
         .stack-card {
-            width: 70%;
-            min-height: 246px;
+            width: 72%;
+            min-height: 244px;
             position: absolute;
             top: 0;
             left: 0;
-            border-radius: 26px;
-            padding: 18px 18px 16px;
-            background: linear-gradient(158deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 34%, rgba(18, 20, 27, 0.92) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            box-shadow: 0 28px 48px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            border-radius: 24px;
+            padding: 16px 16px 14px;
+            background: #1a1f29;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.4);
             user-select: none;
             cursor: pointer;
-            transition: transform .5s cubic-bezier(.22, .61, .36, 1), opacity .35s ease, filter .35s ease
+            transition: transform .5s cubic-bezier(.22, .61, .36, 1), opacity .35s ease
+        }
+
+        .stack-card::before {
+            display: none
         }
 
         .stack-card.is-front {
             z-index: 4;
             opacity: 1;
             transform: translate3d(0, 0, 0) scale(1);
-            border-color: rgba(213, 0, 50, 0.2);
-            box-shadow: 0 30px 52px rgba(0, 0, 0, 0.5), 0 10px 28px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(213, 0, 50, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.14)
+            border-color: rgba(213, 0, 50, 0.58);
+            box-shadow: 0 20px 36px rgba(0, 0, 0, 0.44), inset 0 0 0 1px rgba(213, 0, 50, 0.14)
+        }
+
+        .stack-card.is-front::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 2px;
+            background: var(--red);
+            opacity: .95
         }
 
         .stack-card__eyebrow {
-            color: #D50032;
+            color: var(--red);
             font-size: 10px;
             font-weight: 700;
             letter-spacing: .8px;
@@ -1094,14 +1248,14 @@
 
         .stack-card.is-middle {
             z-index: 3;
-            opacity: .78;
-            transform: translate3d(78px, 15px, -44px) scale(.965)
+            opacity: .88;
+            transform: translate3d(80px, 14px, -44px) scale(.965)
         }
 
         .stack-card.is-back {
             z-index: 2;
-            opacity: .58;
-            transform: translate3d(118px, 32px, -88px) scale(.93)
+            opacity: .76;
+            transform: translate3d(122px, 31px, -88px) scale(.93)
         }
 
         .stack-card.is-hidden {
@@ -1113,34 +1267,34 @@
 
         .stack-card__committee {
             font-family: 'Montserrat', sans-serif;
-            font-size: 21px;
-            font-weight: 700;
-            letter-spacing: -0.4px;
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             line-height: 1.14
         }
 
         .stack-card__meta {
-            margin-top: 6px;
+            margin-top: 5px;
             color: var(--home-text-dim);
-            font-size: 12px;
+            font-size: 10px;
             letter-spacing: .15px
         }
 
         .stack-card__chips {
             display: flex;
             gap: 6px;
-            margin-top: 12px
+            margin-top: 10px
         }
 
         .stack-chip {
             display: inline-flex;
             align-items: center;
-            padding: 4px 10px;
+            padding: 3px 9px;
             border-radius: 100px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.11);
-            color: rgba(255, 255, 255, 0.74);
-            font-size: 10px;
+            background: #2a303b;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 9px;
             font-weight: 600;
             letter-spacing: .15px
         }
@@ -1154,24 +1308,26 @@
             width: 4px;
             height: 4px;
             border-radius: 50%;
-            background: #D50032;
+            background: var(--red);
             flex-shrink: 0
         }
 
         .stack-card__agenda {
             list-style: none;
-            margin-top: 14px;
+            margin-top: 12px;
             display: grid;
-            gap: 6px
+            gap: 5px;
+            padding-top: 9px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08)
         }
 
         .stack-card__agenda li {
             display: flex;
             align-items: flex-start;
             gap: 9px;
-            font-size: 12px;
-            line-height: 1.4;
-            color: rgba(255, 255, 255, 0.82)
+            font-size: 10px;
+            line-height: 1.38;
+            color: rgba(255, 255, 255, 0.8)
         }
 
         .stack-card__agenda li::before {
@@ -1180,44 +1336,41 @@
             height: 4px;
             border-radius: 50%;
             margin-top: calc(0.68em - 2px);
-            background: #D50032;
+            background: var(--red);
             flex-shrink: 0
         }
 
         .stack-card__links {
-            margin-top: 14px;
+            margin-top: 12px;
             display: flex;
-            gap: 14px
+            gap: 7px
         }
 
         .stack-link {
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.72);
-            font-size: 12px;
+            background: #262d39;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 10px;
             font-weight: 600;
             letter-spacing: .2px;
-            padding: 0;
+            padding: 4px 9px;
+            border-radius: 999px;
             cursor: pointer
         }
 
         .stack-link.primary {
-            color: #D50032
+            color: #fff;
+            background: rgba(213, 0, 50, 0.24);
+            border-color: rgba(213, 0, 50, 0.56)
         }
 
         .stack-link.primary:focus-visible {
             outline: none;
-            color: rgba(213, 0, 50, 0.82);
-            text-decoration: underline;
-            text-decoration-color: rgba(213, 0, 50, 0.82);
-            text-underline-offset: 2px
+            border-color: rgba(213, 0, 50, 0.9)
         }
 
         .stack-link.primary:active {
-            color: rgba(213, 0, 50, 0.78);
-            text-decoration: underline;
-            text-decoration-color: rgba(213, 0, 50, 0.82);
-            text-underline-offset: 2px
+            background: rgba(213, 0, 50, 0.3)
         }
 
         .stack-card__detail {
@@ -1226,7 +1379,7 @@
             overflow: hidden;
             transition: max-height .3s ease, opacity .2s ease;
             color: var(--home-text-dim);
-            font-size: 11px;
+            font-size: 9px;
             margin-top: 0
         }
 
@@ -1256,10 +1409,7 @@
         }
 
         .stack-card__hint {
-            margin-top: 10px;
-            font-size: 10px;
-            color: var(--home-text-soft);
-            letter-spacing: .2px
+            display: none
         }
 
         .stack-card:not(.is-front) .stack-card__chips,
@@ -1312,7 +1462,7 @@
         .home-stack-dot.on {
             width: 16px;
             border-radius: 999px;
-            background: #D50032
+            background: var(--red)
         }
 
         .home-empty {
@@ -1320,10 +1470,9 @@
             margin-bottom: 10px;
             padding: 34px 20px;
             text-align: center;
-            border-radius: 26px;
+            border-radius: 24px;
             border: 1px solid var(--home-hairline);
-            background: linear-gradient(156deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%);
-            backdrop-filter: blur(24px)
+            background: linear-gradient(156deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%), #141922
         }
 
         .home-empty-title {
@@ -1359,88 +1508,73 @@
 
         .home-empty-btn.primary {
             background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(213, 0, 50, 0.35);
-            color: #D50032
+            border-color: rgba(213, 0, 50, 0.48);
+            color: var(--red)
         }
 
         .home-empty-btn.primary:active {
-            color: rgba(213, 0, 50, 0.78);
+            color: rgba(213, 0, 50, 0.84);
             text-decoration: underline;
-            text-decoration-color: rgba(213, 0, 50, 0.82);
+            text-decoration-color: rgba(213, 0, 50, 0.9);
             text-underline-offset: 2px
         }
 
         .home-c-section {
-            padding: 22px 20px 0
+            padding: 20px 20px 0
         }
 
         .home-c-section-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
-            letter-spacing: -0.2px
+            letter-spacing: -0.2px;
+            color: rgba(255, 255, 255, 0.95)
         }
 
         .home-actions-grid {
-            margin-top: 12px;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 8px
+            margin-top: 9px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px
         }
 
         .home-action {
-            border-radius: 16px;
-            border: 1px solid var(--home-hairline);
-            height: 44px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            min-height: 32px;
             padding: 0 11px;
             display: flex;
             align-items: center;
-            gap: 7px;
-            background: linear-gradient(140deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.04) 100%);
-            color: rgba(255, 255, 255, 0.82)
+            justify-content: center;
+            background: #171b23;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            width: auto;
+            flex: 0 0 auto;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18)
         }
 
-        .home-action svg {
-            width: 15px;
-            height: 15px;
-            stroke: rgba(255, 255, 255, 0.8);
-            fill: none;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            flex-shrink: 0
+        .home-action.is-red {
+            background: var(--red);
+            border-color: rgba(213, 0, 50, 0.9)
         }
 
-        .home-action.assistant {
-            border-color: rgba(255, 255, 255, 0.16);
-            background: linear-gradient(140deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
-            position: relative
-        }
-
-        .home-action.assistant::after {
-            content: '';
-            position: absolute;
-            left: 12px;
-            right: 12px;
-            bottom: 6px;
-            height: 1.5px;
-            border-radius: 999px;
-            background: rgba(213, 0, 50, 0.9)
-        }
-
-        .home-action.assistant .home-action-label {
-            position: relative
+        .home-action.is-black {
+            background: #171b23;
+            border-color: rgba(255, 255, 255, 0.16)
         }
 
         .home-action-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.78);
-            white-space: nowrap
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            letter-spacing: 0
         }
 
-        .home-action.events {
-            grid-column: 2 / 4
+        .home-action.wide {
+            flex: 0 0 auto
         }
 
         .home-highlights-skeleton {
@@ -1493,21 +1627,19 @@
         }
 
         .home-highlights-list {
-            margin-top: 12px;
-            margin-bottom: 18px;
+            margin-top: 10px;
+            margin-bottom: 20px;
             border-radius: 22px;
             overflow: hidden;
             border: 1px solid var(--home-hairline);
-            background: linear-gradient(156deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px)
+            background: linear-gradient(156deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%), #171b23
         }
 
         .home-highlight-row {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 13px 15px;
+            padding: 12px 14px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08)
         }
 
@@ -1582,7 +1714,7 @@
         }
 
         .home-highlight-row.is-key .home-highlight-meta .status-dot {
-            background: #D50032
+            background: var(--red)
         }
 
         .home-highlight-chevron {
@@ -1592,21 +1724,21 @@
         }
 
         .home-signature-section {
-            padding-top: 6px
+            padding-top: 12px
         }
 
         .home-signature-spotlight {
-            margin-top: 12px;
+            margin-top: 10px;
             border-radius: 22px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: #101116;
-            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: linear-gradient(156deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%), #11161e;
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.34);
             cursor: pointer
         }
 
         .home-signature-media {
-            height: 184px;
+            height: 172px;
             position: relative
         }
 
@@ -1614,7 +1746,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: saturate(0.86) brightness(0.74)
+            filter: saturate(0.9) brightness(0.72)
         }
 
         .home-signature-media::before {
@@ -1633,7 +1765,7 @@
             bottom: 0;
             height: 2px;
             border-radius: 999px;
-            background: rgba(213, 0, 50, 0.9)
+            background: rgba(213, 0, 50, 0.95)
         }
 
         .home-signature-copy {
@@ -1665,7 +1797,191 @@
             align-items: center;
             font-size: 12px;
             font-weight: 700;
-            color: #D50032
+            color: var(--red)
+        }
+
+        .pioneer-pass-header {
+            padding: 0 20px 10px
+        }
+
+        .pioneer-pass-sub {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.62)
+        }
+
+        .pioneer-pass-title {
+            margin-top: 4px;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #fff
+        }
+
+        .pioneer-pass-title span {
+            color: var(--red)
+        }
+
+        .pioneer-pass-hero {
+            margin: 0 20px 12px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04)
+        }
+
+        .pioneer-pass-hero img {
+            width: 100%;
+            height: 152px;
+            object-fit: cover;
+            display: block
+        }
+
+        .pioneer-pass-hero-body {
+            padding: 12px 13px
+        }
+
+        .pioneer-pass-hero-body p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.76);
+            line-height: 1.52
+        }
+
+        .pioneer-pass-note {
+            margin: 0 20px 12px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(213, 0, 50, 0.28);
+            background: rgba(213, 0, 50, 0.1);
+            font-size: 11px;
+            line-height: 1.48;
+            color: rgba(255, 255, 255, 0.88)
+        }
+
+        .pioneer-pass-note a {
+            color: #fff
+        }
+
+        .pioneer-pass-list {
+            padding: 0 20px;
+            display: grid;
+            gap: 10px
+        }
+
+        .pioneer-pass-item {
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 11px 12px
+        }
+
+        .pioneer-pass-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px
+        }
+
+        .pioneer-pass-name {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #fff
+        }
+
+        .pioneer-pass-category {
+            white-space: nowrap;
+            font-size: 10px
+        }
+
+        .pioneer-pass-meta {
+            margin-top: 5px;
+            font-size: 11px;
+            line-height: 1.45;
+            color: rgba(255, 255, 255, 0.72)
+        }
+
+        .pioneer-pass-discount {
+            margin-top: 7px;
+            font-size: 11px;
+            line-height: 1.46;
+            color: rgba(255, 255, 255, 0.87)
+        }
+
+        .pioneer-pass-discount strong {
+            color: var(--green)
+        }
+
+        .services-gate {
+            margin: 0 20px 14px;
+            padding: 12px 13px;
+            border-radius: 16px;
+            border: 1px solid rgba(213, 0, 50, 0.34);
+            background: linear-gradient(165deg, rgba(213, 0, 50, 0.2) 0%, rgba(213, 0, 50, 0.08) 50%, rgba(255, 255, 255, 0.02) 100%)
+        }
+
+        .services-gate-kicker {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .9px;
+            color: rgba(255, 255, 255, 0.78)
+        }
+
+        .services-gate-title {
+            margin-top: 5px;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 1.24;
+            color: #fff
+        }
+
+        .services-gate-copy {
+            margin-top: 6px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.84)
+        }
+
+        .services-gate-btn {
+            margin-top: 10px;
+            min-height: 34px;
+            border-radius: 999px;
+            padding: 0 14px;
+            border: 1px solid rgba(213, 0, 50, 0.9);
+            background: var(--red);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700
+        }
+
+        .services-flow-chip {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.8);
+            white-space: nowrap
+        }
+
+        .services-flow-chip.ok {
+            border-color: rgba(48, 209, 88, 0.34);
+            color: var(--green)
+        }
+
+        .services-flow-chip.warn {
+            border-color: rgba(255, 214, 10, 0.42);
+            color: var(--yellow)
+        }
+
+        .services-mini-note {
+            margin: 0 20px 10px;
+            font-size: 11px;
+            line-height: 1.45;
+            color: rgba(255, 255, 255, 0.66)
         }
 
         .sig-screen {
@@ -2115,6 +2431,204 @@
             font-size: 11px !important;
             line-height: 1.5 !important;
             color: rgba(255, 255, 255, 0.62) !important
+        }
+
+        .sig-ppt-grid {
+            display: grid;
+            gap: 8px
+        }
+
+        .sig-ppt-mini {
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 11px
+        }
+
+        .sig-ppt-mini-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: rgba(255, 255, 255, 0.62)
+        }
+
+        .sig-ppt-mini-value {
+            margin-top: 5px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.4
+        }
+
+        .sig-ppt-entry {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px
+        }
+
+        .sig-ppt-entry-number {
+            min-width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            color: #fff;
+            border: 1px solid rgba(213, 0, 50, 0.36);
+            background: linear-gradient(145deg, rgba(213, 0, 50, 0.28) 0%, rgba(213, 0, 50, 0.12) 100%)
+        }
+
+        .sig-ppt-reminders {
+            display: grid;
+            gap: 8px
+        }
+
+        .sig-ppt-reminder-btn {
+            width: 100%;
+            min-height: 42px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.84);
+            font-size: 12px;
+            font-weight: 600;
+            text-align: left;
+            padding: 10px 12px;
+            cursor: pointer
+        }
+
+        .sig-ppt-reminder-btn.on {
+            border-color: rgba(213, 0, 50, 0.4);
+            background: rgba(213, 0, 50, 0.12);
+            color: #fff
+        }
+
+        .sig-ppt-pass {
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 11px
+        }
+
+        .sig-ppt-pass-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px
+        }
+
+        .sig-ppt-qr {
+            width: 82px;
+            height: 82px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background:
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.87) 0 7px, #0e0f14 7px 10px),
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.87) 0 7px, #0e0f14 7px 10px)
+        }
+
+        .sig-ppt-pass-label {
+            font-size: 10px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.62)
+        }
+
+        .sig-ppt-pass-title {
+            margin-top: 4px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff
+        }
+
+        .sig-ppt-pass-copy {
+            margin-top: 6px;
+            font-size: 11px;
+            line-height: 1.42;
+            color: rgba(255, 255, 255, 0.76)
+        }
+
+        .sig-ppt-pass-code {
+            margin-top: 7px;
+            display: inline-flex;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.84)
+        }
+
+        .sig-ppt-helper {
+            margin-top: 8px;
+            font-size: 11px;
+            line-height: 1.45;
+            color: rgba(255, 255, 255, 0.72)
+        }
+
+        .sig-ppt-quick-btn {
+            margin-top: 10px;
+            width: 100%;
+            min-height: 42px;
+            border-radius: 12px;
+            border: 1px solid rgba(213, 0, 50, 0.42);
+            background: rgba(255, 255, 255, 0.04);
+            color: #D50032;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .sig-ppt-quick-btn.on {
+            border-color: rgba(255, 255, 255, 0.24);
+            color: #fff;
+            background: rgba(213, 0, 50, 0.2)
+        }
+
+        .sig-ppt-winners {
+            display: grid;
+            gap: 7px
+        }
+
+        .sig-ppt-winner {
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 11px
+        }
+
+        .sig-ppt-winner-title {
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6)
+        }
+
+        .sig-ppt-winner-name {
+            margin-top: 4px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.9)
+        }
+
+        .sig-ppt-share {
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 11px
+        }
+
+        .sig-ppt-share-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff
+        }
+
+        .sig-ppt-share-link {
+            margin-top: 7px;
+            display: block;
+            font-size: 12px;
+            line-height: 1.4;
+            word-break: break-word
         }
 
         /* Screen D restyled to match Screen C language */
@@ -3424,6 +3938,53 @@
                     </div>
 
                     <section class="home-c-top">
+                        <div class="home-promo-carousel" id="home-promo-carousel">
+                            <div class="home-promo-track" id="home-promo-track">
+                                <article class="home-promo-card home-ppt-join" role="button" tabindex="0"
+                                    data-open-pioneer-home>
+                                    <div class="home-ppt-join-top">
+                                        <div class="home-ppt-join-kicker">Join This Tuesday</div>
+                                        <div class="home-ppt-join-tag">Weekly Draw</div>
+                                    </div>
+                                    <div class="home-ppt-join-title">Pioneer Pride Tuesday</div>
+                                    <div class="home-ppt-join-meta"><span class="home-ppt-join-countdown">Next draw in
+                                            1d 18h</span> &bull; Wear red and black to enter.</div>
+                                    <div class="home-ppt-join-rail">
+                                        <span class="home-ppt-pill">9:00 AM - 5:00 PM</span>
+                                        <span class="home-ppt-pill">ASI Office (North UU-314)</span>
+                                    </div>
+                                </article>
+
+                                <article class="home-promo-card is-event" role="button" tabindex="0"
+                                    data-home-open-asi="k-presents">
+                                    <div class="home-ppt-join-top">
+                                        <div class="home-ppt-join-kicker">Officer &amp; Board Event</div>
+                                        <div class="home-ppt-join-tag">Mar 19</div>
+                                    </div>
+                                    <div class="home-ppt-join-title">Navigating New Waters</div>
+                                    <div class="home-ppt-join-meta">Mental health workshop for international students</div>
+                                    <div class="home-ppt-join-rail">
+                                        <span class="home-ppt-pill">12:15 PM - 1:15 PM</span>
+                                        <span class="home-ppt-pill">DISARC, South UU</span>
+                                    </div>
+                                </article>
+
+                                <article class="home-promo-card is-event" role="button" tabindex="0"
+                                    data-home-open-asi="k-presents">
+                                    <div class="home-ppt-join-top">
+                                        <div class="home-ppt-join-kicker">Officer &amp; Board Event</div>
+                                        <div class="home-ppt-join-tag">Mar 9/11</div>
+                                    </div>
+                                    <div class="home-ppt-join-title">Thrift, Swap &amp; Drop</div>
+                                    <div class="home-ppt-join-meta">Swap event supporting equity and sustainability</div>
+                                    <div class="home-ppt-join-rail">
+                                        <span class="home-ppt-pill">11:00 AM - 1:00 PM</span>
+                                        <span class="home-ppt-pill">UU-Walkway</span>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                        <div class="home-promo-counter" id="home-promo-counter">1/3</div>
                         <div class="home-c-loading" aria-hidden="true">
                             <div class="home-skel hero"></div>
                             <div class="home-skel back-a"></div>
@@ -3520,26 +4081,16 @@
                     <section class="home-c-section">
                         <div class="home-c-section-title">Quick Actions</div>
                         <div class="home-actions-grid">
-                            <button class="home-action"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <rect x="3.5" y="4.5" width="17" height="16" rx="3"></rect>
-                                    <path d="M8 2.8v3.4M16 2.8v3.4M3.5 9.2h17"></path>
-                                </svg><span class="home-action-label">Meetings</span></button>
-                            <button class="home-action assistant"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M12 3.5l1.8 3.7L18 9l-4.2 1.8L12 14.5l-1.8-3.7L6 9l4.2-1.8z"></path>
-                                    <path d="M18 15.5l.9 1.8 1.8.9-1.8.9-.9 1.8-.9-1.8-1.8-.9 1.8-.9z"></path>
-                                </svg><span class="home-action-label">Assistant</span></button>
-                            <button class="home-action"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <circle cx="12" cy="8" r="3.2"></circle>
-                                    <path d="M5.5 19.3c1.5-3 4-4.5 6.5-4.5s5 1.5 6.5 4.5"></path>
-                                </svg><span class="home-action-label">My Rep</span></button>
-                            <button class="home-action"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M12 3.5v17"></path>
-                                    <path d="M15.8 7.3c-.7-.8-1.9-1.3-3.2-1.3-2 0-3.4 1-3.4 2.5 0 3.8 7 1.8 7 5.6 0 1.6-1.5 2.9-3.7 2.9-1.4 0-2.6-.5-3.5-1.4"></path>
-                                </svg><span class="home-action-label">Funding</span></button>
-                            <button class="home-action events"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <rect x="3.5" y="7.5" width="17" height="9" rx="2.3"></rect>
-                                    <path d="M8 7.5v9M16 7.5v9M12 7.5v9"></path>
-                                </svg><span class="home-action-label">Events</span></button>
+                            <button class="home-action is-red" type="button" data-home-open-asi="k-services"><span
+                                    class="home-action-label">Scantrons</span></button>
+                            <button class="home-action is-black" type="button" data-home-open-asi="k-services"><span
+                                    class="home-action-label">Movie Tickets</span></button>
+                            <button class="home-action is-red" type="button" data-home-open-asi="k-services"><span
+                                    class="home-action-label">Copy/Fax Services</span></button>
+                            <button class="home-action is-black" type="button" data-home-open-asi="k-pioneer-pass"><span
+                                    class="home-action-label">Pioneer Pass</span></button>
+                            <button class="home-action is-red wide" type="button" data-home-open-asi="k-presents"><span
+                                    class="home-action-label">ASI Presents</span></button>
                         </div>
                     </section>
 
@@ -3547,11 +4098,11 @@
                         <div class="home-c-section-title">Signature Program Spotlight</div>
                         <article class="home-signature-spotlight" role="button" tabindex="0" data-open-signature>
                             <div class="home-signature-media">
-                                <img src="../ASI_Special/pioneer-pride-tuesday-real-estate-flyer.png" alt="Pioneer Pride Tuesday program spotlight">
+                                <img src="../ASI_Special/eb-jamboree-1.png" alt="EB Jamboree program spotlight">
                                 <div class="home-signature-copy">
-                                    <div class="home-signature-name">Pioneer Pride Tuesday</div>
-                                    <div class="home-signature-desc">Weekly campus traditions for connection, student
-                                        support, and celebration.</div>
+                                    <div class="home-signature-name">EB Jamboree</div>
+                                    <div class="home-signature-desc">Carnival-style campus celebration with rides,
+                                        games, food, and main stage performances.</div>
                                     <div class="home-signature-link">Explore programs</div>
                                 </div>
                             </div>
@@ -4898,6 +5449,56 @@
                                 enter to win prizes.</p>
                         </section>
                         <section class="sig-detail-group">
+                            <h3>At a glance</h3>
+                            <div class="sig-ppt-grid">
+                                <div class="sig-ppt-mini">
+                                    <div class="sig-ppt-mini-label">Prize this week</div>
+                                    <div class="sig-ppt-mini-value">Win a Pioneer swag bundle + finals care pack.</div>
+                                </div>
+                                <div class="sig-ppt-mini">
+                                    <div class="sig-ppt-mini-label">Scholarship progress</div>
+                                    <div class="sig-ppt-mini-value">5 weekly winners selected so far.</div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="sig-detail-group">
+                            <h3>My Entries</h3>
+                            <div class="sig-ppt-entry">
+                                <div>
+                                    <p>You wore <strong>3 items</strong> = <strong>3 entries</strong>.</p>
+                                    <p class="sig-ppt-helper">Entries refresh every Tuesday after check-in.</p>
+                                </div>
+                                <div class="sig-ppt-entry-number">3</div>
+                            </div>
+                        </section>
+                        <section class="sig-detail-group">
+                            <h3>Set Reminder</h3>
+                            <div class="sig-ppt-reminders">
+                                <button class="sig-ppt-reminder-btn" type="button" data-pioneer-reminder="mon">Set
+                                    Reminder &bull; Mon 6:00 PM</button>
+                                <button class="sig-ppt-reminder-btn" type="button" data-pioneer-reminder="tue">Set
+                                    Reminder &bull; Tue 9:00 AM</button>
+                            </div>
+                        </section>
+                        <section class="sig-detail-group">
+                            <h3>Quick Check-In Pass</h3>
+                            <div class="sig-ppt-pass">
+                                <div class="sig-ppt-pass-top">
+                                    <div class="sig-ppt-qr" aria-hidden="true"></div>
+                                    <div>
+                                        <div class="sig-ppt-pass-label">Pre-registration pass</div>
+                                        <div class="sig-ppt-pass-title">Show Bay Card + pass at office</div>
+                                        <div class="sig-ppt-pass-copy">Speed up check-in by pre-registering before you
+                                            arrive at North UU-314.</div>
+                                        <div class="sig-ppt-pass-code">PPT-2026-314</div>
+                                    </div>
+                                </div>
+                                <button class="sig-ppt-quick-btn" type="button" data-pioneer-pass>Pre-Register for
+                                    Pass</button>
+                                <p class="sig-ppt-helper" data-pioneer-pass-status>Not registered yet.</p>
+                            </div>
+                        </section>
+                        <section class="sig-detail-group">
                             <h3>Here is how it works</h3>
                             <ul class="sig-detail-list">
                                 <li>Every Tuesday between 9:00 AM and 5:00 PM, visit the ASI Office (North UU-314)
@@ -4917,7 +5518,24 @@
                                 how many are worn.</p>
                         </section>
                         <section class="sig-detail-group">
-                            <h3>Congratulations to Scholarship Winners</h3>
+                            <h3>Weekly Winners (Recent)</h3>
+                            <div class="sig-ppt-winners">
+                                <article class="sig-ppt-winner">
+                                    <div class="sig-ppt-winner-title">Week 1 Winner</div>
+                                    <div class="sig-ppt-winner-name">J. Reyes &bull; 4 entries</div>
+                                </article>
+                                <article class="sig-ppt-winner">
+                                    <div class="sig-ppt-winner-title">Week 2 Winner</div>
+                                    <div class="sig-ppt-winner-name">M. Nguyen &bull; 5 entries</div>
+                                </article>
+                                <article class="sig-ppt-winner">
+                                    <div class="sig-ppt-winner-title">Week 3 Winner</div>
+                                    <div class="sig-ppt-winner-name">A. Patel &bull; 3 entries</div>
+                                </article>
+                            </div>
+                        </section>
+                        <section class="sig-detail-group">
+                            <h3>Past Scholarship Winners</h3>
                             <ul class="sig-detail-list">
                                 <li>Fall 2023: Katherine Munoz</li>
                                 <li>Spring 2024: Bassi Jagroo</li>
@@ -4943,6 +5561,19 @@
                                 <li>Program Expectations: Requirements are reviewed annually for program success.
                                     Students should consult Financial Aid for aid/cost-of-attendance questions.</li>
                             </ul>
+                        </section>
+                        <section class="sig-detail-group">
+                            <h3>Share Your Entry</h3>
+                            <div class="sig-ppt-share">
+                                <div class="sig-ppt-share-title">I entered Pioneer Pride today!</div>
+                                <a class="sig-ppt-share-link" href="https://www.csueastbay.edu/asi/?ref=pioneer-pride-tuesday" target="_blank"
+                                    rel="noopener noreferrer"
+                                    data-pioneer-share-link>https://www.csueastbay.edu/asi/?ref=pioneer-pride-tuesday</a>
+                                <button class="sig-ppt-quick-btn" type="button" data-pioneer-share-copy>Copy referral
+                                    link</button>
+                                <p class="sig-ppt-helper" data-pioneer-share-status>Share this link with classmates to
+                                    invite them to enter this Tuesday.</p>
+                            </div>
                         </section>
                         <section class="sig-detail-group">
                             <h3>Questions?</h3>
@@ -5062,31 +5693,93 @@
                         onclick="document.getElementById('k-services').style.display='none';document.getElementById('k-main').style.display='block'"
                         style="cursor:pointer">&#8249; ASI</div>
                     <div class="lt" style="font-size:28px">Services</div>
-                    <div class="bt" style="margin-bottom:6px">The ASI Office is located on the top floor of the Original
-                        University Union. We provide fax/copy services, discounted movie tickets, seasonal event
-                        tickets, and more.</div>
-                    <div
-                        style="margin:0 20px 14px;padding:10px 14px;background:var(--yellow-dim);border-radius:var(--r-md);border-left:3px solid var(--yellow)">
-                        <div style="font-size:11px;font-weight:700;color:var(--yellow);margin-bottom:3px">&#9888; NOTE
+                    <div class="bt" style="margin-bottom:8px">Right now, ASI Services are focused on
+                        <strong style="color:var(--t1)">Scantrons</strong> and <strong
+                            style="color:var(--t1)">Movie Tickets</strong>. To receive either service, students now
+                        complete registration in the ASI app before visiting CSR.</div>
+
+                    <section class="services-gate">
+                        <div class="services-gate-kicker">App Growth Flow</div>
+                        <div class="services-gate-title">Mandatory ASI App Registration</div>
+                        <p class="services-gate-copy">Students register in-app, submit their NetID, and select the
+                            item they want. CSR verifies this in the system, confirms Bay Card payment, and marks the
+                            request complete.</p>
+                        <button class="services-gate-btn" type="button">Register in ASI App</button>
+                    </section>
+
+                    <div class="sh" style="padding-top:8px">How It Works</div>
+                    <div class="card">
+                        <div class="lr">
+                            <div class="ri" style="background:var(--red-dim);font-size:13px;font-weight:700">1</div>
+                            <div class="rt">
+                                <div class="rn">Student checks in using ASI app</div>
+                                <div class="rs">Select service (Scantrons or Movie Tickets), enter NetID, and submit.
+                                </div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:7px">
+                                    <span class="services-flow-chip ok">NetID captured</span>
+                                    <span class="services-flow-chip">Service selected</span>
+                                </div>
+                            </div>
                         </div>
-                        <div style="font-size:12px;color:var(--t2);line-height:1.5">All purchases in the ASI Business
-                            Office are paid through <strong style="color:var(--t1)">Bay Bucks Only</strong>.<br><span
-                                style="color:var(--blue);font-weight:600;font-size:11px">Refill Bay Card &#8599;</span>
+                        <div class="lr">
+                            <div class="ri" style="background:var(--blue-dim);font-size:13px;font-weight:700">2</div>
+                            <div class="rt">
+                                <div class="rn">CSR verifies request in system</div>
+                                <div class="rs">Student arrives at CSR. Staff searches NetID and confirms active app
+                                    registration.</div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:7px">
+                                    <span class="services-flow-chip ok">CSR verified</span>
+                                    <span class="services-flow-chip">Ready for payment</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lr" style="border-bottom:none">
+                            <div class="ri" style="background:var(--green-dim);font-size:13px;font-weight:700">3</div>
+                            <div class="rt">
+                                <div class="rn">Bay Card payment + fulfillment</div>
+                                <div class="rs">After payment, CSR updates status to fulfilled and hands over the
+                                    service item.</div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:7px">
+                                    <span class="services-flow-chip ok">Paid via Bay Card</span>
+                                    <span class="services-flow-chip ok">Fulfilled</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- Office Services -->
-                    <div class="sh">Office Services</div>
+                    <div class="services-mini-note">This flow helps drive app installs while giving CSR a cleaner
+                        verification process at the desk.</div>
+
+                    <div
+                        style="margin:0 20px 14px;padding:10px 14px;background:var(--yellow-dim);border-radius:var(--r-md);border-left:3px solid var(--yellow)">
+                        <div style="font-size:11px;font-weight:700;color:var(--yellow);margin-bottom:3px">&#9888; PAYMENT
+                            NOTE</div>
+                        <div style="font-size:12px;color:var(--t2);line-height:1.5">All purchases in the ASI Business
+                            Office are paid through <strong style="color:var(--t1)">Bay Bucks on Bay Card</strong>.
+                            CSR confirms the app request first, then payment.</div>
+                    </div>
+
+                    <!-- Priority Services -->
+                    <div class="sh">Available Right Now</div>
                     <div class="card">
                         <div class="lr">
                             <div class="ri" style="background:var(--green-dim)">&#128214;</div>
                             <div class="rt">
-                                <div class="rn">Free Scantrons &amp; Green Books</div>
-                                <div class="rs">Pick up at ASI front desk — 2 per day</div>
+                                <div class="rn">Scantrons &amp; Green Books</div>
+                                <div class="rs">Register in ASI app, then pick up at CSR (up to 2/day).</div>
                             </div>
+                            <span class="services-flow-chip warn">Register Now</span>
+                        </div>
+                        <div class="lr" style="border-bottom:none">
+                            <div class="ri" style="background:var(--red-dim)">&#127916;</div>
+                            <div class="rt">
+                                <div class="rn">Discounted Movie Tickets</div>
+                                <div class="rs">Register in app, then complete Bay Card payment at CSR.</div>
+                            </div>
+                            <span class="services-flow-chip warn">Buy Now</span>
                         </div>
                     </div>
                     <!-- Copy Service -->
-                    <div class="sh">Copy Service</div>
+                    <div class="sh">Other Office Services</div>
                     <div class="card">
                         <div class="lr" style="background:var(--glass)">
                             <div class="rt" style="flex:none;width:60%">
@@ -5225,6 +5918,91 @@
                             <div style="font-size:14px;font-weight:700;color:var(--green)">$6.00</div>
                         </div>
                     </div>
+                    <div style="height:20px"></div>
+                </div>
+                <!-- Pioneer Pass Detail View (hidden by default) -->
+                <div class="sc sig-screen" id="k-pioneer-pass" style="display:none;overflow-y:auto">
+                    <div class="sb"><span>9:41</span>
+                        <div class="r">&#9679; &#9679; &#9679;</div>
+                    </div>
+                    <div class="nav" data-asi-back-target="k-main"
+                        onclick="document.getElementById('k-pioneer-pass').style.display='none';document.getElementById('k-main').style.display='block'"
+                        style="cursor:pointer">&#8249; ASI</div>
+
+                    <div class="pioneer-pass-header">
+                        <div class="pioneer-pass-sub">Local Business Discount Program</div>
+                        <div class="pioneer-pass-title">Pioneer <span>Pass</span></div>
+                    </div>
+
+                    <section class="pioneer-pass-hero">
+                        <img src="../ASI_Special/pioneerpass.png" alt="Pioneer Pass logo">
+                        <div class="pioneer-pass-hero-body">
+                            <p>Associated Students, Inc. presents the Discount Program to Cal State East Bay students,
+                                faculty, and staff. Present your Bay Card ID at participating businesses to receive
+                                discounts.</p>
+                            <p style="margin-top:8px">The program is open to Hayward, local Bay Area, and online
+                                businesses. For registration or more information, call <a href="tel:5108854843"
+                                    style="color:#fff">(510) 885-4843</a>.</p>
+                        </div>
+                    </section>
+
+                    <div class="pioneer-pass-note">Do you have a business suggestion to add? Email <a
+                            href="mailto:associated.students@csueastbay.edu">associated.students@csueastbay.edu</a>
+                        with the business name, address, and contact information.</div>
+
+                    <div class="sh" style="padding-top:12px">Local Businesses Discount</div>
+                    <section class="pioneer-pass-list">
+                        <article class="pioneer-pass-item">
+                            <div class="pioneer-pass-row">
+                                <div class="pioneer-pass-name">Bronco Billy&rsquo;s Pizza</div>
+                                <span class="pill p-s pioneer-pass-category">Pizza Parlor</span>
+                            </div>
+                            <div class="pioneer-pass-meta">26775 Hayward Blvd, Hayward &bull; (510) 727-0532</div>
+                            <div class="pioneer-pass-discount"><strong>15% discount</strong> (students only, valid
+                                CSUEB Red Bay Card required; some menu items may be excluded). Tuesdays only.</div>
+                        </article>
+
+                        <article class="pioneer-pass-item">
+                            <div class="pioneer-pass-row">
+                                <div class="pioneer-pass-name">Brilliant Elegance LLC</div>
+                                <span class="pill p-s pioneer-pass-category">Decorations</span>
+                            </div>
+                            <div class="pioneer-pass-meta">25498 Custom Dr, Hayward, CA &bull; (510) 327-7618</div>
+                            <div class="pioneer-pass-discount"><strong>10% off</strong> every balloon design or free
+                                upgrade.</div>
+                        </article>
+
+                        <article class="pioneer-pass-item">
+                            <div class="pioneer-pass-row">
+                                <div class="pioneer-pass-name">Coastal</div>
+                                <span class="pill p-s pioneer-pass-category">Online Eyewear</span>
+                            </div>
+                            <div class="pioneer-pass-meta">Online only &bull; (866) 333-6888</div>
+                            <div class="pioneer-pass-discount"><strong>10% off</strong> contact lens orders and
+                                <strong>25% off</strong> a full pair of glasses (some exclusions apply).</div>
+                        </article>
+
+                        <article class="pioneer-pass-item">
+                            <div class="pioneer-pass-row">
+                                <div class="pioneer-pass-name">Bocado Un Petit Bistro</div>
+                                <span class="pill p-s pioneer-pass-category">Brunch / Breakfast</span>
+                            </div>
+                            <div class="pioneer-pass-meta">320 St Mary St, Pleasanton, CA 94566 &bull; (925) 425-0229
+                            </div>
+                            <div class="pioneer-pass-discount"><strong>15% off</strong>.</div>
+                        </article>
+
+                        <article class="pioneer-pass-item">
+                            <div class="pioneer-pass-row">
+                                <div class="pioneer-pass-name">Day Translations</div>
+                                <span class="pill p-s pioneer-pass-category">Translation Services</span>
+                            </div>
+                            <div class="pioneer-pass-meta">Online only &bull; (800) 969-6853</div>
+                            <div class="pioneer-pass-discount"><strong>10% off</strong> interpretation and translation
+                                services, including certified translations, academic evaluations, and certified college
+                                transcripts.</div>
+                        </article>
+                    </section>
                     <div style="height:20px"></div>
                 </div>
                 <!-- ASI Presents Detail View (hidden by default) -->
@@ -8162,6 +8940,74 @@
                 screen.classList.remove('is-loading');
             }, 950);
 
+            const promoCarousel = document.getElementById('home-promo-carousel');
+            const promoTrack = document.getElementById('home-promo-track');
+            const promoCounter = document.getElementById('home-promo-counter');
+            const promoCards = promoTrack ? Array.from(promoTrack.querySelectorAll('.home-promo-card')) : [];
+            const promoTotal = promoCards.length;
+            let promoActive = 0;
+            let promoStartX = 0;
+            let promoStartY = 0;
+            let promoPointerDown = false;
+            let promoAutoTimer = null;
+
+            const renderPromo = () => {
+                if (!promoTrack) return;
+                promoTrack.style.transform = `translateX(-${promoActive * 100}%)`;
+                if (promoCounter) {
+                    promoCounter.textContent = `${promoActive + 1}/${promoTotal}`;
+                }
+            };
+
+            const cyclePromo = (dir) => {
+                if (!promoTotal) return;
+                promoActive = (promoActive + dir + promoTotal) % promoTotal;
+                renderPromo();
+            };
+
+            const stopPromoAuto = () => {
+                if (!promoAutoTimer) return;
+                clearInterval(promoAutoTimer);
+                promoAutoTimer = null;
+            };
+
+            const startPromoAuto = () => {
+                stopPromoAuto();
+                promoAutoTimer = setInterval(() => {
+                    cyclePromo(1);
+                }, 7000);
+            };
+
+            if (promoCarousel && promoTrack && promoTotal > 1) {
+                renderPromo();
+                startPromoAuto();
+
+                promoCarousel.addEventListener('pointerdown', (event) => {
+                    stopPromoAuto();
+                    promoPointerDown = true;
+                    promoStartX = event.clientX;
+                    promoStartY = event.clientY;
+                });
+
+                promoCarousel.addEventListener('pointerup', (event) => {
+                    if (!promoPointerDown) return;
+                    promoPointerDown = false;
+
+                    const deltaX = event.clientX - promoStartX;
+                    const deltaY = event.clientY - promoStartY;
+
+                    if (Math.abs(deltaX) > 36 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                        cyclePromo(deltaX < 0 ? 1 : -1);
+                    }
+                    startPromoAuto();
+                });
+
+                promoCarousel.addEventListener('pointercancel', () => {
+                    promoPointerDown = false;
+                    startPromoAuto();
+                });
+            }
+
             const stack = document.getElementById('home-stack');
             if (!stack || !hasMeetings) return;
 
@@ -8778,6 +9624,12 @@
             const detailEbjContent = root.querySelector('[data-signature-ebj]');
             const detailEbjVideo = root.querySelector('[data-signature-ebj-video]');
             const eventsButton = root.querySelector('[data-signature-open-events]');
+            const pioneerReminderButtons = Array.from(root.querySelectorAll('[data-pioneer-reminder]'));
+            const pioneerPassButton = root.querySelector('[data-pioneer-pass]');
+            const pioneerPassStatus = root.querySelector('[data-pioneer-pass-status]');
+            const pioneerShareButton = root.querySelector('[data-pioneer-share-copy]');
+            const pioneerShareStatus = root.querySelector('[data-pioneer-share-status]');
+            const pioneerShareLink = root.querySelector('[data-pioneer-share-link]');
 
             if (!landing || !detailRoot || !featuredTrack || !featuredDots || !grid || !searchInput) return null;
             if (landing.__signatureInit) {
@@ -8789,6 +9641,32 @@
             landing.__signatureInit = true;
 
             const featuredPrograms = signatureProgramsData.filter(program => program.featured);
+            const pioneerReminderLabels = { mon: 'Mon 6:00 PM', tue: 'Tue 9:00 AM' };
+            const pioneerReminderState = { mon: false, tue: false };
+            let pioneerPassReady = false;
+
+            const renderPioneerReminders = () => {
+                pioneerReminderButtons.forEach((button) => {
+                    const key = button.getAttribute('data-pioneer-reminder');
+                    const label = pioneerReminderLabels[key];
+                    if (!label) return;
+                    const active = !!pioneerReminderState[key];
+                    button.classList.toggle('on', active);
+                    button.textContent = `${active ? 'Reminder On' : 'Set Reminder'} • ${label}`;
+                });
+            };
+
+            const renderPioneerPass = () => {
+                if (pioneerPassButton) {
+                    pioneerPassButton.classList.toggle('on', pioneerPassReady);
+                    pioneerPassButton.textContent = pioneerPassReady ? 'Pass Ready • Bay Card + QR' : 'Pre-Register for Pass';
+                }
+                if (pioneerPassStatus) {
+                    pioneerPassStatus.textContent = pioneerPassReady
+                        ? 'Check-in pass created. Show Bay Card + pass at North UU-314.'
+                        : 'Not registered yet.';
+                }
+            };
 
             const renderDetail = (program) => {
                 if (!program) return;
@@ -8869,9 +9747,61 @@
             renderFeatured();
             renderGrid();
             renderDetail(signatureProgramsData[0]);
+            renderPioneerReminders();
+            renderPioneerPass();
 
             featuredTrack.addEventListener('scroll', updateFeaturedDots, { passive: true });
             searchInput.addEventListener('input', renderGrid);
+            pioneerReminderButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const key = button.getAttribute('data-pioneer-reminder');
+                    if (!Object.prototype.hasOwnProperty.call(pioneerReminderLabels, key)) return;
+                    pioneerReminderState[key] = !pioneerReminderState[key];
+                    renderPioneerReminders();
+                });
+            });
+
+            if (pioneerPassButton) {
+                pioneerPassButton.addEventListener('click', () => {
+                    pioneerPassReady = !pioneerPassReady;
+                    renderPioneerPass();
+                });
+            }
+
+            if (pioneerShareButton && pioneerShareLink) {
+                pioneerShareButton.addEventListener('click', async () => {
+                    const shareUrl = (pioneerShareLink.textContent || pioneerShareLink.getAttribute('href') || '').trim();
+                    if (!shareUrl) return;
+                    let copied = false;
+
+                    try {
+                        if (navigator.clipboard && window.isSecureContext) {
+                            await navigator.clipboard.writeText(shareUrl);
+                            copied = true;
+                        }
+                    } catch (error) {
+                        copied = false;
+                    }
+
+                    if (!copied) {
+                        const input = document.createElement('textarea');
+                        input.value = shareUrl;
+                        input.setAttribute('readonly', '');
+                        input.style.position = 'absolute';
+                        input.style.left = '-9999px';
+                        document.body.appendChild(input);
+                        input.select();
+                        copied = document.execCommand('copy');
+                        document.body.removeChild(input);
+                    }
+
+                    if (pioneerShareStatus) {
+                        pioneerShareStatus.textContent = copied
+                            ? 'Referral link copied. Post it to your story and group chats.'
+                            : 'Could not auto-copy here. Long-press the link above to share.';
+                    }
+                });
+            }
 
             if (eventsButton) {
                 eventsButton.addEventListener('click', () => {
@@ -9135,6 +10065,20 @@
                 }
             };
 
+            const openAsiProgram = (programId) => {
+                setActive('asi');
+                const controller = hydrateASI();
+                const target = controller && controller.openProgram ? controller : asiView.__asiController;
+                const program = signatureProgramsData.find((entry) => entry.id === programId);
+                if (target && typeof target.openProgram === 'function' && program) {
+                    target.openProgram(program);
+                    return;
+                }
+                if (target && typeof target.showPanel === 'function') {
+                    target.showPanel('k-signature');
+                }
+            };
+
             const bind = (node, tab) => {
                 node.addEventListener('click', () => setActive(tab));
                 node.addEventListener('keydown', (event) => {
@@ -9146,6 +10090,19 @@
 
             homeView.querySelectorAll('[data-open-signature]').forEach((trigger) => {
                 bindPress(trigger, () => openAsiPanel('k-signature'));
+            });
+            homeView.querySelectorAll('[data-open-pioneer-home]').forEach((trigger) => {
+                bindPress(trigger, () => openAsiProgram('pioneer-pride-tuesday'));
+            });
+            homeView.querySelectorAll('[data-home-open-tab]').forEach((trigger) => {
+                const tab = trigger.getAttribute('data-home-open-tab');
+                if (!tab) return;
+                bindPress(trigger, () => setActive(tab));
+            });
+            homeView.querySelectorAll('[data-home-open-asi]').forEach((trigger) => {
+                const panelId = trigger.getAttribute('data-home-open-asi');
+                if (!panelId) return;
+                bindPress(trigger, () => openAsiPanel(panelId));
             });
 
             bind(homeTab, 'home');
