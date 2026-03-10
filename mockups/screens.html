@@ -93,6 +93,17 @@
             gap: 14px
         }
 
+        /* Hidden standalone cards; these flows now live inside onboarding */
+        #screen-c-wrap,
+        #screen-d-wrap,
+        #screen-g-wrap,
+        #screen-i-wrap,
+        #screen-k-wrap,
+        #screen-l-wrap,
+        #screen-m-wrap {
+            display: none;
+        }
+
         .lbl {
             font-size: 11px;
             font-weight: 700;
@@ -203,6 +214,7 @@
 
         #c-tab-home,
         #c-tab-meetings,
+        #c-tab-events,
         #c-tab-assistant,
         #c-tab-people,
         #c-tab-asi {
@@ -240,6 +252,7 @@
         }
 
         #c-tab-meetings:focus-visible,
+        #c-tab-events:focus-visible,
         #c-tab-home:focus-visible,
         #c-tab-assistant:focus-visible,
         #c-tab-people:focus-visible,
@@ -757,6 +770,26 @@
             border-color: var(--red);
         }
 
+        /* Keep long professional staff roles readable in People > Staff */
+        #staff-prof .lr {
+            align-items: flex-start;
+        }
+
+        #staff-prof .lr>span {
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        #staff-prof .rs {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+            line-height: 1.25;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
         .wn.ok {
             background: var(--green)
         }
@@ -892,15 +925,13 @@
             --home-text-soft: rgba(255, 255, 255, 0.5);
             --home-red: #D50032;
             --home-parallax: 0px;
-            background:
-                radial-gradient(90% 58% at 102% -4%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 56%),
-                linear-gradient(180deg, #050608 0%, #0a0c10 54%, #13161b 100%);
+            background: linear-gradient(180deg, #080a0f 0%, #0c1017 52%, #10151d 100%);
             position: relative;
             padding-bottom: 104px
         }
 
         .home-c-header {
-            padding: 6px 20px 10px
+            padding: 8px 16px 8px
         }
 
         .home-c-title {
@@ -917,9 +948,9 @@
             content: '';
             display: block;
             width: 42px;
-            height: 2px;
+            height: 3px;
             border-radius: 999px;
-            background: var(--red);
+            background: var(--home-red);
             margin-top: 8px;
             opacity: .9
         }
@@ -947,7 +978,7 @@
             width: 4px;
             height: 4px;
             border-radius: 50%;
-            background: var(--red);
+            background: var(--home-red);
             flex-shrink: 0
         }
 
@@ -955,163 +986,326 @@
             color: rgba(255, 255, 255, 0.8)
         }
 
+        #home-c-screen .home-c-header-main {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .home-c-profile-trigger {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            padding: 0;
+            margin-top: 2px;
+            background: rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            flex-shrink: 0;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.34);
+        }
+
+        .home-c-profile-trigger img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .home-c-profile-trigger:focus-visible {
+            outline: 1px solid rgba(255, 255, 255, 0.56);
+            outline-offset: 2px;
+        }
+
+        .home-c-profile-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 32;
+            background: rgba(3, 5, 10, 0.52);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .18s ease;
+        }
+
+        .home-c-profile-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .home-c-profile-dialog {
+            width: min(252px, calc(100% - 28px));
+            margin: 86px 14px 0 auto;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: linear-gradient(165deg, rgba(29, 35, 47, 0.98) 0%, rgba(19, 24, 33, 0.98) 100%);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45);
+            padding: 13px;
+            transform: translateY(-6px) scale(0.98);
+            transition: transform .2s ease;
+        }
+
+        .home-c-profile-overlay.show .home-c-profile-dialog {
+            transform: translateY(0) scale(1);
+        }
+
+        .home-c-profile-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .home-c-profile-head img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        .home-c-profile-name {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #fff;
+        }
+
+        .home-c-profile-sub {
+            margin-top: 2px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.62);
+        }
+
+        .home-c-profile-meta {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.09);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .home-c-profile-meta li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 12px;
+        }
+
+        .home-c-profile-meta .meta-label {
+            color: rgba(255, 255, 255, 0.58);
+            letter-spacing: .2px;
+        }
+
+        .home-c-profile-meta .meta-value {
+            color: rgba(255, 255, 255, 0.92);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .home-c-profile-notif {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        .home-c-profile-toggle {
+            width: 44px;
+            height: 25px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.14);
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background .2s ease, border-color .2s ease;
+        }
+
+        .home-c-profile-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: #fff;
+            transition: transform .2s ease;
+        }
+
+        .home-c-profile-toggle.is-on {
+            background: var(--home-red);
+            border-color: var(--home-red);
+        }
+
+        .home-c-profile-toggle.is-on::after {
+            transform: translateX(19px);
+        }
+
         .home-c-top {
-            padding: 10px 20px 0;
+            padding: 8px 16px 0;
             position: relative
         }
 
-        .home-promo-carousel {
-            margin-bottom: 8px;
-            border-radius: 24px;
+        .home-next-events-carousel {
+            margin-bottom: 6px;
+            border-radius: 22px;
             overflow: hidden;
             touch-action: pan-y
         }
 
-        .home-promo-track {
+        .home-next-events-track {
             display: flex;
             width: 100%;
-            transition: transform .36s cubic-bezier(.22, .61, .36, 1);
+            transition: transform .34s cubic-bezier(.22, .61, .36, 1);
             will-change: transform
         }
 
-        .home-promo-card {
+        .home-next-event-slide {
+            flex: 0 0 100%
+        }
+
+        .home-next-event-card {
+            margin-bottom: 0;
             position: relative;
             overflow: hidden;
-            flex: 0 0 100%;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            background: linear-gradient(180deg, rgba(213, 0, 50, 0.36) 0%, rgba(213, 0, 50, 0.2) 34%, #1a1f29 66%, #12161e 100%);
-            box-shadow: 0 14px 26px rgba(0, 0, 0, 0.32);
-            padding: 10px 13px 10px;
+            border-radius: 22px;
+            border: 1px solid var(--home-hairline);
+            background: linear-gradient(180deg, #1f2530 0%, #181f29 100%);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            padding: 12px 13px 11px;
             cursor: pointer
         }
 
-        .home-promo-card::before {
-            display: none
-        }
-
-        .home-promo-card.is-event {
-            border-color: rgba(255, 255, 255, 0.16);
-            background: linear-gradient(180deg, rgba(213, 0, 50, 0.18) 0%, rgba(213, 0, 50, 0.07) 32%, #1a1f29 65%, #12161e 100%)
-        }
-
-        .home-promo-card.is-event .home-ppt-join-kicker {
-            color: rgba(255, 255, 255, 0.7)
-        }
-
-        .home-promo-card.is-event .home-ppt-join-title {
-            font-size: 18px;
-            line-height: 1.14;
-            white-space: normal
-        }
-
-        .home-promo-card.is-event .home-ppt-join-meta {
-            margin-top: 5px;
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.78)
-        }
-
-        .home-promo-card.is-event .home-ppt-pill {
-            border-color: rgba(255, 255, 255, 0.18);
-            background: rgba(255, 255, 255, 0.04)
-        }
-
-        .home-ppt-join-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px
-        }
-
-        .home-promo-card:focus-visible {
-            outline: 1px solid rgba(255, 255, 255, 0.35);
+        .home-next-event-card:focus-visible {
+            outline: 1px solid rgba(255, 255, 255, 0.4);
             outline-offset: 2px
         }
 
-        .home-promo-card:active {
+        .home-next-event-card:active {
             transform: translateY(1px)
         }
 
-        .home-ppt-join-kicker {
+        .home-next-event-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px
+        }
+
+        .home-next-event-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             font-size: 9px;
-            text-transform: uppercase;
             letter-spacing: .8px;
-            color: rgba(255, 255, 255, 0.84);
+            text-transform: uppercase;
+            color: var(--home-red);
             font-weight: 700
         }
 
-        .home-ppt-join-tag {
-            font-size: 8px;
-            text-transform: uppercase;
-            letter-spacing: .6px;
-            color: rgba(255, 255, 255, 0.84);
-            border: 1px solid rgba(255, 255, 255, 0.24);
-            background: rgba(18, 22, 30, 0.36);
+        .home-next-event-kicker::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--home-red);
+            flex-shrink: 0
+        }
+
+        .home-next-event-date {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .4px;
+            color: rgba(255, 255, 255, 0.82);
             border-radius: 999px;
-            min-height: 17px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.05);
+            min-height: 21px;
             display: inline-flex;
             align-items: center;
-            padding: 0 6px;
+            padding: 0 8px;
             white-space: nowrap
         }
 
-        .home-ppt-join-title {
-            margin-top: 4px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 21px;
-            line-height: 1.04;
-            letter-spacing: -0.4px;
-            color: rgba(255, 255, 255, 0.96);
-            font-weight: 800;
-            white-space: nowrap;
-            text-transform: none
-        }
-
-        .home-ppt-join-meta {
-            margin-top: 4px;
-            font-size: 10px;
-            line-height: 1.35;
-            color: rgba(255, 255, 255, 0.84)
-        }
-
-        .home-ppt-join-countdown {
-            color: rgba(255, 255, 255, 0.96);
-            font-weight: 700
-        }
-
-        .home-ppt-join-rail {
+        .home-next-event-title {
             margin-top: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            line-height: 1.14;
+            letter-spacing: -0.3px;
+            color: rgba(255, 255, 255, 0.95)
+        }
+
+        .home-next-event-desc {
+            margin-top: 4px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.72);
+            line-height: 1.35;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .home-next-event-rail {
+            margin-top: 8px;
             display: flex;
             flex-wrap: wrap;
-            gap: 5px
+            gap: 6px
         }
 
-        .home-ppt-pill {
+        .home-next-event-pill {
             display: inline-flex;
             align-items: center;
-            min-height: 19px;
+            min-height: 21px;
             border-radius: 999px;
-            padding: 0 6px;
-            border: 1px solid rgba(255, 255, 255, 0.24);
-            background: rgba(11, 13, 18, 0.42);
-            font-size: 8px;
-            color: rgba(255, 255, 255, 0.9)
+            padding: 0 8px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.06);
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.85)
         }
 
-        .home-promo-counter {
+        .home-next-events-meta {
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 10px;
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: .5px;
-            color: rgba(255, 255, 255, 0.55)
+            align-items: center;
+            padding: 0 2px;
+            margin-bottom: 10px
+        }
+
+        .home-next-events-dots {
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .home-next-events-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.22);
+            transition: all .28s ease
+        }
+
+        .home-next-events-dot.on {
+            width: 16px;
+            border-radius: 999px;
+            background: var(--home-red)
         }
 
         .home-c-loading {
             display: none;
             position: relative;
-            height: 296px
+            height: 328px
         }
 
         .home-skel {
@@ -1134,27 +1328,27 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 72%;
-            height: 256px;
-            border-radius: 26px
+            width: 100%;
+            height: 108px;
+            border-radius: 22px
         }
 
         .home-skel.back-a {
             position: absolute;
-            top: 16px;
+            top: 128px;
             right: 20px;
-            width: 64%;
-            height: 228px;
+            width: 66%;
+            height: 194px;
             border-radius: 24px;
             opacity: .75
         }
 
         .home-skel.back-b {
             position: absolute;
-            top: 34px;
+            top: 144px;
             right: 0;
-            width: 58%;
-            height: 208px;
+            width: 59%;
+            height: 178px;
             border-radius: 22px;
             opacity: .55
         }
@@ -1199,16 +1393,16 @@
         }
 
         .stack-card {
-            width: 72%;
-            min-height: 244px;
+            width: 73%;
+            min-height: 238px;
             position: absolute;
             top: 0;
             left: 0;
             border-radius: 24px;
             padding: 16px 16px 14px;
-            background: #1a1f29;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(180deg, #1f2531 0%, #19202b 100%);
+            border: 1px solid var(--home-hairline);
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.36);
             user-select: none;
             cursor: pointer;
             transition: transform .5s cubic-bezier(.22, .61, .36, 1), opacity .35s ease
@@ -1222,23 +1416,24 @@
             z-index: 4;
             opacity: 1;
             transform: translate3d(0, 0, 0) scale(1);
-            border-color: rgba(213, 0, 50, 0.58);
-            box-shadow: 0 20px 36px rgba(0, 0, 0, 0.44), inset 0 0 0 1px rgba(213, 0, 50, 0.14)
+            border-color: rgba(213, 0, 50, 0.34);
+            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.42)
         }
 
         .stack-card.is-front::before {
             content: '';
             position: absolute;
-            left: 0;
-            right: 0;
+            left: 14px;
             top: 0;
             height: 2px;
-            background: var(--red);
+            width: 34px;
+            border-radius: 999px;
+            background: var(--home-red);
             opacity: .95
         }
 
         .stack-card__eyebrow {
-            color: var(--red);
+            color: var(--home-red);
             font-size: 10px;
             font-weight: 700;
             letter-spacing: .8px;
@@ -1248,14 +1443,14 @@
 
         .stack-card.is-middle {
             z-index: 3;
-            opacity: .88;
-            transform: translate3d(80px, 14px, -44px) scale(.965)
+            opacity: .68;
+            transform: translate3d(84px, 13px, -44px) scale(.958)
         }
 
         .stack-card.is-back {
             z-index: 2;
-            opacity: .76;
-            transform: translate3d(122px, 31px, -88px) scale(.93)
+            opacity: .52;
+            transform: translate3d(126px, 27px, -88px) scale(.91)
         }
 
         .stack-card.is-hidden {
@@ -1270,13 +1465,13 @@
             font-size: 19px;
             font-weight: 800;
             letter-spacing: -0.5px;
-            line-height: 1.14
+            line-height: 1.12
         }
 
         .stack-card__meta {
             margin-top: 5px;
             color: var(--home-text-dim);
-            font-size: 10px;
+            font-size: 11px;
             letter-spacing: .15px
         }
 
@@ -1291,7 +1486,7 @@
             align-items: center;
             padding: 3px 9px;
             border-radius: 100px;
-            background: #2a303b;
+            background: #2b323e;
             border: 1px solid rgba(255, 255, 255, 0.12);
             color: rgba(255, 255, 255, 0.78);
             font-size: 9px;
@@ -1308,7 +1503,7 @@
             width: 4px;
             height: 4px;
             border-radius: 50%;
-            background: var(--red);
+            background: var(--home-red);
             flex-shrink: 0
         }
 
@@ -1336,41 +1531,34 @@
             height: 4px;
             border-radius: 50%;
             margin-top: calc(0.68em - 2px);
-            background: var(--red);
+            background: var(--home-red);
             flex-shrink: 0
         }
 
         .stack-card__links {
             margin-top: 12px;
             display: flex;
-            gap: 7px
+            align-items: center;
+            gap: 14px
         }
 
         .stack-link {
-            background: #262d39;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: rgba(255, 255, 255, 0.82);
-            font-size: 10px;
+            background: none;
+            border: 0;
+            color: rgba(255, 255, 255, 0.74);
+            font-size: 11px;
             font-weight: 600;
             letter-spacing: .2px;
-            padding: 4px 9px;
-            border-radius: 999px;
+            padding: 0;
             cursor: pointer
         }
 
         .stack-link.primary {
-            color: #fff;
-            background: rgba(213, 0, 50, 0.24);
-            border-color: rgba(213, 0, 50, 0.56)
+            color: var(--home-red)
         }
 
-        .stack-link.primary:focus-visible {
-            outline: none;
-            border-color: rgba(213, 0, 50, 0.9)
-        }
-
-        .stack-link.primary:active {
-            background: rgba(213, 0, 50, 0.3)
+        .stack-link:active {
+            opacity: .72
         }
 
         .stack-card__detail {
@@ -1391,7 +1579,7 @@
 
         .stack-card__preview {
             display: none;
-            margin-top: 14px
+            margin-top: 10px
         }
 
         .stack-card__preview-label {
@@ -1403,13 +1591,15 @@
         }
 
         .stack-card__preview-item {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.78);
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
             line-height: 1.34
         }
 
         .stack-card__hint {
-            display: none
+            margin-top: 9px;
+            font-size: 10px;
+            color: var(--home-text-soft)
         }
 
         .stack-card:not(.is-front) .stack-card__chips,
@@ -1422,20 +1612,32 @@
         }
 
         .stack-card:not(.is-front) .stack-card__committee {
-            font-size: 17px;
+            font-size: 15px;
             line-height: 1.2;
             letter-spacing: -0.2px;
-            color: rgba(255, 255, 255, 0.62)
+            color: rgba(255, 255, 255, 0.66)
         }
 
         .stack-card:not(.is-front) .stack-card__meta {
-            font-size: 11px;
+            font-size: 10px;
             margin-top: 4px;
-            color: rgba(255, 255, 255, 0.4)
+            color: rgba(255, 255, 255, 0.48)
         }
 
         .stack-card:not(.is-front) .stack-card__preview {
+            display: block
+        }
+
+        .stack-card:not(.is-front) .stack-card__preview-label {
             display: none
+        }
+
+        .stack-card:not(.is-front) .stack-card__preview-item {
+            font-size: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: rgba(255, 255, 255, 0.48)
         }
 
         .home-stack-meta {
@@ -1462,7 +1664,7 @@
         .home-stack-dot.on {
             width: 16px;
             border-radius: 999px;
-            background: var(--red)
+            background: var(--home-red)
         }
 
         .home-empty {
@@ -1509,7 +1711,7 @@
         .home-empty-btn.primary {
             background: rgba(255, 255, 255, 0.05);
             border-color: rgba(213, 0, 50, 0.48);
-            color: var(--red)
+            color: var(--home-red)
         }
 
         .home-empty-btn.primary:active {
@@ -1520,7 +1722,7 @@
         }
 
         .home-c-section {
-            padding: 20px 20px 0
+            padding: 18px 16px 0
         }
 
         .home-c-section-title {
@@ -1531,50 +1733,77 @@
             color: rgba(255, 255, 255, 0.95)
         }
 
-        .home-actions-grid {
+        .home-services-row {
             margin-top: 9px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 7px
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 2px
         }
 
-        .home-action {
+        .home-services-row::-webkit-scrollbar {
+            display: none
+        }
+
+        .home-service-chip {
+            flex: 0 0 auto;
+            position: relative;
             border-radius: 999px;
             border: 1px solid rgba(255, 255, 255, 0.14);
             min-height: 32px;
             padding: 0 11px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            background: #171b23;
-            color: #fff;
+            gap: 6px;
+            background: #1a202a;
+            color: rgba(255, 255, 255, 0.92);
             text-align: center;
             cursor: pointer;
-            width: auto;
-            flex: 0 0 auto;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18)
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22)
         }
 
-        .home-action.is-red {
-            background: var(--red);
-            border-color: rgba(213, 0, 50, 0.9)
+        .home-service-chip::after {
+            content: '';
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            bottom: 4px;
+            height: 1.5px;
+            border-radius: 999px;
+            background: transparent
         }
 
-        .home-action.is-black {
-            background: #171b23;
-            border-color: rgba(255, 255, 255, 0.16)
+        .home-service-chip svg {
+            width: 13px;
+            height: 13px;
+            stroke: rgba(255, 255, 255, 0.72);
+            fill: none;
+            stroke-width: 1.9;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0
         }
 
-        .home-action-label {
-            font-size: 10.5px;
-            font-weight: 700;
-            color: #fff;
+        .home-service-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.88);
             white-space: nowrap;
             letter-spacing: 0
         }
 
-        .home-action.wide {
-            flex: 0 0 auto
+        .home-service-chip.is-active {
+            border-color: rgba(213, 0, 50, 0.36);
+            background: linear-gradient(180deg, rgba(213, 0, 50, 0.12) 0%, rgba(213, 0, 50, 0.03) 100%), #1a202a
+        }
+
+        .home-service-chip.is-active::after {
+            background: var(--home-red)
+        }
+
+        .home-service-chip:active {
+            transform: translateY(1px)
         }
 
         .home-highlights-skeleton {
@@ -1632,7 +1861,7 @@
             border-radius: 22px;
             overflow: hidden;
             border: 1px solid var(--home-hairline);
-            background: linear-gradient(156deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%), #171b23
+            background: #181e28
         }
 
         .home-highlight-row {
@@ -1714,7 +1943,7 @@
         }
 
         .home-highlight-row.is-key .home-highlight-meta .status-dot {
-            background: var(--red)
+            background: var(--home-red)
         }
 
         .home-highlight-chevron {
@@ -1727,18 +1956,36 @@
             padding-top: 12px
         }
 
-        .home-signature-spotlight {
+        .home-signature-carousel {
             margin-top: 10px;
             border-radius: 22px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: linear-gradient(156deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%), #11161e;
-            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.34);
+            touch-action: pan-y
+        }
+
+        .home-signature-track {
+            display: flex;
+            width: 100%;
+            transition: transform .34s cubic-bezier(.22, .61, .36, 1);
+            will-change: transform
+        }
+
+        .home-signature-slide {
+            flex: 0 0 100%
+        }
+
+        .home-signature-spotlight {
+            margin-top: 0;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid var(--home-hairline);
+            background: #171d27;
+            box-shadow: 0 14px 26px rgba(0, 0, 0, 0.28);
             cursor: pointer
         }
 
         .home-signature-media {
-            height: 172px;
+            height: 170px;
             position: relative
         }
 
@@ -1746,58 +1993,522 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: saturate(0.9) brightness(0.72)
+            object-position: center 34%;
+            filter: saturate(0.86) brightness(0.72)
+        }
+
+        .home-signature-spotlight.is-ebj .home-signature-media img {
+            object-position: center 42%;
+            filter: saturate(0.62) brightness(0.48)
         }
 
         .home-signature-media::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(5, 6, 8, 0.2) 0%, rgba(5, 6, 8, 0.68) 68%, rgba(5, 6, 8, 0.9) 100%);
+            background: linear-gradient(180deg, rgba(5, 6, 8, 0.08) 0%, rgba(5, 6, 8, 0.24) 42%, rgba(5, 6, 8, 0.72) 66%, rgba(5, 6, 8, 0.94) 100%);
             pointer-events: none
         }
 
+        .home-signature-spotlight.is-ebj .home-signature-media::before {
+            background: linear-gradient(180deg, rgba(4, 6, 10, 0.2) 0%, rgba(4, 6, 10, 0.48) 44%, rgba(4, 6, 10, 0.82) 70%, rgba(4, 6, 10, 0.96) 100%)
+        }
+
         .home-signature-media::after {
-            content: '';
-            position: absolute;
-            left: 16px;
-            right: 16px;
-            bottom: 0;
-            height: 2px;
-            border-radius: 999px;
-            background: rgba(213, 0, 50, 0.95)
+            display: none
         }
 
         .home-signature-copy {
             position: absolute;
-            left: 16px;
-            right: 16px;
+            left: 18px;
+            right: 18px;
             bottom: 14px;
             z-index: 1
         }
 
+        .home-signature-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .95px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.74);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.34)
+        }
+
         .home-signature-name {
+            margin-top: 4px;
             font-family: 'Montserrat', sans-serif;
-            font-size: 21px;
-            line-height: 1.1;
+            font-size: 22px;
+            line-height: 1.03;
             letter-spacing: -0.4px;
-            color: #fff
+            color: #fff;
+            max-width: 240px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.38)
         }
 
-        .home-signature-desc {
-            margin-top: 5px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.76);
-            line-height: 1.35
-        }
-
-        .home-signature-link {
+        .home-signature-value {
             margin-top: 8px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.84);
+            line-height: 1.38;
+            max-width: 300px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.34)
+        }
+
+        .home-signature-spotlight.is-ebj .home-signature-name,
+        .home-signature-spotlight.is-ebj .home-signature-value,
+        .home-signature-spotlight.is-ebj .home-signature-label {
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.62)
+        }
+
+        .home-signature-spotlight.is-ebj .home-signature-label {
+            color: rgba(255, 255, 255, 0.92)
+        }
+
+        .home-signature-spotlight.is-ebj .home-signature-name {
+            color: rgba(255, 255, 255, 0.98);
+            font-weight: 800
+        }
+
+        .home-signature-spotlight.is-ebj .home-signature-value {
+            color: rgba(255, 255, 255, 0.9)
+        }
+
+        .home-signature-meta {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 8px;
+            padding: 0 2px
+        }
+
+        .home-signature-dots {
+            display: flex;
+            gap: 6px;
+            align-items: center
+        }
+
+        .home-signature-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.22);
+            transition: all .28s ease
+        }
+
+        .home-signature-dot.on {
+            width: 16px;
+            border-radius: 999px;
+            background: var(--home-red)
+        }
+
+        /* Screen C: Events Tab */
+        .c-events-screen {
+            --events-red: #D50032;
+            --events-line: rgba(255, 255, 255, 0.14);
+            --events-surface: #171e28;
+            --events-surface-2: #1b2330;
+            --events-text-dim: rgba(255, 255, 255, 0.7);
+            --events-text-soft: rgba(255, 255, 255, 0.5);
+            background: linear-gradient(180deg, #080a0f 0%, #0d1118 52%, #10151d 100%);
+            padding-bottom: 106px
+        }
+
+        .c-events-header {
+            padding: 8px 16px 4px
+        }
+
+        .c-events-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            line-height: 1.06;
+            color: #fff;
+            display: inline-block
+        }
+
+        .c-events-title::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 3px;
+            margin-top: 8px;
+            border-radius: 999px;
+            background: var(--events-red)
+        }
+
+        .c-events-sub {
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--events-text-dim);
+            line-height: 1.5
+        }
+
+        .c-events-filters {
+            display: flex;
+            gap: 8px;
+            padding: 10px 16px 6px;
+            overflow-x: auto;
+            scrollbar-width: none
+        }
+
+        .c-events-filters::-webkit-scrollbar {
+            display: none
+        }
+
+        .c-events-filter {
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: #1a212c;
+            color: rgba(255, 255, 255, 0.76);
+            min-height: 31px;
+            padding: 0 12px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            font-family: inherit;
+            cursor: pointer;
+            box-shadow: inset 0 -2px 0 transparent
+        }
+
+        .c-events-filter.on {
+            color: var(--events-red);
+            border-color: rgba(255, 255, 255, 0.24);
+            box-shadow: inset 0 -2px 0 var(--events-red)
+        }
+
+        .c-events-skeleton {
+            display: none;
+            padding: 10px 16px 20px
+        }
+
+        .c-events-screen.is-loading .c-events-skeleton {
+            display: block
+        }
+
+        .c-events-screen.is-loading .c-events-content,
+        .c-events-screen.is-loading .c-events-empty {
+            display: none
+        }
+
+        .c-events-skeleton-row {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px
+        }
+
+        .c-events-skeleton-row::before {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 16px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.24)
+        }
+
+        .c-events-skeleton-card {
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            background: #171d26;
+            padding: 11px 12px;
+            display: grid;
+            gap: 7px
+        }
+
+        .c-events-skel-line {
+            height: 9px;
+            border-radius: 999px;
+            background: linear-gradient(100deg, rgba(255, 255, 255, 0.06) 20%, rgba(255, 255, 255, 0.14) 50%, rgba(255, 255, 255, 0.06) 80%);
+            background-size: 220% 100%;
+            animation: c-events-sheen 1.4s infinite
+        }
+
+        .c-events-skel-line.title {
+            width: 76%
+        }
+
+        .c-events-skel-line.meta {
+            width: 54%
+        }
+
+        .c-events-skel-line.loc {
+            width: 64%
+        }
+
+        @keyframes c-events-sheen {
+            0% {
+                background-position: 170% 0
+            }
+
+            100% {
+                background-position: -170% 0
+            }
+        }
+
+        .c-events-content {
+            padding: 6px 16px 22px
+        }
+
+        .c-events-list {
+            position: relative;
+            padding-left: 30px
+        }
+
+        .c-events-list::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--events-line)
+        }
+
+        .c-events-day-group {
+            position: relative;
+            padding-bottom: 8px
+        }
+
+        .c-events-day {
+            margin: 0 0 8px -30px;
+            padding: 4px 0 4px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: linear-gradient(180deg, rgba(8, 10, 15, 0.96) 0%, rgba(8, 10, 15, 0.8) 100%);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.56)
+        }
+
+        .c-events-item {
+            position: relative;
+            margin-bottom: 10px
+        }
+
+        .c-events-dot {
+            position: absolute;
+            left: -27px;
+            top: 18px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            background: rgba(255, 255, 255, 0.44)
+        }
+
+        .c-events-dot.is-today {
+            border-color: var(--events-red);
+            background: var(--events-red);
+            box-shadow: 0 0 0 3px rgba(213, 0, 50, 0.2)
+        }
+
+        .c-events-card {
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--events-surface);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.24);
+            overflow: hidden
+        }
+
+        .c-events-row {
+            width: 100%;
+            border: 0;
+            background: none;
+            color: inherit;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 11px 12px 12px;
+            text-align: left;
+            cursor: pointer;
+            font-family: inherit
+        }
+
+        .c-events-row-main {
+            min-width: 0
+        }
+
+        .c-events-badge {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .75px;
+            color: var(--events-red);
+            font-weight: 700
+        }
+
+        .c-events-item-title {
+            margin-top: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.24;
+            letter-spacing: -0.2px;
+            color: rgba(255, 255, 255, 0.95);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden
+        }
+
+        .c-events-date-time,
+        .c-events-location {
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--events-text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .c-events-date-time svg,
+        .c-events-location svg {
+            width: 12px;
+            height: 12px;
+            stroke: rgba(255, 255, 255, 0.5);
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0
+        }
+
+        .c-events-chevron {
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: var(--events-surface-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+            flex-shrink: 0
+        }
+
+        .c-events-chevron svg {
+            width: 14px;
+            height: 14px;
+            stroke: rgba(255, 255, 255, 0.72);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform .26s ease
+        }
+
+        .c-events-item.is-expanded .c-events-chevron svg {
+            transform: rotate(180deg)
+        }
+
+        .c-events-expand {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            padding: 0 12px;
+            transition: max-height .32s ease, opacity .22s ease, padding .22s ease
+        }
+
+        .c-events-item.is-expanded .c-events-expand {
+            max-height: 520px;
+            opacity: 1;
+            padding: 0 12px 12px
+        }
+
+        .c-events-expand-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 0 0 10px
+        }
+
+        .c-events-expand-media {
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            position: relative;
+            line-height: 0
+        }
+
+        .c-events-expand-media img {
+            width: 100%;
+            height: auto;
+            object-fit: initial;
+            display: block;
+            filter: saturate(0.95) brightness(0.92)
+        }
+
+        .c-events-expand-media::after {
+            display: none
+        }
+
+        .c-events-expand-copy {
+            font-size: 11px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.84)
+        }
+
+        .c-events-expand-line {
+            margin-top: 7px;
+            font-size: 11px;
+            line-height: 1.45;
+            color: var(--events-text-dim)
+        }
+
+        .c-events-expand-line strong {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600
+        }
+
+        .c-events-actions {
+            margin-top: 11px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px
+        }
+
+        .c-events-action {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: #202836;
+            padding: 0 11px;
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.82);
+            font-family: inherit;
+            cursor: pointer
+        }
+
+        .c-events-action.link {
+            color: var(--events-red);
+            border-color: rgba(213, 0, 50, 0.34)
+        }
+
+        .c-events-empty {
+            display: none;
+            margin: 8px 16px 24px;
+            padding: 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.68);
             font-size: 12px;
-            font-weight: 700;
-            color: var(--red)
+            line-height: 1.5
+        }
+
+        .c-events-empty.on {
+            display: block
         }
 
         .pioneer-pass-header {
@@ -2629,6 +3340,234 @@
             font-size: 12px;
             line-height: 1.4;
             word-break: break-word
+        }
+
+        /* Screen C2: iOS lock notifications */
+        .lock-screen {
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 10px 0 24px;
+            background:
+                radial-gradient(120% 86% at 50% -14%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 42%),
+                linear-gradient(180deg, #8fb2d4 0%, #769ec3 26%, #5e8a86 50%, #3f6852 70%, #1f392d 86%, #14271f 100%);
+            scrollbar-width: none;
+        }
+
+        .lock-screen::-webkit-scrollbar {
+            display: none;
+        }
+
+        .lock-screen::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(12, 22, 35, 0.16) 0%, rgba(12, 23, 30, 0.22) 36%, rgba(5, 10, 10, 0.54) 100%);
+            pointer-events: none;
+        }
+
+        .lock-screen>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .lock-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 24px 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: #f1f1f3;
+            letter-spacing: 0.2px;
+        }
+
+        .lock-status-icons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: #e1e1e3;
+        }
+
+        .lock-head {
+            padding: 22px 24px 0;
+            text-align: center;
+        }
+
+        .lock-date {
+            font-size: 18px;
+            font-weight: 500;
+            color: #f1f1f3;
+            letter-spacing: 0.2px;
+        }
+
+        .lock-time {
+            margin-top: 2px;
+            font-family: 'Inter', sans-serif;
+            font-size: 78px;
+            line-height: 0.95;
+            letter-spacing: -2.4px;
+            font-weight: 300;
+            color: #fff;
+            text-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .lock-summary {
+            margin: 12px auto 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 24px;
+            border-radius: 999px;
+            padding: 0 10px;
+            border: 1px solid var(--red);
+            background: #1a0f14;
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .lock-summary::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--red);
+            margin-right: 6px;
+            flex-shrink: 0;
+        }
+
+        .lock-notes {
+            margin-top: 16px;
+            padding: 0 12px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .lock-note {
+            border-radius: 18px;
+            border: 1px solid #2f2f35;
+            background: #101014;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.32);
+            padding: 10px 12px 11px;
+        }
+
+        .lock-note.is-priority {
+            border-color: var(--red);
+            background: #171015;
+        }
+
+        .lock-note-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .lock-note-app {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            min-width: 0;
+        }
+
+        .lock-app-badge {
+            width: 18px;
+            height: 18px;
+            border-radius: 5px;
+            border: 1px solid var(--red);
+            background: var(--red);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .lock-app-name {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: var(--red);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lock-note-time {
+            font-size: 10px;
+            color: #9c9ca4;
+            flex-shrink: 0;
+        }
+
+        .lock-note-title {
+            margin-top: 7px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: -0.1px;
+            color: var(--red);
+        }
+
+        .lock-note-copy {
+            margin-top: 3px;
+            font-size: 12px;
+            line-height: 1.36;
+            color: #dfdfe3;
+        }
+
+        .lock-note-copy.with-avatar {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .lock-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1px solid #7c2a40;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .lock-note-pills {
+            margin-top: 7px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .lock-note-pill {
+            min-height: 20px;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 0 8px;
+            border: 1px solid #3a3a42;
+            background: #18181d;
+            font-size: 10px;
+            font-weight: 600;
+            color: #efeff2;
+        }
+
+        .lock-note-pill.cta {
+            border-color: var(--red);
+            color: #fff;
+            background: #2a1118;
+        }
+
+        .lock-hint {
+            margin-top: 14px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--red);
         }
 
         /* Screen D restyled to match Screen C language */
@@ -3827,7 +4766,7 @@
 <body>
     <div class="page-head">
         <h1>CSUEB ASI Mobile App</h1>
-        <p>Hi-Fi iOS Mockups &bull; 14 Screens + Style Guide &bull; Dark Theme &bull; Designed by Nikhil Chowdary</p>
+        <p>Hi-Fi iOS Mockups &bull; 16 Screens + Style Guide &bull; Dark Theme &bull; Designed by Nikhil Chowdary</p>
     </div>
     <div class="grid">
 
@@ -3917,7 +4856,8 @@
                         <div style="display:flex;justify-content:center;gap:6px;margin-top:16px"><span
                                 style="width:7px;height:7px;border-radius:50%;background:var(--glass3)"></span><span
                                 style="width:7px;height:7px;border-radius:50%;background:var(--red)"></span></div>
-                        <div class="red-btn" style="margin-top:16px">Finish Setup</div>
+                        <div class="red-btn" style="margin-top:16px" onclick="finishOnboardingSetup()">Finish Setup
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3932,59 +4872,96 @@
                         <div class="r">&#9679; &#9679; &#9679;</div>
                     </div>
                     <div class="home-c-header">
-                        <div class="home-c-title">This Week</div>
-                        <div class="home-c-subtitle"><span>3 meetings</span><span class="subtitle-dot"></span><span
-                                class="subtitle-emphasis">1 agenda posted</span></div>
+                        <div class="home-c-header-main">
+                            <div>
+                                <div class="home-c-title">This Week</div>
+                                <div class="home-c-subtitle"><span>3 meetings</span><span class="subtitle-dot"></span><span
+                                        class="subtitle-emphasis">1 agenda posted</span></div>
+                            </div>
+                            <button class="home-c-profile-trigger" id="home-c-profile-trigger" type="button"
+                                aria-haspopup="dialog" aria-controls="home-c-profile-dialog" aria-expanded="false"
+                                aria-label="Open profile details">
+                                <img src="../images/nikhil.png" alt="Nikhil Chowdary Nettem">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="home-c-profile-overlay" id="home-c-profile-overlay" hidden>
+                        <div class="home-c-profile-dialog" id="home-c-profile-dialog" role="dialog" aria-modal="true"
+                            aria-labelledby="home-c-profile-name">
+                            <div class="home-c-profile-head">
+                                <img src="../images/nikhil.png" alt="Nikhil Chowdary Nettem">
+                                <div>
+                                    <div class="home-c-profile-name" id="home-c-profile-name">Nikhil Chowdary Nettem
+                                    </div>
+                                    <div class="home-c-profile-sub">ASI Student Profile</div>
+                                </div>
+                            </div>
+                            <ul class="home-c-profile-meta">
+                                <li><span class="meta-label">ID Number</span><span class="meta-value">30242767</span>
+                                </li>
+                                <li><span class="meta-label">NetID</span><span class="meta-value">nnettem</span></li>
+                            </ul>
+                            <div class="home-c-profile-notif">
+                                <span>Notifications</span>
+                                <button class="home-c-profile-toggle is-on" id="home-c-profile-notif" type="button"
+                                    aria-label="Toggle notifications" aria-pressed="true"></button>
+                            </div>
+                        </div>
                     </div>
 
                     <section class="home-c-top">
-                        <div class="home-promo-carousel" id="home-promo-carousel">
-                            <div class="home-promo-track" id="home-promo-track">
-                                <article class="home-promo-card home-ppt-join" role="button" tabindex="0"
+                        <div class="home-next-events-carousel" id="home-next-events-carousel">
+                            <div class="home-next-events-track" id="home-next-events-track">
+                                <article class="home-next-event-card home-next-event-slide" role="button" tabindex="0"
                                     data-open-pioneer-home>
-                                    <div class="home-ppt-join-top">
-                                        <div class="home-ppt-join-kicker">Join This Tuesday</div>
-                                        <div class="home-ppt-join-tag">Weekly Draw</div>
+                                    <div class="home-next-event-head">
+                                        <div class="home-next-event-kicker">Signature Program</div>
+                                        <div class="home-next-event-date">TUESDAY</div>
                                     </div>
-                                    <div class="home-ppt-join-title">Pioneer Pride Tuesday</div>
-                                    <div class="home-ppt-join-meta"><span class="home-ppt-join-countdown">Next draw in
-                                            1d 18h</span> &bull; Wear red and black to enter.</div>
-                                    <div class="home-ppt-join-rail">
-                                        <span class="home-ppt-pill">9:00 AM - 5:00 PM</span>
-                                        <span class="home-ppt-pill">ASI Office (North UU-314)</span>
-                                    </div>
-                                </article>
-
-                                <article class="home-promo-card is-event" role="button" tabindex="0"
-                                    data-home-open-asi="k-presents">
-                                    <div class="home-ppt-join-top">
-                                        <div class="home-ppt-join-kicker">Officer &amp; Board Event</div>
-                                        <div class="home-ppt-join-tag">Mar 19</div>
-                                    </div>
-                                    <div class="home-ppt-join-title">Navigating New Waters</div>
-                                    <div class="home-ppt-join-meta">Mental health workshop for international students</div>
-                                    <div class="home-ppt-join-rail">
-                                        <span class="home-ppt-pill">12:15 PM - 1:15 PM</span>
-                                        <span class="home-ppt-pill">DISARC, South UU</span>
+                                    <div class="home-next-event-title">Pioneer Pride Tuesday</div>
+                                    <div class="home-next-event-desc">Wear red and black, check in, and enter this
+                                        week’s prize draw.</div>
+                                    <div class="home-next-event-rail">
+                                        <span class="home-next-event-pill">9:00 AM - 5:00 PM</span>
+                                        <span class="home-next-event-pill">ASI Office (North UU-314)</span>
                                     </div>
                                 </article>
-
-                                <article class="home-promo-card is-event" role="button" tabindex="0"
+                                <article class="home-next-event-card home-next-event-slide" role="button" tabindex="0"
                                     data-home-open-asi="k-presents">
-                                    <div class="home-ppt-join-top">
-                                        <div class="home-ppt-join-kicker">Officer &amp; Board Event</div>
-                                        <div class="home-ppt-join-tag">Mar 9/11</div>
+                                    <div class="home-next-event-head">
+                                        <div class="home-next-event-kicker">Officer &amp; Board Event</div>
+                                        <div class="home-next-event-date">MAR 9 / 11</div>
                                     </div>
-                                    <div class="home-ppt-join-title">Thrift, Swap &amp; Drop</div>
-                                    <div class="home-ppt-join-meta">Swap event supporting equity and sustainability</div>
-                                    <div class="home-ppt-join-rail">
-                                        <span class="home-ppt-pill">11:00 AM - 1:00 PM</span>
-                                        <span class="home-ppt-pill">UU-Walkway</span>
+                                    <div class="home-next-event-title">Thrift, Swap &amp; Drop</div>
+                                    <div class="home-next-event-desc">Campus thrift and swap supporting student
+                                        well-being and sustainability.</div>
+                                    <div class="home-next-event-rail">
+                                        <span class="home-next-event-pill">11:00 AM - 1:00 PM</span>
+                                        <span class="home-next-event-pill">UU-Walkway</span>
+                                    </div>
+                                </article>
+                                <article class="home-next-event-card home-next-event-slide" role="button" tabindex="0"
+                                    data-home-open-asi="k-presents">
+                                    <div class="home-next-event-head">
+                                        <div class="home-next-event-kicker">Officer &amp; Board Event</div>
+                                        <div class="home-next-event-date">MAR 19</div>
+                                    </div>
+                                    <div class="home-next-event-title">Navigating New Waters</div>
+                                    <div class="home-next-event-desc">Mental health workshop for students far from
+                                        home.</div>
+                                    <div class="home-next-event-rail">
+                                        <span class="home-next-event-pill">12:15 PM - 1:15 PM</span>
+                                        <span class="home-next-event-pill">DISARC, South UU</span>
                                     </div>
                                 </article>
                             </div>
                         </div>
-                        <div class="home-promo-counter" id="home-promo-counter">1/3</div>
+                        <div class="home-next-events-meta" aria-hidden="true">
+                            <div class="home-next-events-dots" id="home-next-events-dots"><span
+                                    class="home-next-events-dot on"></span><span class="home-next-events-dot"></span><span
+                                    class="home-next-events-dot"></span>
+                            </div>
+                        </div>
                         <div class="home-c-loading" aria-hidden="true">
                             <div class="home-skel hero"></div>
                             <div class="home-skel back-a"></div>
@@ -4079,34 +5056,88 @@
                     </section>
 
                     <section class="home-c-section">
-                        <div class="home-c-section-title">Quick Actions</div>
-                        <div class="home-actions-grid">
-                            <button class="home-action is-red" type="button" data-home-open-asi="k-services"><span
-                                    class="home-action-label">Scantrons</span></button>
-                            <button class="home-action is-black" type="button" data-home-open-asi="k-services"><span
-                                    class="home-action-label">Movie Tickets</span></button>
-                            <button class="home-action is-red" type="button" data-home-open-asi="k-services"><span
-                                    class="home-action-label">Copy/Fax Services</span></button>
-                            <button class="home-action is-black" type="button" data-home-open-asi="k-pioneer-pass"><span
-                                    class="home-action-label">Pioneer Pass</span></button>
-                            <button class="home-action is-red wide" type="button" data-home-open-asi="k-presents"><span
-                                    class="home-action-label">ASI Presents</span></button>
+                        <div class="home-c-section-title">Student Services</div>
+                        <div class="home-services-row">
+                            <button class="home-service-chip is-active" type="button" data-home-open-asi="k-services">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="4" y="6.5" width="16" height="11" rx="2.5"></rect>
+                                    <path d="M8 10.5h8M8 13.5h5"></path>
+                                </svg>
+                                <span class="home-service-label">Scantrons</span>
+                            </button>
+                            <button class="home-service-chip" type="button" data-home-open-asi="k-services">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M4.5 8.5h15v7h-15z"></path>
+                                    <path d="M8 12h8"></path>
+                                    <circle cx="7.5" cy="12" r=".9"></circle>
+                                </svg>
+                                <span class="home-service-label">Movie Tickets</span>
+                            </button>
+                            <button class="home-service-chip" type="button" data-home-open-asi="k-services">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M6 5.5h12v13H6z"></path>
+                                    <path d="M9 10h6M9 13h6M9 16h4"></path>
+                                </svg>
+                                <span class="home-service-label">Copy/Fax Services</span>
+                            </button>
+                            <button class="home-service-chip" type="button" data-home-open-asi="k-pioneer-pass">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M4.5 8a2 2 0 0 1 2-2h11.8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6.5a2 2 0 0 1-2-2z">
+                                    </path>
+                                    <path d="M12.5 8.5v7M9.5 11.5h6"></path>
+                                </svg>
+                                <span class="home-service-label">Pioneer Pass</span>
+                            </button>
+                            <button class="home-service-chip" type="button" data-home-open-asi="k-presents">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M7 5.5h10M8.5 5.5l.9-2h5.2l.9 2"></path>
+                                    <rect x="6.5" y="7.5" width="11" height="11" rx="2.2"></rect>
+                                    <path d="M9.5 11.5h5M9.5 14.5h5"></path>
+                                </svg>
+                                <span class="home-service-label">ASI Presents</span>
+                            </button>
                         </div>
                     </section>
 
                     <section class="home-c-section home-signature-section">
                         <div class="home-c-section-title">Signature Program Spotlight</div>
-                        <article class="home-signature-spotlight" role="button" tabindex="0" data-open-signature>
-                            <div class="home-signature-media">
-                                <img src="../ASI_Special/eb-jamboree-1.png" alt="EB Jamboree program spotlight">
-                                <div class="home-signature-copy">
-                                    <div class="home-signature-name">EB Jamboree</div>
-                                    <div class="home-signature-desc">Carnival-style campus celebration with rides,
-                                        games, food, and main stage performances.</div>
-                                    <div class="home-signature-link">Explore programs</div>
+                        <div class="home-signature-carousel" id="home-signature-carousel">
+                            <div class="home-signature-track" id="home-signature-track">
+                                <div class="home-signature-slide">
+                                    <article class="home-signature-spotlight is-ebj" role="button" tabindex="0"
+                                        data-open-ebj-home>
+                                        <div class="home-signature-media">
+                                            <img src="../ASI_Special/eb-jamboree-1.png" alt="EB Jamboree program spotlight">
+                                            <div class="home-signature-copy">
+                                                <div class="home-signature-label">Signature Program</div>
+                                                <div class="home-signature-name">EB Jamboree</div>
+                                                <div class="home-signature-value">Carnival-style campus celebration with
+                                                    rides, games, food, and main stage entertainment.</div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="home-signature-slide">
+                                    <article class="home-signature-spotlight" role="button" tabindex="0"
+                                        data-open-pioneer-home>
+                                        <div class="home-signature-media">
+                                            <img src="../ASI_Special/pioneerpride.jpg"
+                                                alt="Pioneer Pride Tuesday program spotlight">
+                                            <div class="home-signature-copy">
+                                                <div class="home-signature-label">Signature Program</div>
+                                                <div class="home-signature-name">Pioneer Pride Tuesday</div>
+                                                <div class="home-signature-value">Show your spirit, earn entries, and win
+                                                    weekly prizes every Tuesday.</div>
+                                            </div>
+                                        </div>
+                                    </article>
                                 </div>
                             </div>
-                        </article>
+                        </div>
+                        <div class="home-signature-meta" aria-hidden="true">
+                            <div class="home-signature-dots" id="home-signature-dots"><span
+                                    class="home-signature-dot on"></span><span class="home-signature-dot"></span></div>
+                        </div>
                     </section>
 
                     <section class="home-c-section">
@@ -4176,6 +5207,368 @@
                         </div>
                     </section>
                 </div>
+                <div class="sc c-shell-subview c-events-screen" id="c-inline-events-view">
+                    <div class="sb"><span>9:41</span>
+                        <div class="r">&#9679; &#9679; &#9679;</div>
+                    </div>
+                    <div class="c-events-header">
+                        <div class="c-events-title">Events</div>
+                        <div class="c-events-sub">All upcoming events across Board initiatives, ASI Presents, and
+                            signature programs.</div>
+                    </div>
+                    <div class="c-events-filters" id="c-events-filters">
+                        <button class="c-events-filter on" type="button" data-events-filter="all">All</button>
+                        <button class="c-events-filter" type="button" data-events-filter="board">Board Events</button>
+                        <button class="c-events-filter" type="button" data-events-filter="presents">ASI Presents</button>
+                        <button class="c-events-filter" type="button" data-events-filter="signature">ASI Signature</button>
+                    </div>
+                    <div class="c-events-skeleton" aria-hidden="true">
+                        <div class="c-events-skeleton-row">
+                            <div class="c-events-skeleton-card">
+                                <div class="c-events-skel-line title"></div>
+                                <div class="c-events-skel-line meta"></div>
+                                <div class="c-events-skel-line loc"></div>
+                            </div>
+                        </div>
+                        <div class="c-events-skeleton-row">
+                            <div class="c-events-skeleton-card">
+                                <div class="c-events-skel-line title"></div>
+                                <div class="c-events-skel-line meta"></div>
+                                <div class="c-events-skel-line loc"></div>
+                            </div>
+                        </div>
+                        <div class="c-events-skeleton-row">
+                            <div class="c-events-skeleton-card">
+                                <div class="c-events-skel-line title"></div>
+                                <div class="c-events-skel-line meta"></div>
+                                <div class="c-events-skel-line loc"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="c-events-content">
+                        <div class="c-events-list" id="c-events-list">
+                            <section class="c-events-day-group" data-events-day-group>
+                                <div class="c-events-day">Today</div>
+
+                                <article class="c-events-item" data-events-item data-events-category="board">
+                                    <span class="c-events-dot is-today"></span>
+                                    <div class="c-events-card">
+                                        <button class="c-events-row" type="button" data-events-toggle aria-expanded="false">
+                                            <div class="c-events-row-main">
+                                                <div class="c-events-badge">Board Event</div>
+                                                <div class="c-events-item-title">Thrift, Swap &amp; Drop</div>
+                                                <div class="c-events-date-time"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <rect x="4.5" y="5.5" width="15" height="14" rx="2.6"></rect>
+                                                        <path d="M8 3.5v4M16 3.5v4M4.5 10h15"></path>
+                                                    </svg><span>11:00 AM - 1:00 PM</span></div>
+                                                <div class="c-events-location"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <path d="M12 20s5.5-5.2 5.5-9A5.5 5.5 0 1 0 6.5 11c0 3.8 5.5 9 5.5 9z">
+                                                        </path>
+                                                        <circle cx="12" cy="11" r="2.1"></circle>
+                                                    </svg><span>UU Walkway</span></div>
+                                            </div>
+                                            <span class="c-events-chevron"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M6 9l6 6 6-6"></path>
+                                                </svg></span>
+                                        </button>
+                                        <div class="c-events-expand">
+                                            <div class="c-events-expand-divider"></div>
+                                            <div class="c-events-expand-copy">Campus thrift and swap initiative
+                                                supporting equity and sustainability through clothing redistribution.</div>
+                                            <div class="c-events-expand-line"><strong>Hosted by:</strong> Board Event /
+                                                Sustainability Leadership</div>
+                                            <div class="c-events-expand-line"><strong>POC:</strong> Dane Lopez, Mukul
+                                                Dawan, David Teng</div>
+                                            <div class="c-events-expand-line"><strong>Partners:</strong> ASI
+                                                Sustainability Committee</div>
+                                            <div class="c-events-actions">
+                                                <button class="c-events-action" type="button">Add to Calendar</button>
+                                                <button class="c-events-action" type="button">Share</button>
+                                                <button class="c-events-action link" type="button">View details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </section>
+
+                            <section class="c-events-day-group" data-events-day-group>
+                                <div class="c-events-day">Thu, Feb 5</div>
+
+                                <article class="c-events-item" data-events-item data-events-category="board">
+                                    <span class="c-events-dot"></span>
+                                    <div class="c-events-card">
+                                        <button class="c-events-row" type="button" data-events-toggle aria-expanded="false">
+                                            <div class="c-events-row-main">
+                                                <div class="c-events-badge">Board Event</div>
+                                                <div class="c-events-item-title">Love in Every Community: Healthy /
+                                                    Unhealthy Relationships</div>
+                                                <div class="c-events-date-time"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <rect x="4.5" y="5.5" width="15" height="14" rx="2.6"></rect>
+                                                        <path d="M8 3.5v4M16 3.5v4M4.5 10h15"></path>
+                                                    </svg><span>12:15 PM - 1:15 PM</span></div>
+                                                <div class="c-events-location"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <path d="M12 20s5.5-5.2 5.5-9A5.5 5.5 0 1 0 6.5 11c0 3.8 5.5 9 5.5 9z">
+                                                        </path>
+                                                        <circle cx="12" cy="11" r="2.1"></circle>
+                                                    </svg><span>UU Walkway</span></div>
+                                            </div>
+                                            <span class="c-events-chevron"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M6 9l6 6 6-6"></path>
+                                                </svg></span>
+                                        </button>
+                                        <div class="c-events-expand">
+                                            <div class="c-events-expand-divider"></div>
+                                            <div class="c-events-expand-media"><img src="../ASI_Special/itsonus.png"
+                                                    alt="Love in Every Community event visual"></div>
+                                            <div class="c-events-expand-copy">Interactive red/yellow/green flag activity
+                                                on relationship warning signs, boundaries, reporting options, and campus
+                                                support resources.</div>
+                                            <div class="c-events-expand-line"><strong>Hosted by:</strong> Board Event /
+                                                Director of Communities</div>
+                                            <div class="c-events-expand-line"><strong>POC:</strong> Yashica Avhad,
+                                                Terri LaBeaux, Shauna Hong, Peer Advocate for Wellness, Janice</div>
+                                            <div class="c-events-expand-line"><strong>Partners:</strong> SHCS, Civil
+                                                Rights Office, PAW</div>
+                                            <div class="c-events-actions">
+                                                <button class="c-events-action" type="button">Add to Calendar</button>
+                                                <button class="c-events-action" type="button">Share</button>
+                                                <button class="c-events-action link" type="button">View details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </section>
+
+                            <section class="c-events-day-group" data-events-day-group>
+                                <div class="c-events-day">Tue, Feb 10</div>
+
+                                <article class="c-events-item is-expanded" data-events-item data-events-category="board">
+                                    <span class="c-events-dot"></span>
+                                    <div class="c-events-card">
+                                        <button class="c-events-row" type="button" data-events-toggle aria-expanded="true">
+                                            <div class="c-events-row-main">
+                                                <div class="c-events-badge">Board Event</div>
+                                                <div class="c-events-item-title">Spread the Love: Valentine&rsquo;s
+                                                    Campus Pop-Up</div>
+                                                <div class="c-events-date-time"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <rect x="4.5" y="5.5" width="15" height="14" rx="2.6"></rect>
+                                                        <path d="M8 3.5v4M16 3.5v4M4.5 10h15"></path>
+                                                    </svg><span>12:15 PM - 1:15 PM</span></div>
+                                                <div class="c-events-location"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <path d="M12 20s5.5-5.2 5.5-9A5.5 5.5 0 1 0 6.5 11c0 3.8 5.5 9 5.5 9z">
+                                                        </path>
+                                                        <circle cx="12" cy="11" r="2.1"></circle>
+                                                    </svg><span>UU Walkway &amp; Around Campus</span></div>
+                                            </div>
+                                            <span class="c-events-chevron"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M6 9l6 6 6-6"></path>
+                                                </svg></span>
+                                        </button>
+                                        <div class="c-events-expand">
+                                            <div class="c-events-expand-divider"></div>
+                                            <div class="c-events-expand-media"><img src="../ASI_Special/spreadlove.png"
+                                                    alt="Spread the Love event visual"></div>
+                                            <div class="c-events-expand-copy">Community-building wellness event sharing
+                                                positivity bags, self-care items, and affirmations to increase belonging
+                                                and student support across campus.</div>
+                                            <div class="c-events-expand-line"><strong>Hosted by:</strong> Board Event /
+                                                Wellness Leadership</div>
+                                            <div class="c-events-expand-line"><strong>POC:</strong> Matthias Dempsey,
+                                                Kartik Tripathi, Kamalathmika Chalasani</div>
+                                            <div class="c-events-expand-line"><strong>Partners:</strong> Recreation &amp;
+                                                Wellness Committee, Campus Outreach Teams</div>
+                                            <div class="c-events-actions">
+                                                <button class="c-events-action" type="button">Add to Calendar</button>
+                                                <button class="c-events-action" type="button">Share</button>
+                                                <button class="c-events-action link" type="button">View details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="c-events-item" data-events-item data-events-category="presents">
+                                    <span class="c-events-dot"></span>
+                                    <div class="c-events-card">
+                                        <button class="c-events-row" type="button" data-events-toggle aria-expanded="false">
+                                            <div class="c-events-row-main">
+                                                <div class="c-events-badge">ASI Presents</div>
+                                                <div class="c-events-item-title">Create-a-Creature Event</div>
+                                                <div class="c-events-date-time"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <rect x="4.5" y="5.5" width="15" height="14" rx="2.6"></rect>
+                                                        <path d="M8 3.5v4M16 3.5v4M4.5 10h15"></path>
+                                                    </svg><span>11:00 AM - 3:00 PM</span></div>
+                                                <div class="c-events-location"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <path d="M12 20s5.5-5.2 5.5-9A5.5 5.5 0 1 0 6.5 11c0 3.8 5.5 9 5.5 9z">
+                                                        </path>
+                                                        <circle cx="12" cy="11" r="2.1"></circle>
+                                                    </svg><span>UU-311</span></div>
+                                            </div>
+                                            <span class="c-events-chevron"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M6 9l6 6 6-6"></path>
+                                                </svg></span>
+                                        </button>
+                                        <div class="c-events-expand">
+                                            <div class="c-events-expand-divider"></div>
+                                            <div class="c-events-expand-media"><img src="../ASI_Special/Heybenice.png"
+                                                    alt="Create-a-Creature event visual"></div>
+                                            <div class="c-events-expand-copy">Design and customize a plush creature in a
+                                                collaborative crafting space with fellow students.</div>
+                                            <div class="c-events-expand-line"><strong>Hosted by:</strong> ASI Presents</div>
+                                            <div class="c-events-expand-line"><strong>POC:</strong> ASI Presents Team</div>
+                                            <div class="c-events-expand-line"><strong>Partners:</strong> Campus Event
+                                                Operations</div>
+                                            <div class="c-events-actions">
+                                                <button class="c-events-action" type="button">Add to Calendar</button>
+                                                <button class="c-events-action" type="button">Share</button>
+                                                <button class="c-events-action link" type="button">View details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </section>
+
+                            <section class="c-events-day-group" data-events-day-group>
+                                <div class="c-events-day">Wed, Feb 11 - Thu, Feb 12</div>
+
+                                <article class="c-events-item" data-events-item data-events-category="board">
+                                    <span class="c-events-dot"></span>
+                                    <div class="c-events-card">
+                                        <button class="c-events-row" type="button" data-events-toggle aria-expanded="false">
+                                            <div class="c-events-row-main">
+                                                <div class="c-events-badge">Board Event</div>
+                                                <div class="c-events-item-title">Create a Creature &amp; Bouquets for
+                                                    Belonging</div>
+                                                <div class="c-events-date-time"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <rect x="4.5" y="5.5" width="15" height="14" rx="2.6"></rect>
+                                                        <path d="M8 3.5v4M16 3.5v4M4.5 10h15"></path>
+                                                    </svg><span>Day 1: 11:00 AM - 3:00 PM • Day 2: 10:00 AM - 12:00 PM</span>
+                                                </div>
+                                                <div class="c-events-location"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <path d="M12 20s5.5-5.2 5.5-9A5.5 5.5 0 1 0 6.5 11c0 3.8 5.5 9 5.5 9z">
+                                                        </path>
+                                                        <circle cx="12" cy="11" r="2.1"></circle>
+                                                    </svg><span>North UU 311 + UU Walkway</span></div>
+                                            </div>
+                                            <span class="c-events-chevron"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M6 9l6 6 6-6"></path>
+                                                </svg></span>
+                                        </button>
+                                        <div class="c-events-expand">
+                                            <div class="c-events-expand-divider"></div>
+                                            <div class="c-events-expand-media"><img src="../ASI_Special/Boquets.png"
+                                                    alt="Bouquets for Belonging event visual"></div>
+                                            <div class="c-events-expand-copy">Two-day creative workshop with bouquet
+                                                building and plush creation to support stress relief and student
+                                                belonging.</div>
+                                            <div class="c-events-expand-line"><strong>Hosted by:</strong> Board Event /
+                                                Community Building Initiative</div>
+                                            <div class="c-events-expand-line"><strong>POC:</strong> Casey Pangilinan,
+                                                Yashica Avhad, Danny Lopez, Matthias Dempsey</div>
+                                            <div class="c-events-expand-line"><strong>Partners:</strong> ASI Presents,
+                                                Campus Creative Teams</div>
+                                            <div class="c-events-actions">
+                                                <button class="c-events-action" type="button">Add to Calendar</button>
+                                                <button class="c-events-action" type="button">Share</button>
+                                                <button class="c-events-action link" type="button">View details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </section>
+
+                            <section class="c-events-day-group" data-events-day-group>
+                                <div class="c-events-day">Tue, Mar 25 - Wed, Mar 26</div>
+
+                                <article class="c-events-item" data-events-item data-events-category="presents">
+                                    <span class="c-events-dot"></span>
+                                    <div class="c-events-card">
+                                        <button class="c-events-row" type="button" data-events-toggle aria-expanded="false">
+                                            <div class="c-events-row-main">
+                                                <div class="c-events-badge">ASI Presents</div>
+                                                <div class="c-events-item-title">Squid Games Challenge</div>
+                                                <div class="c-events-date-time"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <rect x="4.5" y="5.5" width="15" height="14" rx="2.6"></rect>
+                                                        <path d="M8 3.5v4M16 3.5v4M4.5 10h15"></path>
+                                                    </svg><span>12:00 PM - 2:00 PM</span></div>
+                                                <div class="c-events-location"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <path d="M12 20s5.5-5.2 5.5-9A5.5 5.5 0 1 0 6.5 11c0 3.8 5.5 9 5.5 9z">
+                                                        </path>
+                                                        <circle cx="12" cy="11" r="2.1"></circle>
+                                                    </svg><span>Walkway Lawn</span></div>
+                                            </div>
+                                            <span class="c-events-chevron"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M6 9l6 6 6-6"></path>
+                                                </svg></span>
+                                        </button>
+                                        <div class="c-events-expand">
+                                            <div class="c-events-expand-divider"></div>
+                                            <div class="c-events-expand-media"><img src="../ASI_Special/pioneerspiritweek.png"
+                                                    alt="Squid Games Challenge visual"></div>
+                                            <div class="c-events-expand-copy">Campus-wide challenge series with playful
+                                                elimination-style rounds and team-based engagement.</div>
+                                            <div class="c-events-expand-line"><strong>Hosted by:</strong> ASI Presents</div>
+                                            <div class="c-events-expand-line"><strong>POC:</strong> ASI Presents Team</div>
+                                            <div class="c-events-expand-line"><strong>Partners:</strong> Department &amp;
+                                                Campus Program Leads</div>
+                                            <div class="c-events-actions">
+                                                <button class="c-events-action" type="button">Add to Calendar</button>
+                                                <button class="c-events-action" type="button">Share</button>
+                                                <button class="c-events-action link" type="button">View details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </section>
+
+                            <section class="c-events-day-group" data-events-day-group>
+                                <div class="c-events-day">Thu, Apr 23</div>
+
+                                <article class="c-events-item" data-events-item data-events-category="signature">
+                                    <span class="c-events-dot"></span>
+                                    <div class="c-events-card">
+                                        <button class="c-events-row" type="button" data-events-toggle aria-expanded="false">
+                                            <div class="c-events-row-main">
+                                                <div class="c-events-badge">ASI Signature</div>
+                                                <div class="c-events-item-title">EB Jamboree</div>
+                                                <div class="c-events-date-time"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <rect x="4.5" y="5.5" width="15" height="14" rx="2.6"></rect>
+                                                        <path d="M8 3.5v4M16 3.5v4M4.5 10h15"></path>
+                                                    </svg><span>11:00 AM - 3:00 PM</span></div>
+                                                <div class="c-events-location"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <path d="M12 20s5.5-5.2 5.5-9A5.5 5.5 0 1 0 6.5 11c0 3.8 5.5 9 5.5 9z">
+                                                        </path>
+                                                        <circle cx="12" cy="11" r="2.1"></circle>
+                                                    </svg><span>Northside Campus</span></div>
+                                            </div>
+                                            <span class="c-events-chevron"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M6 9l6 6 6-6"></path>
+                                                </svg></span>
+                                        </button>
+                                        <div class="c-events-expand">
+                                            <div class="c-events-expand-divider"></div>
+                                            <div class="c-events-expand-media"><img src="../ASI_Special/eb-jamboree-1.png"
+                                                    alt="EB Jamboree visual"></div>
+                                            <div class="c-events-expand-copy">Large-scale signature celebration with
+                                                rides, food trucks, games, and a main-stage concert experience.</div>
+                                            <div class="c-events-expand-line"><strong>Hosted by:</strong> ASI Signature
+                                                Program</div>
+                                            <div class="c-events-expand-line"><strong>POC:</strong> ASI Presents, Corey
+                                                Copeland</div>
+                                            <div class="c-events-expand-line"><strong>Partners:</strong> CSUEB Campus
+                                                Operations, Accessibility Services</div>
+                                            <div class="c-events-actions">
+                                                <button class="c-events-action" type="button">Add to Calendar</button>
+                                                <button class="c-events-action" type="button">Share</button>
+                                                <button class="c-events-action link" type="button">View details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="c-events-empty" id="c-events-empty">No upcoming events in this category.</div>
+                </div>
                 <div class="sc c-shell-subview d-screen" id="c-inline-meetings-view"></div>
                 <div class="sc c-shell-subview" id="c-inline-people-view"></div>
                 <div class="sc c-shell-subview" id="c-inline-assistant-view"></div>
@@ -4191,6 +5584,13 @@
                                 <rect x="3.5" y="4.5" width="17" height="16" rx="3"></rect>
                                 <path d="M8 2.8v3.4M16 2.8v3.4M3.5 9.2h17"></path>
                             </svg></div><span>Meetings</span>
+                    </div>
+                    <div class="ti" id="c-tab-events" role="button" tabindex="0">
+                        <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7.5 3.5v3M16.5 3.5v3"></path>
+                                <rect x="4" y="6.5" width="16" height="13" rx="3"></rect>
+                                <path d="M4 10h16M8 13h3M13 13h3M8 16h3"></path>
+                            </svg></div><span>Events</span>
                     </div>
                     <div class="ti" id="c-tab-assistant" role="button" tabindex="0">
                         <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -4210,6 +5610,148 @@
                                     d="M12 4l2.4 5 5.5.8-4 3.9.9 5.5L12 16.6 7.2 19.2l.9-5.5-4-3.9 5.5-.8z"></path>
                             </svg></div><span>ASI</span>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- C2: LOCK SCREEN NOTIFICATIONS -->
+        <div class="wrap" id="screen-c-lock-wrap">
+            <div class="lbl">C2 &mdash; iOS Notifications</div>
+            <div class="phone">
+                <div class="sc lock-screen">
+                    <div class="lock-status"><span>9:41</span>
+                        <div class="lock-status-icons"><span>LTE</span><span>&#9679; &#9679; &#9679;</span><span>100%</span>
+                        </div>
+                    </div>
+                    <div class="lock-head">
+                        <div class="lock-date">Monday, March 9</div>
+                        <div class="lock-time">9:41</div>
+                        <div class="lock-summary">4 ASI updates for you</div>
+                    </div>
+                    <div class="lock-notes">
+                        <article class="lock-note is-priority">
+                            <div class="lock-note-head">
+                                <div class="lock-note-app">
+                                    <span class="lock-app-badge">A</span>
+                                    <span class="lock-app-name">ASI Events</span>
+                                </div>
+                                <span class="lock-note-time">11m ago</span>
+                            </div>
+                            <div class="lock-note-title">Upcoming Event: Pioneer Pride Tuesday</div>
+                            <div class="lock-note-copy">Starts at 9:00 AM in ASI Office (North UU-314). Check in early
+                                for this week&rsquo;s prize draw.</div>
+                            <div class="lock-note-pills"><span class="lock-note-pill cta">Open Event</span><span
+                                    class="lock-note-pill">Add Reminder</span></div>
+                        </article>
+
+                        <article class="lock-note">
+                            <div class="lock-note-head">
+                                <div class="lock-note-app">
+                                    <span class="lock-app-badge">P</span>
+                                    <span class="lock-app-name">People</span>
+                                </div>
+                                <span class="lock-note-time">36m ago</span>
+                            </div>
+                            <div class="lock-note-title">See What Your Senator At Large Is Doing</div>
+                            <div class="lock-note-copy with-avatar"><img class="lock-avatar" src="../images/nikhil.png"
+                                    alt="Nikhil Chowdary Nettem"><span>Nikhil Chowdary Nettem shared this week&rsquo;s
+                                    office hours and current student-priority work items.</span></div>
+                            <div class="lock-note-pills"><span class="lock-note-pill">View Update</span></div>
+                        </article>
+
+                        <article class="lock-note is-priority">
+                            <div class="lock-note-head">
+                                <div class="lock-note-app">
+                                    <span class="lock-app-badge">G</span>
+                                    <span class="lock-app-name">ASI Government</span>
+                                </div>
+                                <span class="lock-note-time">1h ago</span>
+                            </div>
+                            <div class="lock-note-title">New Resolution Passed</div>
+                            <div class="lock-note-copy">Board of Directors approved the TA Fee Waiver Resolution. Open
+                                for the student-impact summary and final vote details.</div>
+                            <div class="lock-note-pills"><span class="lock-note-pill cta">Read Resolution</span></div>
+                        </article>
+
+                        <article class="lock-note">
+                            <div class="lock-note-head">
+                                <div class="lock-note-app">
+                                    <span class="lock-app-badge">S</span>
+                                    <span class="lock-app-name">Signature Programs</span>
+                                </div>
+                                <span class="lock-note-time">Yesterday</span>
+                            </div>
+                            <div class="lock-note-title">This Week&rsquo;s Pioneer Pride Winners Are Out</div>
+                            <div class="lock-note-copy">Winners were posted for this week. Check the list now and claim
+                                prizes by Friday in the ASI office.</div>
+                            <div class="lock-note-pills"><span class="lock-note-pill cta">See Winners</span></div>
+                        </article>
+                    </div>
+                    <div class="lock-hint">Swipe up to open ASI</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- C3: LOCK SCREEN NOTIFICATIONS (EVENT PUSHES) -->
+        <div class="wrap" id="screen-c-lock-wrap-2">
+            <div class="lbl">C3 &mdash; iOS Notifications (Events)</div>
+            <div class="phone">
+                <div class="sc lock-screen">
+                    <div class="lock-status"><span>10:24</span>
+                        <div class="lock-status-icons"><span>LTE</span><span>&#9679; &#9679; &#9679;</span><span>96%</span>
+                        </div>
+                    </div>
+                    <div class="lock-head">
+                        <div class="lock-date">Friday, March 13</div>
+                        <div class="lock-time">10:24</div>
+                        <div class="lock-summary">3 new campus updates</div>
+                    </div>
+                    <div class="lock-notes">
+                        <article class="lock-note is-priority">
+                            <div class="lock-note-head">
+                                <div class="lock-note-app">
+                                    <span class="lock-app-badge">E</span>
+                                    <span class="lock-app-name">ASI Events</span>
+                                </div>
+                                <span class="lock-note-time">Now</span>
+                            </div>
+                            <div class="lock-note-title">Create-a-Creature Is This Friday</div>
+                            <div class="lock-note-copy">Hosted by Casey Pangilinan and Yashica Avhad. Location: UU
+                                Walkway.</div>
+                            <div class="lock-note-pills"><span class="lock-note-pill cta">Open Event</span><span
+                                    class="lock-note-pill">Add to Calendar</span></div>
+                        </article>
+
+                        <article class="lock-note">
+                            <div class="lock-note-head">
+                                <div class="lock-note-app">
+                                    <span class="lock-app-badge">W</span>
+                                    <span class="lock-app-name">Wellness Alerts</span>
+                                </div>
+                                <span class="lock-note-time">14m ago</span>
+                            </div>
+                            <div class="lock-note-title">Spread the Love: Valentine Pop-Up</div>
+                            <div class="lock-note-copy">Matthias Dempsey is leading a wellness pop-up with support
+                                resources and care packs.</div>
+                            <div class="lock-note-pills"><span class="lock-note-pill cta">See Details</span></div>
+                        </article>
+
+                        <article class="lock-note is-priority">
+                            <div class="lock-note-head">
+                                <div class="lock-note-app">
+                                    <span class="lock-app-badge">B</span>
+                                    <span class="lock-app-name">BOD Meetings</span>
+                                </div>
+                                <span class="lock-note-time">42m ago</span>
+                            </div>
+                            <div class="lock-note-title">Next BOD Agenda Is Out</div>
+                            <div class="lock-note-copy">Agenda posted for the upcoming Board of Directors meeting.
+                                Checkout now before discussion and vote.</div>
+                            <div class="lock-note-pills"><span class="lock-note-pill cta">Checkout Agenda</span><span
+                                    class="lock-note-pill">Set Reminder</span></div>
+                        </article>
+                    </div>
+                    <div class="lock-hint">Swipe up to review in app</div>
                 </div>
             </div>
         </div>
@@ -5288,7 +6830,7 @@
 
 
         <!-- K: ASI TAB (interactive — tap Services) -->
-        <div class="wrap">
+        <div class="wrap" id="screen-k-wrap">
             <div class="lbl">K &mdash; ASI Tab</div>
             <div class="phone" id="phoneK">
                 <!-- Main Grid View -->
@@ -8546,7 +10088,7 @@
     </div>
 
     <!-- L: ASI PRESENTS -->
-    <div class="wrap">
+    <div class="wrap" id="screen-l-wrap">
         <div class="lbl">L &mdash; ASI Presents</div>
         <div class="phone">
             <div class="sc">
@@ -8634,7 +10176,7 @@
     </div>
 
     <!-- M: FUNDING -->
-    <div class="wrap">
+    <div class="wrap" id="screen-m-wrap">
         <div class="lbl">M &mdash; Funding</div>
         <div class="phone">
             <div class="sc">
@@ -8895,6 +10437,30 @@
             target.scrollTop = 0;
         }
 
+        function finishOnboardingSetup() {
+            const flowRoot = document.getElementById('onboarding-flow');
+            const onboardingWrap = flowRoot ? flowRoot.closest('.wrap') : null;
+            const onboardingPhone = onboardingWrap ? onboardingWrap.querySelector('.phone') : null;
+            const screenCWrap = document.getElementById('screen-c-wrap');
+            const screenCPhone = screenCWrap ? screenCWrap.querySelector('.phone') : null;
+
+            if (!onboardingWrap || !onboardingPhone || !screenCPhone) return;
+
+            // Move the already-initialized Screen C phone into onboarding so it
+            // appears in the same frame instead of jumping to another mock card.
+            onboardingPhone.replaceWith(screenCPhone);
+
+            const onboardingLabel = onboardingWrap.querySelector('.lbl');
+            if (onboardingLabel) onboardingLabel.innerHTML = 'C &mdash; Home';
+
+            if (screenCWrap) screenCWrap.style.display = 'none';
+
+            const homeTab = document.getElementById('c-tab-home');
+            if (homeTab) homeTab.click();
+            const homeScreen = document.getElementById('home-c-screen');
+            if (homeScreen) homeScreen.scrollTop = 0;
+        }
+
         (function initOnboardingFlow() {
             const flowRoot = document.getElementById('onboarding-flow');
             if (!flowRoot) return;
@@ -8923,6 +10489,71 @@
             const screen = document.getElementById('home-c-screen');
             if (!screen) return;
 
+            const profileTrigger = document.getElementById('home-c-profile-trigger');
+            const profileOverlay = document.getElementById('home-c-profile-overlay');
+            const profileDialog = document.getElementById('home-c-profile-dialog');
+            const profileNotifToggle = document.getElementById('home-c-profile-notif');
+            let profileNotifOn = true;
+            let profileCloseTimer = null;
+
+            const setProfileNotif = (isOn) => {
+                profileNotifOn = isOn;
+                if (!profileNotifToggle) return;
+                profileNotifToggle.classList.toggle('is-on', isOn);
+                profileNotifToggle.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+            };
+
+            const closeProfileDialog = () => {
+                if (!profileOverlay || !profileTrigger) return;
+                if (profileCloseTimer) {
+                    clearTimeout(profileCloseTimer);
+                    profileCloseTimer = null;
+                }
+                profileOverlay.classList.remove('show');
+                profileTrigger.setAttribute('aria-expanded', 'false');
+                profileCloseTimer = setTimeout(() => {
+                    profileOverlay.hidden = true;
+                }, 180);
+            };
+
+            const openProfileDialog = () => {
+                if (!profileOverlay || !profileTrigger) return;
+                if (profileCloseTimer) {
+                    clearTimeout(profileCloseTimer);
+                    profileCloseTimer = null;
+                }
+                profileOverlay.hidden = false;
+                requestAnimationFrame(() => {
+                    profileOverlay.classList.add('show');
+                });
+                profileTrigger.setAttribute('aria-expanded', 'true');
+            };
+
+            if (profileTrigger && profileOverlay && profileDialog) {
+                profileTrigger.addEventListener('click', () => {
+                    if (!profileOverlay.hidden) {
+                        closeProfileDialog();
+                        return;
+                    }
+                    openProfileDialog();
+                });
+
+                profileOverlay.addEventListener('click', closeProfileDialog);
+                profileDialog.addEventListener('click', (event) => event.stopPropagation());
+
+                document.addEventListener('keydown', (event) => {
+                    if (event.key !== 'Escape' || profileOverlay.hidden) return;
+                    closeProfileDialog();
+                });
+            }
+
+            if (profileNotifToggle) {
+                setProfileNotif(true);
+                profileNotifToggle.addEventListener('click', () => {
+                    setProfileNotif(!profileNotifOn);
+                });
+            }
+
             const hasMeetings = screen.dataset.hasMeetings !== 'false';
             const meetingsView = document.getElementById('home-c-meetings');
             const emptyView = document.getElementById('home-c-empty');
@@ -8940,71 +10571,175 @@
                 screen.classList.remove('is-loading');
             }, 950);
 
-            const promoCarousel = document.getElementById('home-promo-carousel');
-            const promoTrack = document.getElementById('home-promo-track');
-            const promoCounter = document.getElementById('home-promo-counter');
-            const promoCards = promoTrack ? Array.from(promoTrack.querySelectorAll('.home-promo-card')) : [];
-            const promoTotal = promoCards.length;
-            let promoActive = 0;
-            let promoStartX = 0;
-            let promoStartY = 0;
-            let promoPointerDown = false;
-            let promoAutoTimer = null;
+            const nextEventsCarousel = document.getElementById('home-next-events-carousel');
+            const nextEventsTrack = document.getElementById('home-next-events-track');
+            const nextEventsSlides = nextEventsTrack ? Array.from(nextEventsTrack.querySelectorAll('.home-next-event-slide')) : [];
+            const nextEventsDots = Array.from(document.querySelectorAll('#home-next-events-dots .home-next-events-dot'));
+            const nextEventsTotal = nextEventsSlides.length;
+            let nextEventsActive = 0;
+            let nextEventsStartX = 0;
+            let nextEventsStartY = 0;
+            let nextEventsPointerDown = false;
+            let suppressNextEventClick = false;
+            let nextEventsAutoTimer = null;
 
-            const renderPromo = () => {
-                if (!promoTrack) return;
-                promoTrack.style.transform = `translateX(-${promoActive * 100}%)`;
-                if (promoCounter) {
-                    promoCounter.textContent = `${promoActive + 1}/${promoTotal}`;
-                }
+            const renderNextEvents = () => {
+                if (!nextEventsTrack) return;
+                nextEventsTrack.style.transform = `translateX(-${nextEventsActive * 100}%)`;
+                nextEventsDots.forEach((dot, index) => dot.classList.toggle('on', index === nextEventsActive));
             };
 
-            const cyclePromo = (dir) => {
-                if (!promoTotal) return;
-                promoActive = (promoActive + dir + promoTotal) % promoTotal;
-                renderPromo();
+            const cycleNextEvents = (dir) => {
+                if (!nextEventsTotal) return;
+                nextEventsActive = (nextEventsActive + dir + nextEventsTotal) % nextEventsTotal;
+                renderNextEvents();
             };
 
-            const stopPromoAuto = () => {
-                if (!promoAutoTimer) return;
-                clearInterval(promoAutoTimer);
-                promoAutoTimer = null;
+            const stopNextEventsAuto = () => {
+                if (!nextEventsAutoTimer) return;
+                clearInterval(nextEventsAutoTimer);
+                nextEventsAutoTimer = null;
             };
 
-            const startPromoAuto = () => {
-                stopPromoAuto();
-                promoAutoTimer = setInterval(() => {
-                    cyclePromo(1);
-                }, 7000);
+            const startNextEventsAuto = () => {
+                stopNextEventsAuto();
+                if (nextEventsTotal <= 1) return;
+                nextEventsAutoTimer = setInterval(() => {
+                    cycleNextEvents(1);
+                }, 3000);
             };
 
-            if (promoCarousel && promoTrack && promoTotal > 1) {
-                renderPromo();
-                startPromoAuto();
+            renderNextEvents();
 
-                promoCarousel.addEventListener('pointerdown', (event) => {
-                    stopPromoAuto();
-                    promoPointerDown = true;
-                    promoStartX = event.clientX;
-                    promoStartY = event.clientY;
+            if (nextEventsCarousel && nextEventsTrack && nextEventsTotal > 1) {
+                startNextEventsAuto();
+                nextEventsCarousel.addEventListener('pointerdown', (event) => {
+                    stopNextEventsAuto();
+                    nextEventsPointerDown = true;
+                    nextEventsStartX = event.clientX;
+                    nextEventsStartY = event.clientY;
                 });
 
-                promoCarousel.addEventListener('pointerup', (event) => {
-                    if (!promoPointerDown) return;
-                    promoPointerDown = false;
+                nextEventsCarousel.addEventListener('pointerup', (event) => {
+                    if (!nextEventsPointerDown) return;
+                    nextEventsPointerDown = false;
 
-                    const deltaX = event.clientX - promoStartX;
-                    const deltaY = event.clientY - promoStartY;
-
+                    const deltaX = event.clientX - nextEventsStartX;
+                    const deltaY = event.clientY - nextEventsStartY;
                     if (Math.abs(deltaX) > 36 && Math.abs(deltaX) > Math.abs(deltaY)) {
-                        cyclePromo(deltaX < 0 ? 1 : -1);
+                        suppressNextEventClick = true;
+                        cycleNextEvents(deltaX < 0 ? 1 : -1);
+                        setTimeout(() => {
+                            suppressNextEventClick = false;
+                        }, 220);
                     }
-                    startPromoAuto();
+                    startNextEventsAuto();
                 });
 
-                promoCarousel.addEventListener('pointercancel', () => {
-                    promoPointerDown = false;
-                    startPromoAuto();
+                nextEventsCarousel.addEventListener('pointercancel', () => {
+                    nextEventsPointerDown = false;
+                    startNextEventsAuto();
+                });
+
+                nextEventsCarousel.addEventListener('click', (event) => {
+                    if (!suppressNextEventClick) return;
+                    event.preventDefault();
+                    event.stopPropagation();
+                    suppressNextEventClick = false;
+                }, true);
+
+                nextEventsCarousel.addEventListener('mouseenter', () => {
+                    stopNextEventsAuto();
+                });
+
+                nextEventsCarousel.addEventListener('mouseleave', () => {
+                    startNextEventsAuto();
+                });
+            }
+
+            const signatureCarousel = document.getElementById('home-signature-carousel');
+            const signatureTrack = document.getElementById('home-signature-track');
+            const signatureSlides = signatureTrack ? Array.from(signatureTrack.querySelectorAll('.home-signature-slide')) : [];
+            const signatureDots = Array.from(document.querySelectorAll('#home-signature-dots .home-signature-dot'));
+            const signatureTotal = signatureSlides.length;
+            let signatureActive = 0;
+            let signatureStartX = 0;
+            let signatureStartY = 0;
+            let signaturePointerDown = false;
+            let suppressSignatureClick = false;
+            let signatureAutoTimer = null;
+
+            const renderSignature = () => {
+                if (!signatureTrack) return;
+                signatureTrack.style.transform = `translateX(-${signatureActive * 100}%)`;
+                signatureDots.forEach((dot, index) => dot.classList.toggle('on', index === signatureActive));
+            };
+
+            const cycleSignature = (dir) => {
+                if (!signatureTotal) return;
+                signatureActive = (signatureActive + dir + signatureTotal) % signatureTotal;
+                renderSignature();
+            };
+
+            const stopSignatureAuto = () => {
+                if (!signatureAutoTimer) return;
+                clearInterval(signatureAutoTimer);
+                signatureAutoTimer = null;
+            };
+
+            const startSignatureAuto = () => {
+                stopSignatureAuto();
+                if (signatureTotal <= 1) return;
+                signatureAutoTimer = setInterval(() => {
+                    cycleSignature(1);
+                }, 3000);
+            };
+
+            renderSignature();
+
+            if (signatureCarousel && signatureTrack && signatureTotal > 1) {
+                startSignatureAuto();
+                signatureCarousel.addEventListener('pointerdown', (event) => {
+                    stopSignatureAuto();
+                    signaturePointerDown = true;
+                    signatureStartX = event.clientX;
+                    signatureStartY = event.clientY;
+                });
+
+                signatureCarousel.addEventListener('pointerup', (event) => {
+                    if (!signaturePointerDown) return;
+                    signaturePointerDown = false;
+
+                    const deltaX = event.clientX - signatureStartX;
+                    const deltaY = event.clientY - signatureStartY;
+                    if (Math.abs(deltaX) > 34 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                        suppressSignatureClick = true;
+                        cycleSignature(deltaX < 0 ? 1 : -1);
+                        setTimeout(() => {
+                            suppressSignatureClick = false;
+                        }, 220);
+                    }
+                    startSignatureAuto();
+                });
+
+                signatureCarousel.addEventListener('pointercancel', () => {
+                    signaturePointerDown = false;
+                    startSignatureAuto();
+                });
+
+                signatureCarousel.addEventListener('click', (event) => {
+                    if (!suppressSignatureClick) return;
+                    event.preventDefault();
+                    event.stopPropagation();
+                    suppressSignatureClick = false;
+                }, true);
+
+                signatureCarousel.addEventListener('mouseenter', () => {
+                    stopSignatureAuto();
+                });
+
+                signatureCarousel.addEventListener('mouseleave', () => {
+                    startSignatureAuto();
                 });
             }
 
@@ -9828,14 +11563,109 @@
             initSignaturePrograms(phoneK, showPanel);
         })();
 
+        (function initInlineEventsTabC() {
+            const root = document.getElementById('c-inline-events-view');
+            if (!root) return;
+
+            const filters = Array.from(root.querySelectorAll('[data-events-filter]'));
+            const groups = Array.from(root.querySelectorAll('[data-events-day-group]'));
+            const items = Array.from(root.querySelectorAll('[data-events-item]'));
+            const toggles = Array.from(root.querySelectorAll('[data-events-toggle]'));
+            const emptyState = document.getElementById('c-events-empty');
+            if (!filters.length || !groups.length || !items.length) return;
+
+            root.classList.add('is-loading');
+            setTimeout(() => {
+                root.classList.remove('is-loading');
+            }, 720);
+
+            const updateExpandedAria = () => {
+                toggles.forEach((toggle) => {
+                    const item = toggle.closest('[data-events-item]');
+                    if (!item) return;
+                    toggle.setAttribute('aria-expanded', item.classList.contains('is-expanded') ? 'true' : 'false');
+                });
+            };
+
+            const openItem = (targetItem) => {
+                if (!targetItem || targetItem.style.display === 'none') return;
+                const isAlreadyOpen = targetItem.classList.contains('is-expanded');
+                items.forEach((item) => item.classList.remove('is-expanded'));
+                if (!isAlreadyOpen) {
+                    targetItem.classList.add('is-expanded');
+                }
+                updateExpandedAria();
+            };
+
+            const applyFilter = (category) => {
+                filters.forEach((filter) => {
+                    const isActive = filter.getAttribute('data-events-filter') === category;
+                    filter.classList.toggle('on', isActive);
+                });
+
+                let visibleCount = 0;
+                groups.forEach((group) => {
+                    const groupItems = Array.from(group.querySelectorAll('[data-events-item]'));
+                    let groupVisible = false;
+                    groupItems.forEach((item) => {
+                        const itemCategory = item.getAttribute('data-events-category');
+                        const visible = category === 'all' || itemCategory === category;
+                        item.style.display = visible ? '' : 'none';
+                        if (visible) {
+                            groupVisible = true;
+                            visibleCount += 1;
+                        }
+                    });
+                    group.style.display = groupVisible ? '' : 'none';
+                });
+
+                if (emptyState) emptyState.classList.toggle('on', visibleCount === 0);
+
+                const hasVisibleExpanded = items.some((item) => item.style.display !== 'none' && item.classList.contains('is-expanded'));
+                if (!hasVisibleExpanded) {
+                    const firstVisible = items.find((item) => item.style.display !== 'none');
+                    if (firstVisible) firstVisible.classList.add('is-expanded');
+                }
+                updateExpandedAria();
+            };
+
+            toggles.forEach((toggle) => {
+                const item = toggle.closest('[data-events-item]');
+                if (!item) return;
+                toggle.addEventListener('click', () => openItem(item));
+                toggle.addEventListener('keydown', (event) => {
+                    if (event.key !== 'Enter' && event.key !== ' ') return;
+                    event.preventDefault();
+                    openItem(item);
+                });
+            });
+
+            filters.forEach((filter) => {
+                const category = filter.getAttribute('data-events-filter');
+                if (!category) return;
+
+                filter.addEventListener('click', () => applyFilter(category));
+                filter.addEventListener('keydown', (event) => {
+                    if (event.key !== 'Enter' && event.key !== ' ') return;
+                    event.preventDefault();
+                    applyFilter(category);
+                });
+            });
+
+            applyFilter('all');
+            updateExpandedAria();
+        })();
+
         (function initCrossScreenNavFromC() {
             const homeTab = document.getElementById('c-tab-home');
             const meetingsTab = document.getElementById('c-tab-meetings');
+            const eventsTab = document.getElementById('c-tab-events');
             const assistantTab = document.getElementById('c-tab-assistant');
             const peopleTab = document.getElementById('c-tab-people');
             const asiTab = document.getElementById('c-tab-asi');
 
             const homeView = document.getElementById('home-c-screen');
+            const eventsView = document.getElementById('c-inline-events-view');
             const meetingsView = document.getElementById('c-inline-meetings-view');
             const peopleView = document.getElementById('c-inline-people-view');
             const assistantView = document.getElementById('c-inline-assistant-view');
@@ -9846,7 +11676,7 @@
             const assistantSource = document.querySelector('#screen-g-wrap .chat-screen');
             const asiSource = document.getElementById('phoneK');
 
-            if (!homeTab || !meetingsTab || !assistantTab || !peopleTab || !asiTab || !homeView || !meetingsView || !peopleView || !assistantView || !asiView) return;
+            if (!homeTab || !meetingsTab || !eventsTab || !assistantTab || !peopleTab || !asiTab || !homeView || !eventsView || !meetingsView || !peopleView || !assistantView || !asiView) return;
 
             const removeIds = (root) => {
                 root.querySelectorAll('[id]').forEach((node) => node.removeAttribute('id'));
@@ -10024,6 +11854,7 @@
             const setActive = (tab) => {
                 const isHome = tab === 'home';
                 const isMeetings = tab === 'meetings';
+                const isEvents = tab === 'events';
                 const isPeople = tab === 'people';
                 const isAssistant = tab === 'assistant';
                 const isAsi = tab === 'asi';
@@ -10034,6 +11865,7 @@
                 if (isAsi) hydrateASI();
 
                 homeView.style.display = isHome ? 'block' : 'none';
+                eventsView.classList.toggle('is-active', isEvents);
                 meetingsView.classList.toggle('is-active', isMeetings);
                 peopleView.classList.toggle('is-active', isPeople);
                 assistantView.classList.toggle('is-active', isAssistant);
@@ -10041,6 +11873,7 @@
 
                 homeTab.classList.toggle('on', isHome);
                 meetingsTab.classList.toggle('on', isMeetings);
+                eventsTab.classList.toggle('on', isEvents);
                 assistantTab.classList.toggle('on', isAssistant);
                 peopleTab.classList.toggle('on', isPeople);
                 asiTab.classList.toggle('on', isAsi);
@@ -10088,11 +11921,11 @@
                 });
             };
 
-            homeView.querySelectorAll('[data-open-signature]').forEach((trigger) => {
-                bindPress(trigger, () => openAsiPanel('k-signature'));
-            });
             homeView.querySelectorAll('[data-open-pioneer-home]').forEach((trigger) => {
                 bindPress(trigger, () => openAsiProgram('pioneer-pride-tuesday'));
+            });
+            homeView.querySelectorAll('[data-open-ebj-home]').forEach((trigger) => {
+                bindPress(trigger, () => openAsiProgram('eb-jamboree'));
             });
             homeView.querySelectorAll('[data-home-open-tab]').forEach((trigger) => {
                 const tab = trigger.getAttribute('data-home-open-tab');
@@ -10107,6 +11940,7 @@
 
             bind(homeTab, 'home');
             bind(meetingsTab, 'meetings');
+            bind(eventsTab, 'events');
             bind(peopleTab, 'people');
             bind(assistantTab, 'assistant');
             bind(asiTab, 'asi');
